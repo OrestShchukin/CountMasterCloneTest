@@ -1,113 +1,79 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
-using UnityEngine.Rendering;
 
 public class GateControl : MonoBehaviour
 {
-    public enum GateType
-    {
-        Add,
-        Multiply
-    }
-    
+    public enum GateType { Add, Multiply }
+
+    [Header("UI")]
     [SerializeField] TextMeshPro textDisplay;
+
+    [Header("Logic")]
     [SerializeField] bool randomAction = true;
-    
-    public GateType gateType = GateType.Add;
-    
-    
-    public int value = 10;
-
-
-    
+    [SerializeField] GateType gateType = GateType.Add;
+    [SerializeField] public int value = 10;
 
     void Start()
     {
-        // int unitsMultiplier = LevelGenerator.segmentIndex > 13 ? LevelGenerator.segmentIndex : 13;
         if (randomAction)
-        {
             gateType = Random.Range(0, 2) == 1 ? GateType.Multiply : GateType.Add;
-        }
-
         CalculateNum();
     }
 
+    // Called from PlayerControl when player hits a Gate trigger
     public void Activate(PlayerSpawner spawner)
     {
         if (spawner != null)
         {
-            if (gateType == GateType.Add)
-                spawner.AddFollowers(value);
-            else if (gateType == GateType.Multiply)
-                spawner.MultiplyFollowers(value);
+            switch (gateType)
+            {
+                case GateType.Add:
+                    spawner.AddFollowers(value);
+                    break;
+                case GateType.Multiply:
+                    spawner.MultiplyFollowers(Mathf.Max(2, value)); // safety: at least x2
+                    break;
+            }
         }
 
-        if (transform.parent != null && transform.parent.parent != null)
+        // disable both sibling gates' trigger zones to avoid double-activation
+        if (transform.parent != null && transform.parent.parent != null && transform.parent.parent.CompareTag("GateManager"))
         {
-            if (transform.parent.parent.gameObject.CompareTag("GateManager"))
+            Transform gateManager = transform.parent.parent;
+            for (int i = 0; i < gateManager.childCount; i++)
             {
-                Transform gateManager = transform.parent.parent;
-                gateManager.GetChild(0).Find("TriggerZone").GetComponent<BoxCollider>().enabled = false;
-                gateManager.GetChild(1).Find("TriggerZone").GetComponent<BoxCollider>().enabled = false;
+                var t = gateManager.GetChild(i).Find("TriggerZone");
+                if (t) { var box = t.GetComponent<BoxCollider>(); if (box) box.enabled = false; }
             }
         }
     }
 
     void CalculateNum()
     {
-        int[] nums = { 10, 15, 20, 25};
+        int[] nums = { 10, 15, 20, 25 };
         int segmentIndex = LevelGenerator.segmentIndex;
+
         if (gateType == GateType.Multiply)
         {
-            int minMultiplyNum = 2, maxMultiplyNum = 10;
-            if (segmentIndex < nums[0])
-            {
-                maxMultiplyNum = 10;
-            }
-            else if (segmentIndex < nums[1])
-            {
-                maxMultiplyNum = 6;
-            }
-            else if (segmentIndex < nums[2])
-            {
-                maxMultiplyNum = 4;
-            }
-            else
-            {
-                maxMultiplyNum = 3;
-            }
-            
+            int minMultiplyNum = 2, maxMultiplyNum;
+            if (segmentIndex < nums[0]) maxMultiplyNum = 10;
+            else if (segmentIndex < nums[1]) maxMultiplyNum = 6;
+            else if (segmentIndex < nums[2]) maxMultiplyNum = 4;
+            else maxMultiplyNum = 3;
+
             value = Random.Range(minMultiplyNum, maxMultiplyNum + 1);
-            textDisplay.text = $"X{value}";
+            if (textDisplay) textDisplay.text = $"x{value}"; // lowercase x to match many UIs
         }
-        else if (gateType == GateType.Add)
+        else // Add
         {
-            int minAddNum = 10, maxAddNum = 100;
-            if (segmentIndex < nums[0])
-            {
-                minAddNum = 5;
-                maxAddNum = 20;
-            }
-            else if (segmentIndex < nums[1])
-            {
-                minAddNum = 10;
-                maxAddNum = 25;
-            }
-            else if (segmentIndex < nums[2])
-            {
-                minAddNum = 20;
-                maxAddNum = 40;
-            }
-            else
-            {
-                minAddNum = 20;
-                maxAddNum = 50;
-            }
+            int minAddNum, maxAddNum;
+            if (segmentIndex < nums[0]) { minAddNum = 5;  maxAddNum = 20; }
+            else if (segmentIndex < nums[1]) { minAddNum = 10; maxAddNum = 25; }
+            else if (segmentIndex < nums[2]) { minAddNum = 20; maxAddNum = 40; }
+            else { minAddNum = 20; maxAddNum = 50; }
 
             value = Random.Range(minAddNum, maxAddNum);
-            textDisplay.text = $"+{value}";
+            if (textDisplay) textDisplay.text = $"+{value}";
         }
     }
 }

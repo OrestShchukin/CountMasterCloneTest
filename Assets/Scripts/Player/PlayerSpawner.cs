@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AI;
 using DG.Tweening;
 using TMPro;
 using Random = UnityEngine.Random;
@@ -15,8 +16,10 @@ public class PlayerSpawner : MonoBehaviour
     public Transform followerParent;
     public List<GameObject> followers = new();
 
+    [Header("Formation (NavMesh crowd)")]
+    public FormationManager formation; // assign in Inspector
 
-    [Header("Formation Settings")] 
+    [Header("Fallback layout (legacy)")]
     public float minDistance = 0.3f;
     public float radiusStep = 0.3f;
     public float regroupDelay = 0.4f;
@@ -35,7 +38,6 @@ public class PlayerSpawner : MonoBehaviour
     private Quaternion basicRotation;
 
     private float regroupTimer;
-    private float pathDistance;
 
     void Awake()
     {
@@ -43,149 +45,185 @@ public class PlayerSpawner : MonoBehaviour
         followers.Add(followerParent.GetChild(0).gameObject);
         textCounter.text = followers.Count.ToString();
         basicRotation = followerParent.GetChild(0).rotation;
-
         DOTween.SetTweensCapacity(500, 350);
     }
 
     void Update()
     {
-        if (waitingForRegroup)
-        {
-            RegroupOnDemand();
-        }
+        if (waitingForRegroup) RegroupOnDemand();
     }
 
-    public void AddFollowersOld(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            Vector3 spawnPosition = transform.position;
-            GameObject newFollower = Instantiate(followerPrefab, spawnPosition, Quaternion.identity, followerParent);
-            followers.Add(newFollower);
-        }
+    public void AddFollowers(int amount) => StartCoroutine(AddFollowersCoroutine(amount));
 
-        FormatStickMan();
-    }
-
-    public void AddFollowers(int amount)
-    {
-        StartCoroutine(AddFollowersCoroutine(amount));
-    }
-    
+    // Keep old API for gates: multiply current crowd size
     public void MultiplyFollowers(int factor)
     {
-        int currentCount = followers.Count;
-        int targetTotal = currentCount * factor;
-        int toAdd = targetTotal - currentCount;
-
-        AddFollowers(toAdd);
+        if (factor <= 1) return; // no-op
+        int current = followers.Count;
+        int target = current * factor;
+        int toAdd = Mathf.Max(0, target - current);
+        if (toAdd > 0) AddFollowers(toAdd);
     }
+
 
     private IEnumerator AddFollowersCoroutine(int amount)
     {
         int batchsize = 30;
-
         for (int i = 0; i < amount; i++)
         {
             Vector3 spawnPosition = transform.position;
             GameObject newFollower = Instantiate(followerPrefab, spawnPosition, Quaternion.identity, followerParent);
+            EnsureFollowerAgent(newFollower);
             followers.Add(newFollower);
-
-            if (i % batchsize == 0)
-                yield return null;
+            if (i % batchsize == 0) yield return null;
         }
 
-        _ = GenerateAndApplyPositionsAsync();
+        if (formation != null)
+        {
+            formation.RebindFollowersFrom(followers);
+            formation.SetCenterToLeader();
+            formation.RefreshNow();
+            StickmansSetAnimRun();
+        }
+        else
+        {
+            _ = GenerateAndApplyPositionsAsync();
+        }
+    }
+
+    private void EnsureFollowerAgent(GameObject go)
+    {
+        if (!go.GetComponent<FollowerAgent>()) go.AddComponent<FollowerAgent>();
     }
 
     private async Task GenerateAndApplyPositionsAsync(bool transitionInstant = false)
     {
-        followers.RemoveAll(f => f == null) ;
-        
-        int count = followers.Count;
-        float positionY = 0f;
-        
+        followers.RemoveAll(f => f == null);
+        int count = followers.Count; float positionY = 0f;
         List<Vector3> positions = await Task.Run(() => GenerateRingBlueNoise(count, minDistance, radiusStep, positionY));
-        
         ApplyPositions(positions, transitionInstant);
     }
 
     private void ApplyPositions(List<Vector3> positions, bool transitionInstant = false)
     {
         int count = Mathf.Min(followerParent.childCount, positions.Count);
-
         for (int i = 0; i < count; i++)
         {
             Transform child = followerParent.GetChild(i);
-            if (!transitionInstant)
-                child.DOLocalMove(positions[i], 1f).SetEase(Ease.OutBack);
-            else
-                child.DOLocalMove(positions[i], 1f).SetEase(Ease.Linear);
+            if (!transitionInstant) child.DOLocalMove(positions[i], 1f).SetEase(Ease.OutBack);
+            else child.DOLocalMove(positions[i], 1f).SetEase(Ease.Linear);
             child.rotation = basicRotation;
         }
-        
         textCounter.text = followers.Count.ToString();
     }
-
-
-
-
-
-    public void FormatStickMan(bool transitionInstant = false)
-    {
-        _ = GenerateAndApplyPositionsAsync(transitionInstant);
-    }
-
 
     public static List<Vector3> GenerateRingBlueNoise(int count, float minDistance, float radiusStep, float yPos)
     {
         var random = new System.Random();
         List<Vector3> positions = new List<Vector3>();
-        float radius = radiusStep;
-        int maxAttempts = 30;
-
+        float radius = radiusStep; int maxAttempts = 30;
         while (positions.Count < count)
         {
             int attempts = 0;
-
             while (attempts < maxAttempts && positions.Count < count)
             {
                 double angle = random.NextDouble() * Mathf.PI * 2;
                 double offset = (random.NextDouble() * 0.8 - 0.4) * radiusStep;
-
                 float r = radius + (float)offset;
-
-                Vector3 candidate = new Vector3(
-                    Mathf.Cos((float)angle) * r,
-                    yPos,
-                    Mathf.Sin((float)angle) * r
-                );
-
+                Vector3 candidate = new Vector3(Mathf.Cos((float)angle) * r, yPos, Mathf.Sin((float)angle) * r);
                 bool valid = true;
-
-                foreach (var pos in positions)
-                {
-                    if (Vector3.Distance(candidate, pos) < minDistance)
-                    {
-                        valid = false;
-                        break;
-                    }
-                }
-
-                if (valid)
-                    positions.Add(candidate);
-
+                foreach (var pos in positions) if (Vector3.Distance(candidate, pos) < minDistance) { valid = false; break; }
+                if (valid) positions.Add(candidate);
                 attempts++;
             }
-
             radius += radiusStep;
         }
-
         return positions;
     }
 
+    public void DestroyAndDelete(GameObject item)
+    {
+        followers.Remove(item);
+        DOTween.Kill(item.transform);
+        Destroy(item);
+        textCounter.text = followers.Count.ToString();
+        if (formation != null) formation.OnFollowerDied(item);
+        ScheduleRegroup();
+    }
+
+    public void ScheduleRegroup()
+    {
+        regroupTimer = regroupDelay; waitingForRegroup = true; lastFollowerCount = followers.Count;
+    }
+
+    void RegroupOnDemand()
+    {
+        regroupTimer -= Time.deltaTime;
+        if (followers.Count != lastFollowerCount) { regroupTimer = regroupDelay; lastFollowerCount = followers.Count; }
+        if (regroupTimer <= 0f) { waitingForRegroup = false; FormatStickMan(); }
+    }
+
+    public void PauseRegroup() => waitingForRegroup = false;
+
+    public void FormatStickMan(bool transitionInstant = false)
+    {
+        if (formation != null)
+        {
+            followers.RemoveAll(f => f == null);
+            formation.RebindFollowersFrom(followers);
+            formation.SetCenterToLeader();
+            formation.RefreshNow();
+            StickmansSetAnimRun();
+            textCounter.text = followers.Count.ToString();
+            return;
+        }
+        _ = GenerateAndApplyPositionsAsync(transitionInstant);
+    }
+
+    // === Helpers for cinematics ===
+    void ToggleAgents(bool enabled)
+    {
+        foreach (var go in followers)
+        {
+            if (!go) continue;
+            var agent = go.GetComponent<NavMeshAgent>();
+            if (agent) agent.enabled = enabled;
+        }
+    }
+
+    void RebindAfterCinematics()
+    {
+        // rebuild followers list from current children (in case parenting changed)
+        followers.Clear();
+        for (int i = 0; i < followerParent.childCount; i++)
+        {
+            var child = followerParent.GetChild(i).gameObject;
+            if (child) followers.Add(child);
+        }
+
+        ToggleAgents(true);
+
+        if (formation != null)
+        {
+            formation.RebindFollowersFrom(followers);
+            formation.SetCenterToLeader();
+            formation.Resume();
+        }
+        else
+        {
+            _ = GenerateAndApplyPositionsAsync(true);
+        }
+
+        textCounter.text = followers.Count.ToString();
+    }
+
+    // === Unique zones ===
     public void StickmansBuildPyramid()
     {
+        // Cinematic mode: stop formation steering & disable agents
+        formation?.Suspend();
+        ToggleAgents(false);
+
         CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(2);
         int maxLevelStickmans = 5;
         float yHeight = characterHeight, xWidth = characterWidth, currentHeight = 0f;
@@ -193,26 +231,17 @@ public class PlayerSpawner : MonoBehaviour
         followers.RemoveAll(item => !item);
         int count = followers.Count;
 
-
         for (int i = 0; i < count;)
         {
-
-
             int numInRow = 0;
 
-            if (i < count - 11)
-                numInRow = maxLevelStickmans;
-            else if (count - i >= 4)
-                numInRow = 4;
-            else if (count - i >= 3)
-                numInRow = 3;
-            else if (count - i >= 2)
-                numInRow = 2;
-            else
-                numInRow = 1;
+            if (i < count - 11) numInRow = maxLevelStickmans;
+            else if (count - i >= 4) numInRow = 4;
+            else if (count - i >= 3) numInRow = 3;
+            else if (count - i >= 2) numInRow = 2;
+            else numInRow = 1;
 
             SpawnLane(numInRow);
-
 
             void SpawnLane(int numOfPlayersInRow)
             {
@@ -229,7 +258,6 @@ public class PlayerSpawner : MonoBehaviour
                 }
 
                 totalDelay += delayBetweenMoves;
-
                 i += numOfPlayersInRow;
                 currentHeight += yHeight;
             }
@@ -237,10 +265,15 @@ public class PlayerSpawner : MonoBehaviour
 
         Transform highestContainer = followerParent.GetChild(followerParent.childCount - 1);
         CameraSwitcher.cameraSwitcherInstance.SwitchCameraTarget(2, highestContainer, 3f);
+        // No immediate resume here; pyramid is a finish cinematic. Resume when you need to revert.
     }
 
     public void StickmansBuildStairs()
     {   
+        // Cinematic mode: stop formation steering & disable agents
+        formation?.Suspend();
+        ToggleAgents(false);
+
         int count = followerParent.childCount;
         List<GameObject> staircaseFollowerParentContainers = new List<GameObject>();
         Vector3 startPos = transform.position;
@@ -250,16 +283,15 @@ public class PlayerSpawner : MonoBehaviour
         float forwardSpeed = PlayerControl.playerControlInstance.forwardSpeed;
 
         for (int i = 0; i < count; i++)
-        {
             staircaseFollowerParentContainers.Add(followerParent.GetChild(i).gameObject);
-        }
         
         for (int i = 0; i < staircaseFollowerParentContainers.Count; i++)
         {
             GameObject staircase = staircaseFollowerParentContainers[i];
+            staircase.transform.SetParent(endDestinationContainer.transform);
+
             if (i < 12)
             {
-                staircase.transform.SetParent(endDestinationContainer.transform);
                 staircase.transform.DOMoveZ(
                         transform.position.z  + blockLength * i,
                         (i * blockLength) / forwardSpeed)
@@ -268,19 +300,20 @@ public class PlayerSpawner : MonoBehaviour
             }
             else
             {
-                staircase.transform.SetParent(endDestinationContainer.transform);
                 staircase.transform.DOMoveZ(
                         transform.position.z + blockLength * 14,
                         (14 * blockLength) / forwardSpeed)
                     .SetEase(Ease.Linear);
             }
         }
+
         int reachedStepsCount = endDestinationContainer.transform.childCount;
         int heightModifier = reachedStepsCount <= 12 ? reachedStepsCount : 13;
         heightModifier--;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOMove(new Vector3(0f, (heightModifier) * characterHeight, transform.position.z + heightModifier * blockLength), (heightModifier * blockLength) / forwardSpeed)
             .SetEase(Ease.Linear));
+
         if (reachedStepsCount < 13)
         {
             PlayerControl.allowMovement = false;
@@ -292,7 +325,6 @@ public class PlayerSpawner : MonoBehaviour
             sequence.Play().OnComplete(() => StartCoroutine(moveAfterDelay()));
         }
         
-
         void changeParentBack()
         {
             followers.Clear();
@@ -318,7 +350,7 @@ public class PlayerSpawner : MonoBehaviour
             changeParentBack();
             PlayerControl.allowMovement = true;
             yield return new WaitForSeconds(0.3f);
-            FormatStickMan(true);
+            RebindAfterCinematics();
         }
 
         IEnumerator showWinScreenAftterDelay(float duration)
@@ -341,7 +373,6 @@ public class PlayerSpawner : MonoBehaviour
             }
         }
         
-
         void SetAnimationStand(GameObject staircase)
         {
             for (int i = 0; i < staircase.transform.childCount; i++)
@@ -352,70 +383,6 @@ public class PlayerSpawner : MonoBehaviour
             }
         }
     }
-    
-    
-
-    public void DestroyAndDelete(GameObject item)
-    {
-        followers.Remove(item);
-        DOTween.Kill(item.transform);
-        Destroy(item);
-        textCounter.text = followers.Count.ToString();
-        ScheduleRegroup();
-    }
-
-
-    public void ScheduleRegroup()
-    {
-        regroupTimer = regroupDelay;
-        waitingForRegroup = true;
-        lastFollowerCount = followers.Count;
-    }
-
-    void RegroupOnDemand()
-    {
-        regroupTimer -= Time.deltaTime;
-
-        if (followers.Count != lastFollowerCount)
-        {
-            regroupTimer = regroupDelay;
-            lastFollowerCount = followers.Count;
-        }
-
-        if (regroupTimer <= 0f)
-        {
-            waitingForRegroup = false;
-            FormatStickMan();
-        }
-    }
-
-    public void PauseRegroup()
-    {
-        waitingForRegroup = false;
-    }
-    // Debug functions
-
-    public void ChangeNumOfStickMansDebug(int count)
-    {
-        int followersCount = followers.Count;
-        if (followersCount < count)
-        {
-            AddFollowers(count - followersCount);
-        }
-        else
-        {
-            for (int i = 0, max = followersCount - count; i < max; i++)
-            {
-                DestroyAndDelete(followers[i]);
-            }
-        }
-    }
-
-
-    // Finish
-
-    
-    
 
     // Animations 
     public void StickmansSetAnimDance()
