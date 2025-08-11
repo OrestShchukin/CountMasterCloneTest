@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6055670041922665625}
   - component: {fileID: 8281051379159400853}
   - component: {fileID: -535870508155567342}
+  - component: {fileID: -4130676258626036345}
   m_Layer: 0
   m_Name: Character
   m_TagString: blue
@@ -101,6 +102,28 @@ MonoBehaviour:
   bloodParticles: {fileID: 1172024633664188667, guid: 003977040777a7344be32c3d7ec5f4a7, type: 3}
   jumpHeight: 4
   jumpDuration: 1.25
+--- !u!195 &-4130676258626036345
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614242618169837365}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 3.5
+  m_Acceleration: 20
+  avoidancePriority: 50
+  m_AngularSpeed: 720
+  m_StoppingDistance: 0.25
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2614242616269703617
 PrefabInstance:
   m_ObjectHideFlags: 0
