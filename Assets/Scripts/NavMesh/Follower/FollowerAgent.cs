@@ -87,14 +87,19 @@ public class FollowerAgent : MonoBehaviour
         jumping = false;
     }
 
+    void Start()
+    {
+        transform.rotation = Quaternion.LookRotation((Vector3.forward), Vector3.up);
+    }
+
     void Update()
     {
         if (!lookAtTarget || jumping) return;
-        var dir = lookAtTarget.position - transform.position; dir.y = 0f;
-        if (dir.sqrMagnitude > 0.0001f)
-        {
-            var rot = Quaternion.LookRotation(dir.normalized, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * turnLerp);
-        }
+        // var dir = lookAtTarget.position - transform.position; dir.y = 0f;
+        // if (dir.sqrMagnitude > 0.0001f)
+        // {
+        //     var rot = Quaternion.LookRotation(dir.normalized, Vector3.up);
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * turnLerp);
+        // }
     }
 }

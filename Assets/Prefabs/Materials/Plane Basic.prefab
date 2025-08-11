@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 4626657405216324670}
   - component: {fileID: 4157178882687564490}
   - component: {fileID: 15389106172610495}
-  m_Layer: 0
-  m_Name: Cube (1)
+  m_Layer: 10
+  m_Name: Nav Mesh Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9139612498042726314
 Transform:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 4286407580903031998}
   - component: {fileID: 8247405314041942586}
   - component: {fileID: 635065662665278250}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
