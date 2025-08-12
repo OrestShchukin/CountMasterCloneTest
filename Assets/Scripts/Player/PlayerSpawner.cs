@@ -218,10 +218,10 @@ public class PlayerSpawner : MonoBehaviour
             {
                 if (i >= followers.Count) return;
                 GameObject levelParent = Instantiate(followerStairsContainer,
-                    new Vector3(0f, currentHeight, transform.position.z), Quaternion.identity, followerParent);
+                    new Vector3(transform.position.x, currentHeight, transform.position.z), Quaternion.identity, followerParent);
                 for (int j = 0; j < numOfPlayersInRow && (i + j) < followers.Count; j++)
                 {
-                    float xPos = xWidth * (j - (numOfPlayersInRow / 2));
+                    float xPos = xWidth * (j - (numOfPlayersInRow / 2) + 0.5f);
                     xPos = numOfPlayersInRow % 2 != 0 ? xPos - 0.5f * xWidth : xPos;
                     followers[i + j].transform.DOLocalMove(new Vector3(xPos, 0f, 0f), 1f)
                         .SetEase(Ease.OutBack).SetDelay(totalDelay);
