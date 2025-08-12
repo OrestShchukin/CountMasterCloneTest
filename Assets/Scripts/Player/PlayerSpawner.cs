@@ -134,67 +134,197 @@ public class PlayerSpawner : MonoBehaviour
 
     public static List<Vector3> GenerateRingBlueNoise(int count, float minDistance, float radiusStep, float yPos)
     {
-        // Використовуємо щільне гекс-пакування кільцями із стабільним порядком індексів.
-        float spacing = Mathf.Max(minDistance, radiusStep); // крок між сусідами
-        return BuildHexRingSlots(count, spacing, yPos);
-    }
+        int relaxIterations = 8;
+        float cell = Mathf.Max(0.001f, minDistance);
+        float targetRadius = Mathf.Sqrt(Mathf.Max(1, count)) * cell * 0.9f;
+        float repelRadius = cell * 2.0f;
+        float repelStrength = 1.0f;
+        float centerPull = 0.35f;
+        float jitter = cell * 0.05f;
 
-// Хелпер: генерує слоти кільцями: 1, 6, 12, 18...
-    static List<Vector3> BuildHexRingSlots(int count, float spacing, float yPos)
-    {
-        var result = new List<Vector3>(count);
-        if (count <= 0) return result;
+        // ВАЖЛИВО: використовуємо System.Random (жодного UnityEngine.Random у Task.Run)
+        var rng = new System.Random(unchecked(Environment.TickCount * 31 + count));
 
-        // Центр
-        result.Add(new Vector3(0f, yPos, 0f));
-        if (count == 1) return result;
+        var pts = PoissonWithRadialBias(count, cell, targetRadius, yPos, rng);
+        Relax(pts, relaxIterations, repelRadius, repelStrength, centerPull, jitter, rng);
 
-        int placed = 1;
-        int ring = 1;
-
-        while (placed < count)
+        pts.Sort((a, b) =>
         {
-            int cells = ring * 6;
-            float radius = ring * spacing;
+            float ra = a.sqrMagnitude;
+            float rb = b.sqrMagnitude;
+            if (ra != rb) return ra.CompareTo(rb);
+            // другий ключ — кут
+            float aa = Mathf.Atan2(a.z, a.x), ab = Mathf.Atan2(b.z, b.x);
+            return aa.CompareTo(ab);
+        });
 
-            for (int i = 0; i < cells && placed < count; i++)
+        pts = StableRemapToPreviousSlots(pts);
+
+        // привести y
+        for (int i = 0; i < pts.Count; i++)
+        {
+            var p = pts[i];
+            p.y = yPos;
+            pts[i] = p;
+        }
+
+        return pts;
+
+        // ---------- helpers ----------
+        List<Vector3> PoissonWithRadialBias(int n, float rMin, float R, float y, System.Random rnd)
+        {
+            var list = new List<Vector3>(n);
+            float cellSize = rMin / Mathf.Sqrt(2f);
+            var grid = new Dictionary<(int, int), Vector3>();
+
+            int maxTries = 20000;
+            double kBias = 2.2;
+
+            for (int tries = 0; tries < maxTries && list.Count < n; tries++)
             {
-                int side = i / ring; // 0..5
-                int step = i % ring; // 0..ring-1
+                double u = rnd.NextDouble();
+                float r = R * Mathf.Sqrt((float)u);
+                double ang = rnd.NextDouble() * Math.PI * 2.0;
 
-                float a0 = (60f * side) * Mathf.Deg2Rad;
-                float a1 = (60f * (side + 1)) * Mathf.Deg2Rad;
+                var p = new Vector3((float)Math.Cos(ang) * r, y, (float)Math.Sin(ang) * r);
 
-                Vector2 v0 = new Vector2(Mathf.Cos(a0), Mathf.Sin(a0));
-                Vector2 v1 = new Vector2(Mathf.Cos(a1), Mathf.Sin(a1));
-                // рівномірно біжимо по ребру шестикутника, уникаючи дубля вершини
-                float t = step / (float)ring;
-                Vector2 v = Vector2.Lerp(v0, v1, t).normalized * radius;
+                double pr = Math.Exp(-kBias * (r * r) / (R * R));
+                if (rnd.NextDouble() > pr) continue;
 
-                result.Add(new Vector3(v.x, yPos, v.y));
-                placed++;
+                int gx = Mathf.RoundToInt(p.x / cellSize);
+                int gz = Mathf.RoundToInt(p.z / cellSize);
+
+                bool ok = true;
+                for (int dx = -2; dx <= 2 && ok; dx++)
+                for (int dz = -2; dz <= 2 && ok; dz++)
+                {
+                    var key = (gx + dx, gz + dz);
+                    if (grid.TryGetValue(key, out var q))
+                        if ((q - p).sqrMagnitude < rMin * rMin)
+                            ok = false;
+                }
+
+                if (!ok) continue;
+
+                list.Add(p);
+                grid[(gx, gz)] = p;
             }
 
-            ring++;
+            // догенерація, якщо раптом не вистачило
+            while (list.Count < n)
+            {
+                double ang = rnd.NextDouble() * Math.PI * 2.0;
+                float r = R * Mathf.Sqrt((float)rnd.NextDouble());
+                list.Add(new Vector3((float)Math.Cos(ang) * r, y, (float)Math.Sin(ang) * r));
+            }
+
+            return list;
         }
 
-        // Невелика «органіка» — мікро-джиттер уздовж нормалі до радіуса,
-        // щоб натовп виглядав живішим, але без порушення дистанції.
-        float jitter = spacing * 0.08f;
-        for (int i = 1; i < result.Count; i++) // пропускаємо центр
+        void Relax(List<Vector3> pts, int iters, float influenceR, float repelK, float centerK, float jitt,
+            System.Random rnd)
         {
-            Vector3 p = result[i];
-            Vector2 radial = new Vector2(p.x, p.z).normalized;
-            Vector2 tangential = new Vector2(-radial.y, radial.x); // поворот на 90°
-            float s = (i * 0.6180339887f) % 1f; // «золота» фаза
-            float offs = (s - 0.5f) * 2f * jitter;
-            p.x += tangential.x * offs;
-            p.z += tangential.y * offs;
-            result[i] = p;
+            float ir2 = influenceR * influenceR;
+            for (int it = 0; it < iters; it++)
+            {
+                float cell = influenceR * 0.7071f;
+                var grid = new Dictionary<(int, int), List<int>>();
+                for (int i = 0; i < pts.Count; i++)
+                {
+                    int gx = Mathf.RoundToInt(pts[i].x / cell);
+                    int gz = Mathf.RoundToInt(pts[i].z / cell);
+                    var key = (gx, gz);
+                    if (!grid.TryGetValue(key, out var list)) grid[key] = list = new List<int>();
+                    list.Add(i);
+                }
+
+                var delta = new Vector3[pts.Count];
+                for (int i = 0; i < pts.Count; i++)
+                {
+                    var pi = pts[i];
+                    int gx = Mathf.RoundToInt(pi.x / cell);
+                    int gz = Mathf.RoundToInt(pi.z / cell);
+
+                    Vector3 force = Vector3.zero;
+                    for (int dx = -1; dx <= 1; dx++)
+                    for (int dz = -1; dz <= 1; dz++)
+                    {
+                        var key = (gx + dx, gz + dz);
+                        if (!grid.TryGetValue(key, out var bucket)) continue;
+                        for (int b = 0; b < bucket.Count; b++)
+                        {
+                            int j = bucket[b];
+                            if (j == i) continue;
+                            Vector3 d = pi - pts[j];
+                            float d2 = d.sqrMagnitude;
+                            if (d2 < ir2 && d2 > 1e-6f)
+                            {
+                                float inv = 1f / Mathf.Sqrt(d2);
+                                force += d * inv * (repelK * 0.5f);
+                            }
+                        }
+                    }
+
+                    force += (-pi) * centerK;
+
+                    // шум через System.Random
+                    float nx = (float)(rnd.NextDouble() * 2.0 - 1.0);
+                    float nz = (float)(rnd.NextDouble() * 2.0 - 1.0);
+                    force.x += nx * jitt;
+                    force.z += nz * jitt;
+
+                    delta[i] = force;
+                }
+
+                float step = 0.25f / (1f + it * 0.3f);
+                for (int i = 0; i < pts.Count; i++)
+                    pts[i] += delta[i] * step;
+            }
         }
 
-        return result;
+        List<Vector3> StableRemapToPreviousSlots(List<Vector3> newPts)
+        {
+            if (s_prevSlots == null || s_prevSlots.Count == 0)
+            {
+                s_prevSlots = new List<Vector3>(newPts);
+                return newPts;
+            }
+
+            int n = newPts.Count;
+            var used = new bool[n];
+            var mapped = new List<Vector3>(Mathf.Min(s_prevSlots.Count, n));
+
+            for (int i = 0; i < Mathf.Min(s_prevSlots.Count, n); i++)
+            {
+                int best = -1;
+                float bestD2 = float.MaxValue;
+                for (int j = 0; j < n; j++)
+                {
+                    if (used[j]) continue;
+                    float d2 = (s_prevSlots[i] - newPts[j]).sqrMagnitude;
+                    if (d2 < bestD2)
+                    {
+                        bestD2 = d2;
+                        best = j;
+                    }
+                }
+
+                if (best < 0) best = Array.IndexOf(used, false);
+                used[best] = true;
+                mapped.Add(newPts[best]);
+            }
+
+            for (int j = 0; j < n; j++)
+                if (!used[j])
+                    mapped.Add(newPts[j]);
+
+            s_prevSlots = new List<Vector3>(mapped);
+            return mapped;
+        }
     }
+
+// Не забудь це поле всередині класу PlayerSpawner (ти вже додав):
+    static List<Vector3> s_prevSlots;
 
 
     public void StickmansBuildPyramid()
