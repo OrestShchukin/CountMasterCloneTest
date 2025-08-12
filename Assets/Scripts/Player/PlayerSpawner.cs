@@ -10,26 +10,33 @@ using Random = UnityEngine.Random;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [Header("Setup")]
-    public GameObject followerPrefab;
+    [Header("Setup")] public GameObject followerPrefab;
     public Transform followerParent;
     public List<GameObject> followers = new();
 
 
-    [Header("Formation Settings")] 
-    public float minDistance = 0.3f;
+    [Header("Formation Settings")] public float minDistance = 0.3f;
     public float radiusStep = 0.3f;
     public float regroupDelay = 0.4f;
- 
-    [Header("UI Settings")]
-    public TextMeshPro textCounter;
-    
-    [Header("Finish Settings")]
-    [SerializeField] GameObject followerStairsContainer;
+
+    [Header("UI Settings")] public TextMeshPro textCounter;
+
+    [Header("Finish Settings")] [SerializeField]
+    GameObject followerStairsContainer;
 
     [SerializeField] private float characterHeight = 1.5f, characterWidth = 1f;
     public static PlayerSpawner playerSpawnerInstance;
-    
+
+    // ===== Engage / Surround =====
+
+    [Header("Engage Settings")] public float enemyBaseRadius = 0.6f; // орієнтовний "розмір" ворога
+    public float ringPaddingMul = 1.15f; // множник між кільцями від мін. дистанції
+    public float arcPaddingMul = 1.10f; // множник по дузі (щоб не торкались сусіди)
+    public float surroundTween = 0.6f; // час анімації до слоту
+
+    bool isEngaging;
+    Transform engagedEnemy;
+
     private bool waitingForRegroup = false;
     private int lastFollowerCount = 0;
     private Quaternion basicRotation;
@@ -55,23 +62,11 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
-    public void AddFollowersOld(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            Vector3 spawnPosition = transform.position;
-            GameObject newFollower = Instantiate(followerPrefab, spawnPosition, Quaternion.identity, followerParent);
-            followers.Add(newFollower);
-        }
-
-        FormatStickMan();
-    }
-
     public void AddFollowers(int amount)
     {
         StartCoroutine(AddFollowersCoroutine(amount));
     }
-    
+
     public void MultiplyFollowers(int factor)
     {
         int currentCount = followers.Count;
@@ -100,13 +95,14 @@ public class PlayerSpawner : MonoBehaviour
 
     private async Task GenerateAndApplyPositionsAsync(bool transitionInstant = false)
     {
-        followers.RemoveAll(f => f == null) ;
-        
+        followers.RemoveAll(f => f == null);
+
         int count = followers.Count;
         float positionY = 0f;
-        
-        List<Vector3> positions = await Task.Run(() => GenerateRingBlueNoise(count, minDistance, radiusStep, positionY));
-        
+
+        List<Vector3> positions =
+            await Task.Run(() => GenerateRingBlueNoise(count, minDistance, radiusStep, positionY));
+
         ApplyPositions(positions, transitionInstant);
     }
 
@@ -123,19 +119,15 @@ public class PlayerSpawner : MonoBehaviour
                 child.DOLocalMove(positions[i], 1f).SetEase(Ease.Linear);
             child.rotation = basicRotation;
         }
-        
+
         textCounter.text = followers.Count.ToString();
     }
-
-
-
 
 
     public void FormatStickMan(bool transitionInstant = false)
     {
         _ = GenerateAndApplyPositionsAsync(transitionInstant);
     }
-
 
     public static List<Vector3> GenerateRingBlueNoise(int count, float minDistance, float radiusStep, float yPos)
     {
@@ -196,8 +188,6 @@ public class PlayerSpawner : MonoBehaviour
 
         for (int i = 0; i < count;)
         {
-
-
             int numInRow = 0;
 
             if (i < count - 11)
@@ -218,7 +208,8 @@ public class PlayerSpawner : MonoBehaviour
             {
                 if (i >= followers.Count) return;
                 GameObject levelParent = Instantiate(followerStairsContainer,
-                    new Vector3(transform.position.x, currentHeight, transform.position.z), Quaternion.identity, followerParent);
+                    new Vector3(transform.position.x, currentHeight, transform.position.z), Quaternion.identity,
+                    followerParent);
                 for (int j = 0; j < numOfPlayersInRow && (i + j) < followers.Count; j++)
                 {
                     float xPos = xWidth * (j - (numOfPlayersInRow / 2) + 0.5f);
@@ -240,7 +231,7 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     public void StickmansBuildStairs()
-    {   
+    {
         int count = followerParent.childCount;
         List<GameObject> staircaseFollowerParentContainers = new List<GameObject>();
         Vector3 startPos = transform.position;
@@ -253,7 +244,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             staircaseFollowerParentContainers.Add(followerParent.GetChild(i).gameObject);
         }
-        
+
         for (int i = 0; i < staircaseFollowerParentContainers.Count; i++)
         {
             GameObject staircase = staircaseFollowerParentContainers[i];
@@ -261,7 +252,7 @@ public class PlayerSpawner : MonoBehaviour
             {
                 staircase.transform.SetParent(endDestinationContainer.transform);
                 staircase.transform.DOMoveZ(
-                        transform.position.z  + blockLength * i,
+                        transform.position.z + blockLength * i,
                         (i * blockLength) / forwardSpeed)
                     .SetEase(Ease.Linear)
                     .OnComplete(() => SetAnimationStand(staircase));
@@ -275,11 +266,15 @@ public class PlayerSpawner : MonoBehaviour
                     .SetEase(Ease.Linear);
             }
         }
+
         int reachedStepsCount = endDestinationContainer.transform.childCount;
         int heightModifier = reachedStepsCount <= 12 ? reachedStepsCount : 13;
         heightModifier--;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(transform.DOMove(new Vector3(0f, (heightModifier) * characterHeight, transform.position.z + heightModifier * blockLength), (heightModifier * blockLength) / forwardSpeed)
+        sequence.Append(transform
+            .DOMove(
+                new Vector3(0f, (heightModifier) * characterHeight,
+                    transform.position.z + heightModifier * blockLength), (heightModifier * blockLength) / forwardSpeed)
             .SetEase(Ease.Linear));
         if (reachedStepsCount < 13)
         {
@@ -291,7 +286,7 @@ public class PlayerSpawner : MonoBehaviour
             PlayerControl.allowMovement = false;
             sequence.Play().OnComplete(() => StartCoroutine(moveAfterDelay()));
         }
-        
+
 
         void changeParentBack()
         {
@@ -300,19 +295,20 @@ public class PlayerSpawner : MonoBehaviour
             {
                 GameObject staircase = staircaseFollowerParentContainers[i];
                 List<Transform> staircaseChildren = new List<Transform>();
-                for ( int j = 0; j < staircase.transform.childCount; j++)
+                for (int j = 0; j < staircase.transform.childCount; j++)
                 {
                     Transform child = staircase.transform.GetChild(j);
                     staircaseChildren.Add(child);
                     followers.Add(child.gameObject);
                 }
+
                 foreach (Transform child in staircaseChildren)
                 {
                     child.SetParent(followerParent);
                 }
             }
         }
-        
+
         IEnumerator moveAfterDelay()
         {
             changeParentBack();
@@ -325,7 +321,8 @@ public class PlayerSpawner : MonoBehaviour
         {
             CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(5);
             yield return new WaitForSeconds(0.5f);
-            Transform lastParentContainer = staircaseFollowerParentContainers[staircaseFollowerParentContainers.Count() - 1].transform;
+            Transform lastParentContainer =
+                staircaseFollowerParentContainers[staircaseFollowerParentContainers.Count() - 1].transform;
             setChildStickmansAnimationDance();
             yield return new WaitForSeconds(duration);
             PlayerControl.playerControlInstance.PlayerWin();
@@ -340,7 +337,7 @@ public class PlayerSpawner : MonoBehaviour
                 }
             }
         }
-        
+
 
         void SetAnimationStand(GameObject staircase)
         {
@@ -352,15 +349,18 @@ public class PlayerSpawner : MonoBehaviour
             }
         }
     }
-    
-    
+
 
     public void DestroyAndDelete(GameObject item)
     {
         followers.Remove(item);
         DOTween.Kill(item.transform);
+
+        HandleFollowerDeathInEngage(item);
+
         Destroy(item);
         textCounter.text = followers.Count.ToString();
+        if (isEngaging) return;
         ScheduleRegroup();
     }
 
@@ -411,11 +411,313 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
+    class Slot
+    {
+        public int ring;
+        public float angle; // в радіанах
+        public Vector3 worldPos;
+        public GameObject occupant; // follower або null
+    }
+
+// Технічні структури
+    readonly List<Slot> _slots = new List<Slot>();
+    readonly Dictionary<GameObject, int> _followerToSlot = new Dictionary<GameObject, int>();
+
+// Виклик при тригері
+    public void EngageEnemy(Transform enemy)
+    {
+        if (enemy == null) return;
+        engagedEnemy = enemy;
+        isEngaging = true;
+
+        followers.RemoveAll(f => f == null);
+
+        BuildSlotsForCount(followers.Count, out var perRing, out var radii);
+
+        // Розкладаємо по кільцях: ближчі — у внутрішнє кільце, далі — зовнішні
+        AssignFollowersToSlots(perRing, radii);
+
+        // Затвінути всіх у свої слоти
+        TweenFollowersToSlots();
+    }
+
+// Вихід із режиму оточення
+    public void DisengageEnemy()
+    {
+        isEngaging = false;
+        engagedEnemy = null;
+        _slots.Clear();
+        _followerToSlot.Clear();
+        // Далі можеш викликати свій FormatStickMan(), щоб повернутися до звичної формації
+    }
+
+// Обов'язково встав у DestroyAndDelete ПЕРЕД Destroy(item);
+    void HandleFollowerDeathInEngage(GameObject dead)
+    {
+        if (!isEngaging || dead == null) return;
+        if (!_followerToSlot.TryGetValue(dead, out var slotIdx)) return;
+
+        var vac = _slots[slotIdx];
+        vac.occupant = null;
+        _followerToSlot.Remove(dead);
+
+        // Якщо це не перше кільце — НІЧОГО не робимо (позиції не змінюються)
+        if (vac.ring != 0) return;
+
+        // Знайти кандидата з другого кільця, чий кут найближче до vac.angle
+        int bestIdx = -1;
+        float bestDelta = float.MaxValue;
+
+        for (int i = 0; i < _slots.Count; i++)
+        {
+            var s = _slots[i];
+            if (s.ring != 1) continue; // лише друге кільце
+            if (s.occupant == null) continue; // слот порожній
+            float d = AngleDelta(s.angle, vac.angle); // різниця по куту
+            if (d < bestDelta)
+            {
+                bestDelta = d;
+                bestIdx = i;
+            }
+        }
+
+        if (bestIdx >= 0)
+        {
+            // Пересадити кандидата у внутрішній слот
+            var donor = _slots[bestIdx];
+            var go = donor.occupant;
+            donor.occupant = null;
+
+            vac.occupant = go;
+            _slots[slotIdx] = vac; // оновили
+
+            if (go != null)
+            {
+                _followerToSlot[go] = slotIdx;
+                MoveOneFollowerTo(go, vac.worldPos); // тільки цей рухається
+                LookAtEnemy(go.transform);
+            }
+        }
+    }
+
+// ---------------- helpers ----------------
+
+    float AngleDelta(float a, float b)
+    {
+        // нормалізувати до [-pi, pi]
+        float d = Mathf.Repeat(a - b + Mathf.PI, Mathf.PI * 2f) - Mathf.PI;
+        return Mathf.Abs(d);
+    }
+
+    void BuildSlotsForCount(int totalFollowers, out List<int> perRing, out List<float> radii)
+    {
+        _slots.Clear();
+        perRing = new List<int>();
+        radii = new List<float>();
+        if (engagedEnemy == null) return;
+
+        // геометрія
+        float cell = Mathf.Max(0.001f, minDistance);
+        float ringSpacing = cell * ringPaddingMul; // між кільцями
+        float arcSpacing = cell * arcPaddingMul; // мін. дугова відстань між сусідами
+        float r0 = enemyBaseRadius + cell * 0.7f;
+
+        // ПІВКОЛО: ширина дуги = 180° (можеш звузити/розширити)
+        float halfWidth = Mathf.PI * 0.3f; // 90° в обидві сторони
+        Vector3 approach = (transform.position - engagedEnemy.position);
+        float centerAngle = Mathf.Atan2(approach.z, approach.x);
+
+        int placed = 0;
+        int ring = 0;
+
+        while (placed < totalFollowers)
+        {
+            float radius = r0 + ring * ringSpacing;
+
+            // місткість саме ПІВКОЛА за довжиною дуги: L = 2*halfWidth*radius
+            int capArc = Mathf.Max(1, Mathf.FloorToInt((2f * halfWidth * radius) / arcSpacing));
+
+            perRing.Add(capArc);
+            radii.Add(radius);
+
+            // рівномірно по дузі [centerAngle - halfWidth, centerAngle + halfWidth]
+            for (int i = 0; i < capArc && placed < totalFollowers; i++)
+            {
+                float t = capArc == 1 ? 0.5f : i / (float)(capArc - 1);
+                float ang = Mathf.Lerp(centerAngle - halfWidth, centerAngle + halfWidth, t);
+                Vector3 pos = engagedEnemy.position + new Vector3(Mathf.Cos(ang) * radius, 0f, Mathf.Sin(ang) * radius);
+
+                _slots.Add(new Slot { ring = ring, angle = ang, worldPos = pos, occupant = null });
+                placed++;
+            }
+
+            ring++;
+        }
+    }
+
+
+    // Призначення фоловерів слотам по кільцях, без перетинів
+    void AssignFollowersToSlots(List<int> perRing, List<float> radii)
+    {
+        _followerToSlot.Clear();
+        if (engagedEnemy == null) return;
+
+        // фоловерів сортуємо за відстанню (кільце) і кутом (щоб мінімізувати перетини)
+        var items = new List<(GameObject go, float dist, float ang)>(followers.Count);
+        foreach (var f in followers)
+        {
+            if (f == null) continue;
+            Vector3 v = f.transform.position - engagedEnemy.position;
+            items.Add((f, v.magnitude, Mathf.Atan2(v.z, v.x)));
+        }
+
+        items.Sort((a, b) =>
+        {
+            int d = a.dist.CompareTo(b.dist);
+            return d != 0 ? d : a.ang.CompareTo(b.ang);
+        });
+
+        int slotStart = 0;
+        int itemIndex = 0;
+
+        for (int ring = 0; ring < perRing.Count; ring++)
+        {
+            int ringSlotCount = Mathf.Min(perRing[ring], _slots.Count - slotStart);
+            if (ringSlotCount <= 0) break;
+
+            int take = Mathf.Min(ringSlotCount, items.Count - itemIndex);
+            if (take <= 0) break;
+
+            // індекси слотів цього кільця
+            var ringIndices = new List<int>(ringSlotCount);
+            for (int si = 0; si < ringSlotCount; si++) ringIndices.Add(slotStart + si);
+            ringIndices.Sort((i1, i2) => _slots[i1].angle.CompareTo(_slots[i2].angle));
+
+            // беремо стільки фоловерів, скільки слотів у півколі цього кільця
+            var ringFollowers = items.GetRange(itemIndex, take);
+            ringFollowers.Sort((a, b) => a.ang.CompareTo(b.ang));
+            itemIndex += take;
+
+            for (int i = 0; i < take; i++)
+            {
+                var go = ringFollowers[i].go;
+                int globalIdx = ringIndices[i];
+
+                _slots[globalIdx].occupant = go;
+                _followerToSlot[go] = globalIdx;
+            }
+
+            slotStart += ringSlotCount; // зсув на наступне кільце
+        }
+    }
+
+
+// ---- helpers ----
+    static float AngleDiff(float a, float b)
+    {
+        float d = Mathf.Repeat(a - b + Mathf.PI, 2f * Mathf.PI) - Mathf.PI;
+        return Mathf.Abs(d);
+    }
+
+// Гарантовано повертає рівно `take` УНІКАЛЬНИХ індексів із candidates.
+    List<int> PickIndicesOnArc(List<(int idx, float ang)> ringSlots, float centerAngle, float halfWidth, int take)
+    {
+        // 1) відібрати слоти в межах дуги
+        var candidates = new List<(int idx, float ang)>();
+        foreach (var s in ringSlots)
+            if (AngleDiff(s.ang, centerAngle) <= halfWidth)
+                candidates.Add(s);
+
+        // 2) розширити дугу, якщо мало — до повного кола
+        float maxHalf = Mathf.PI; // 180°
+        while (candidates.Count < take && halfWidth < maxHalf - 1e-4f)
+        {
+            halfWidth = Mathf.Min(maxHalf, halfWidth + 0.25f * Mathf.PI); // +45°
+            candidates.Clear();
+            foreach (var s in ringSlots)
+                if (AngleDiff(s.ang, centerAngle) <= halfWidth)
+                    candidates.Add(s);
+        }
+
+        // 3) якщо все ще менше, беремо всі слоти кільця
+        if (candidates.Count < take)
+            candidates = new List<(int idx, float ang)>(ringSlots);
+
+        // 4) рівномірно, БЕЗ ДУБЛІВ: m=0..take-1 -> floor((m+0.5)*N/take)
+        candidates.Sort((a, b) => a.ang.CompareTo(b.ang));
+        int N = candidates.Count;
+        var chosen = new List<int>(take);
+        for (int m = 0; m < take; m++)
+        {
+            int pick = Mathf.FloorToInt((m + 0.5f) * N / (float)take);
+            pick = Mathf.Clamp(pick, 0, N - 1);
+            chosen.Add(candidates[pick].idx);
+        }
+
+        // відсортуємо за кутом для гладких траєкторій
+        chosen.Sort((i1, i2) => _slots[i1].angle.CompareTo(_slots[i2].angle));
+        return chosen;
+    }
+
+
+    void TweenFollowersToSlots()
+    {
+        foreach (var kv in _followerToSlot)
+        {
+            var go = kv.Key;
+            var slot = _slots[kv.Value];
+            MoveOneFollowerTo(go, slot.worldPos);
+            LookAtEnemy(go.transform);
+        }
+    }
+
+    
+    void MoveOneFollowerTo(GameObject go, Vector3 worldPos)
+    {
+        if (go == null) return;
+        DOTween.Kill(go.transform); // скасувати старі рухи
+        Vector3 distance =  worldPos - go.transform.position;
+        go.transform.DOMove(worldPos, surroundTween * distance.magnitude).SetEase(Ease.OutQuad);
+    }
+
+    void LookAtEnemy(Transform t)
+    {
+        if (t == null || engagedEnemy == null) return;
+        Vector3 look = engagedEnemy.position;
+        look.y = t.position.y;
+        t.LookAt(look);
+    }
+
+    public void OnEnemyHitReformat()
+    {
+        PauseRegroup(); // щоб авто-реґруп не боровся з нами
+
+        if (isEngaging && engagedEnemy != null)
+        {
+            // перебудувати півкола навколо ворога й розставити знову
+            RebuildSurround();            // див. нижче
+        }
+        else
+        {
+            // швидке переоформлення звичайної формації
+            FormatStickMan(true);         // або false, якщо хочеш пружне Ease.OutBack
+        }
+    }
+
+// зручний реюз: те ж саме, що робить EngageEnemy, але без зміни прапорів
+    void RebuildSurround()
+    {
+        followers.RemoveAll(f => f == null);
+        BuildSlotsForCount(followers.Count, out var perRing, out var radii);
+        AssignFollowersToSlots(perRing, radii);
+        TweenFollowersToSlots();
+    }
+
+    
+    
 
     // Finish
 
-    
-    
 
     // Animations 
     public void StickmansSetAnimDance()

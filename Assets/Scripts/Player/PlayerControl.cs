@@ -385,8 +385,11 @@ public class PlayerControl : MonoBehaviour
         {
             transform.GetChild(1).gameObject.SetActive(false); // Disable stickmans counter;    
             enemy = other.transform.GetChild(0);
-            attackBoss = true;
-            inFinishZone = false;
+            playerSpawner.PauseRegroup();
+            playerSpawner.EngageEnemy(enemy);
+            
+            // attackBoss = true;
+            allowMovement = false;
             enemy.GetComponent<BossScript>().setAnimationPunch();
         }
         
