@@ -188,7 +188,8 @@ public class PlayerControl : MonoBehaviour
                     }
                 }
             }
-
+            Move();
+            
             if (enemy.GetChild(1).childCount == 0)
             {
                 attack = false;
