@@ -6,12 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="272056e7-ffbf-4e03-876d-d73b7f7fbdeb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CountMasterCloneTest/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CountMasterCloneTest/.idea/material_theme_project_new.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerControl.cs" afterDir="false" />
+=======
+>>>>>>> main
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CountMasterCloneTest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CountMasterCloneTest/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Finishes/BossFightPrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Finishes/BossFightPrefab.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level01.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Boss/Boss Script.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Boss/Boss Script.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerControl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+<<<<<<< HEAD
+=======
+>>>>>>> BackUP
+>>>>>>> main
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +34,14 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@eb5635ad590d/Runtime/NavMeshModifier.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
+<<<<<<< HEAD
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+=======
+<<<<<<< HEAD
+=======
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+>>>>>>> BackUP
+>>>>>>> main
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -33,6 +50,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+=======
+>>>>>>> main
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
@@ -48,6 +85,10 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+<<<<<<< HEAD
+=======
+>>>>>>> BackUP
+>>>>>>> main
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.1.9f1\Editor\Unity.exe" />
@@ -108,15 +149,31 @@
       <option name="presentableId" value="Default" />
       <updated>1754912920249</updated>
       <workItem from="1754912921977" duration="4657000" />
+<<<<<<< HEAD
       <workItem from="1754992107242" duration="1574000" />
       <workItem from="1754996556917" duration="335000" />
+=======
+<<<<<<< HEAD
+      <workItem from="1754997786704" duration="421000" />
+=======
+      <workItem from="1754992107242" duration="1574000" />
+      <workItem from="1754996556917" duration="335000" />
+>>>>>>> BackUP
+>>>>>>> main
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+=======
+<<<<<<< HEAD
+=======
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+>>>>>>> BackUP
+>>>>>>> main
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityProjectDiscoverer">
     <option name="hasUnityReference" value="true" />
