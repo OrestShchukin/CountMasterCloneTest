@@ -10,26 +10,23 @@ using Random = UnityEngine.Random;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [Header("Setup")]
-    public GameObject followerPrefab;
+    [Header("Setup")] public GameObject followerPrefab;
     public Transform followerParent;
     public List<GameObject> followers = new();
 
 
-    [Header("Formation Settings")] 
-    public float minDistance = 0.3f;
+    [Header("Formation Settings")] public float minDistance = 0.3f;
     public float radiusStep = 0.3f;
     public float regroupDelay = 0.4f;
- 
-    [Header("UI Settings")]
-    public TextMeshPro textCounter;
-    
-    [Header("Finish Settings")]
-    [SerializeField] GameObject followerStairsContainer;
+
+    [Header("UI Settings")] public TextMeshPro textCounter;
+
+    [Header("Finish Settings")] [SerializeField]
+    GameObject followerStairsContainer;
 
     [SerializeField] private float characterHeight = 1.5f, characterWidth = 1f;
     public static PlayerSpawner playerSpawnerInstance;
-    
+
     private bool waitingForRegroup = false;
     private int lastFollowerCount = 0;
     private Quaternion basicRotation;
@@ -71,7 +68,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         StartCoroutine(AddFollowersCoroutine(amount));
     }
-    
+
     public void MultiplyFollowers(int factor)
     {
         int currentCount = followers.Count;
@@ -100,13 +97,14 @@ public class PlayerSpawner : MonoBehaviour
 
     private async Task GenerateAndApplyPositionsAsync(bool transitionInstant = false)
     {
-        followers.RemoveAll(f => f == null) ;
-        
+        followers.RemoveAll(f => f == null);
+
         int count = followers.Count;
         float positionY = 0f;
-        
-        List<Vector3> positions = await Task.Run(() => GenerateRingBlueNoise(count, minDistance, radiusStep, positionY));
-        
+
+        List<Vector3> positions =
+            await Task.Run(() => GenerateRingBlueNoise(count, minDistance, radiusStep, positionY));
+
         ApplyPositions(positions, transitionInstant);
     }
 
@@ -123,12 +121,9 @@ public class PlayerSpawner : MonoBehaviour
                 child.DOLocalMove(positions[i], 1f).SetEase(Ease.Linear);
             child.rotation = basicRotation;
         }
-        
+
         textCounter.text = followers.Count.ToString();
     }
-
-
-
 
 
     public void FormatStickMan(bool transitionInstant = false)
@@ -139,50 +134,68 @@ public class PlayerSpawner : MonoBehaviour
 
     public static List<Vector3> GenerateRingBlueNoise(int count, float minDistance, float radiusStep, float yPos)
     {
-        var random = new System.Random();
-        List<Vector3> positions = new List<Vector3>();
-        float radius = radiusStep;
-        int maxAttempts = 30;
+        // Використовуємо щільне гекс-пакування кільцями із стабільним порядком індексів.
+        float spacing = Mathf.Max(minDistance, radiusStep); // крок між сусідами
+        return BuildHexRingSlots(count, spacing, yPos);
+    }
 
-        while (positions.Count < count)
+// Хелпер: генерує слоти кільцями: 1, 6, 12, 18...
+    static List<Vector3> BuildHexRingSlots(int count, float spacing, float yPos)
+    {
+        var result = new List<Vector3>(count);
+        if (count <= 0) return result;
+
+        // Центр
+        result.Add(new Vector3(0f, yPos, 0f));
+        if (count == 1) return result;
+
+        int placed = 1;
+        int ring = 1;
+
+        while (placed < count)
         {
-            int attempts = 0;
+            int cells = ring * 6;
+            float radius = ring * spacing;
 
-            while (attempts < maxAttempts && positions.Count < count)
+            for (int i = 0; i < cells && placed < count; i++)
             {
-                double angle = random.NextDouble() * Mathf.PI * 2;
-                double offset = (random.NextDouble() * 0.8 - 0.4) * radiusStep;
+                int side = i / ring; // 0..5
+                int step = i % ring; // 0..ring-1
 
-                float r = radius + (float)offset;
+                float a0 = (60f * side) * Mathf.Deg2Rad;
+                float a1 = (60f * (side + 1)) * Mathf.Deg2Rad;
 
-                Vector3 candidate = new Vector3(
-                    Mathf.Cos((float)angle) * r,
-                    yPos,
-                    Mathf.Sin((float)angle) * r
-                );
+                Vector2 v0 = new Vector2(Mathf.Cos(a0), Mathf.Sin(a0));
+                Vector2 v1 = new Vector2(Mathf.Cos(a1), Mathf.Sin(a1));
+                // рівномірно біжимо по ребру шестикутника, уникаючи дубля вершини
+                float t = step / (float)ring;
+                Vector2 v = Vector2.Lerp(v0, v1, t).normalized * radius;
 
-                bool valid = true;
-
-                foreach (var pos in positions)
-                {
-                    if (Vector3.Distance(candidate, pos) < minDistance)
-                    {
-                        valid = false;
-                        break;
-                    }
-                }
-
-                if (valid)
-                    positions.Add(candidate);
-
-                attempts++;
+                result.Add(new Vector3(v.x, yPos, v.y));
+                placed++;
             }
 
-            radius += radiusStep;
+            ring++;
         }
 
-        return positions;
+        // Невелика «органіка» — мікро-джиттер уздовж нормалі до радіуса,
+        // щоб натовп виглядав живішим, але без порушення дистанції.
+        float jitter = spacing * 0.08f;
+        for (int i = 1; i < result.Count; i++) // пропускаємо центр
+        {
+            Vector3 p = result[i];
+            Vector2 radial = new Vector2(p.x, p.z).normalized;
+            Vector2 tangential = new Vector2(-radial.y, radial.x); // поворот на 90°
+            float s = (i * 0.6180339887f) % 1f; // «золота» фаза
+            float offs = (s - 0.5f) * 2f * jitter;
+            p.x += tangential.x * offs;
+            p.z += tangential.y * offs;
+            result[i] = p;
+        }
+
+        return result;
     }
+
 
     public void StickmansBuildPyramid()
     {
@@ -196,8 +209,6 @@ public class PlayerSpawner : MonoBehaviour
 
         for (int i = 0; i < count;)
         {
-
-
             int numInRow = 0;
 
             if (i < count - 11)
@@ -240,7 +251,7 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     public void StickmansBuildStairs()
-    {   
+    {
         int count = followerParent.childCount;
         List<GameObject> staircaseFollowerParentContainers = new List<GameObject>();
         Vector3 startPos = transform.position;
@@ -253,7 +264,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             staircaseFollowerParentContainers.Add(followerParent.GetChild(i).gameObject);
         }
-        
+
         for (int i = 0; i < staircaseFollowerParentContainers.Count; i++)
         {
             GameObject staircase = staircaseFollowerParentContainers[i];
@@ -261,7 +272,7 @@ public class PlayerSpawner : MonoBehaviour
             {
                 staircase.transform.SetParent(endDestinationContainer.transform);
                 staircase.transform.DOMoveZ(
-                        transform.position.z  + blockLength * i,
+                        transform.position.z + blockLength * i,
                         (i * blockLength) / forwardSpeed)
                     .SetEase(Ease.Linear)
                     .OnComplete(() => SetAnimationStand(staircase));
@@ -275,11 +286,15 @@ public class PlayerSpawner : MonoBehaviour
                     .SetEase(Ease.Linear);
             }
         }
+
         int reachedStepsCount = endDestinationContainer.transform.childCount;
         int heightModifier = reachedStepsCount <= 12 ? reachedStepsCount : 13;
         heightModifier--;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(transform.DOMove(new Vector3(0f, (heightModifier) * characterHeight, transform.position.z + heightModifier * blockLength), (heightModifier * blockLength) / forwardSpeed)
+        sequence.Append(transform
+            .DOMove(
+                new Vector3(0f, (heightModifier) * characterHeight,
+                    transform.position.z + heightModifier * blockLength), (heightModifier * blockLength) / forwardSpeed)
             .SetEase(Ease.Linear));
         if (reachedStepsCount < 13)
         {
@@ -291,7 +306,7 @@ public class PlayerSpawner : MonoBehaviour
             PlayerControl.allowMovement = false;
             sequence.Play().OnComplete(() => StartCoroutine(moveAfterDelay()));
         }
-        
+
 
         void changeParentBack()
         {
@@ -300,19 +315,20 @@ public class PlayerSpawner : MonoBehaviour
             {
                 GameObject staircase = staircaseFollowerParentContainers[i];
                 List<Transform> staircaseChildren = new List<Transform>();
-                for ( int j = 0; j < staircase.transform.childCount; j++)
+                for (int j = 0; j < staircase.transform.childCount; j++)
                 {
                     Transform child = staircase.transform.GetChild(j);
                     staircaseChildren.Add(child);
                     followers.Add(child.gameObject);
                 }
+
                 foreach (Transform child in staircaseChildren)
                 {
                     child.SetParent(followerParent);
                 }
             }
         }
-        
+
         IEnumerator moveAfterDelay()
         {
             changeParentBack();
@@ -325,7 +341,8 @@ public class PlayerSpawner : MonoBehaviour
         {
             CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(5);
             yield return new WaitForSeconds(0.5f);
-            Transform lastParentContainer = staircaseFollowerParentContainers[staircaseFollowerParentContainers.Count() - 1].transform;
+            Transform lastParentContainer =
+                staircaseFollowerParentContainers[staircaseFollowerParentContainers.Count() - 1].transform;
             setChildStickmansAnimationDance();
             yield return new WaitForSeconds(duration);
             PlayerControl.playerControlInstance.PlayerWin();
@@ -340,7 +357,7 @@ public class PlayerSpawner : MonoBehaviour
                 }
             }
         }
-        
+
 
         void SetAnimationStand(GameObject staircase)
         {
@@ -352,8 +369,7 @@ public class PlayerSpawner : MonoBehaviour
             }
         }
     }
-    
-    
+
 
     public void DestroyAndDelete(GameObject item)
     {
@@ -414,8 +430,6 @@ public class PlayerSpawner : MonoBehaviour
 
     // Finish
 
-    
-    
 
     // Animations 
     public void StickmansSetAnimDance()
