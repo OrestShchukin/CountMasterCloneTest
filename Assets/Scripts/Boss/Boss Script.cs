@@ -1,23 +1,29 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public int healthBar = 15;
+    public Slider healthBarSlider;
 
-    void Start()
+    private int healthBarMax;
+
+    private void Awake()
     {
-        // setAnimationPunch();
+        healthBarMax = healthBar;
     }
-    public void UpdateHealthBar()
+
+    public void DecreaseHealthBar()
     {
         healthBar--;
+        healthBarSlider.value = healthBar / healthBarMax;
         if (healthBar <= 0)
         {
+            healthBarSlider.value = 0f;
             this.gameObject.SetActive(false);
             UIManager.UIManagerInstance.OpenWinScreen();
-            
         }
     }
 

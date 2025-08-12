@@ -78,6 +78,7 @@ public class PlayerControl : MonoBehaviour
             attack = false;
             gamestate = false;
             transform.GetChild(1).gameObject.SetActive(false);
+            Debug.Log($"{transform.GetChild(0).gameObject.name} set to false");
             UIManager.UIManagerInstance.OpenLoseScreen();
         }
     }
@@ -303,7 +304,7 @@ public class PlayerControl : MonoBehaviour
             if (dist <= stopDistance)
             {
                 BossScript bosscript = enemy.gameObject.GetComponent<BossScript>();
-                bosscript.UpdateHealthBar();
+                bosscript.DecreaseHealthBar();
                 PlayerSpawner.playerSpawnerInstance.DestroyAndDelete(follower.gameObject);
                 continue;
             }
@@ -382,6 +383,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("BossFightZone"))
         {
+            transform.GetChild(1).gameObject.SetActive(false); // Disable stickmans counter;    
             enemy = other.transform.GetChild(0);
             attackBoss = true;
             inFinishZone = false;
