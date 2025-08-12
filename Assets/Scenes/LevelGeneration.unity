@@ -173,7 +173,7 @@ MonoBehaviour:
   enemySpawnerPrefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
   finishLinePrefab: {fileID: 7867875440446002534, guid: c78c863a6c4fe0647952433ba735608f, type: 3}
   planePrefab: {fileID: 987189204543219134, guid: 6a1b3dad4fe641741b1f8fa7f1c01a79, type: 3}
-  numberOfSegments: 30
+  numberOfSegments: 10
   levelParent: {fileID: 178534688}
   player: {fileID: 1922672616}
   followersParent: {fileID: 65848090}
