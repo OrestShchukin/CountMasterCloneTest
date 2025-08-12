@@ -70,6 +70,11 @@ public class PlayerControl : MonoBehaviour
         else
         {
             Debug.Log("Game Over");
+            if (attackBoss)
+            {
+                enemy.GetComponent<BossScript>().unsetAnimationPunch();
+                attackBoss = false;
+            }
             attack = false;
             gamestate = false;
             transform.GetChild(1).gameObject.SetActive(false);
@@ -86,7 +91,12 @@ public class PlayerControl : MonoBehaviour
         currentForwardSpeed = attack ? attackSpeed : forwardSpeed;
         currentForwardSpeed = overrideSpeed == 0 ? currentForwardSpeed: overrideSpeed;
         transform.Translate(direction * (currentForwardSpeed * Time.deltaTime));
-        if (attack || inFinishZone) return;
+        if (inFinishZone)
+        {
+            transform.DOMoveX(0, 2f).SetEase(Ease.Linear);
+            return;
+        }
+        if (attack) return;
 
 
 #if UNITY_EDITOR // Переписати для нової input system;
@@ -275,7 +285,6 @@ public class PlayerControl : MonoBehaviour
     void AttackBoss()
     {
         if (enemy == null || followerParent == null) return;
-
         for (int i = 0; i < followerParent.childCount; i++)
         {
             Transform follower = followerParent.GetChild(i);
@@ -365,10 +374,17 @@ public class PlayerControl : MonoBehaviour
                 PlayerWin();
             }
         }
+        else if (other.CompareTag("BossFinishLine"))
+        {
+            // Align all the stickmans to center
+            inFinishZone = true;
+            Debug.Log("boss finish road entered");
+        }
         else if (other.CompareTag("BossFightZone"))
         {
             enemy = other.transform.GetChild(0);
             attackBoss = true;
+            inFinishZone = false;
             enemy.GetComponent<BossScript>().setAnimationPunch();
         }
         
