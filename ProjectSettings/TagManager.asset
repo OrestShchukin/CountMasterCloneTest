@@ -18,6 +18,7 @@ TagManager:
   - Fist
   - BossFightZone
   - FinishStairs
+  - BossFinishLine
   layers:
   - Default
   - TransparentFX

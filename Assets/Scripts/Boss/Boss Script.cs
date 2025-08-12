@@ -24,6 +24,9 @@ public class BossScript : MonoBehaviour
     public void setAnimationPunch()
     {
         transform.GetChild(0).GetComponent<Animator>().SetBool("Punching", true);
-        Debug.Log("Bool punching set to true");
+    }
+    public void unsetAnimationPunch()
+    {
+        transform.GetChild(0).GetComponent<Animator>().SetBool("Punching", false);
     }
 }
