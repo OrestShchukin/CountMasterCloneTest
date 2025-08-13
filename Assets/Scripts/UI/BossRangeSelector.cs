@@ -75,8 +75,6 @@ public class BossRangeSelector : MonoBehaviour
         
         
         int followersToAdd = GetModifierForAngle(newY);
-        Debug.Log($"Modifier for the euler angle {newY} is {followersToAdd}");
-
         StartCoroutine(resumeAfterDelay());
 
 
