@@ -22,6 +22,11 @@ public class CameraSwitcher : MonoBehaviour
         cinemachineCameras[cameraIndex - 1].GameObject().SetActive(true);
     }
 
+    public void ActivateCinemachineCamera(CinemachineCamera camera)
+    {
+        camera.GameObject().SetActive(true);
+    }
+
     public void DeactivateCinemachineCamera(int cameraIndex)
     {
         cinemachineCameras[cameraIndex - 1].GameObject().SetActive(false);

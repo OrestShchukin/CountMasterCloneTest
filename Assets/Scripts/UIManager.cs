@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject LoseScreenUI;
     public GameObject PauseMenuUI;
     public GameObject SettingsMenuUI;
+    public GameObject BossRangeModifierUI;
     public Image progressBar;
     public TextMeshProUGUI homeScreenLevelCounter, inGameUILevelCounter;
     
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
         HomeSceenUI.SetActive(false);
         SettingsMenuUI.SetActive(false);
         PauseMenuUI.SetActive(false);
+        BossRangeModifierUI.SetActive(false);
     }
     
     public void OpenHomeScreen()
@@ -130,9 +132,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetFloat("UserSensitivity", PlayerControl.userSensitivity);
     }
     
-    
-    
-
     public void OpenWinScreen()
     {
         PlayerControl.gamestate = false;
@@ -149,5 +148,19 @@ public class UIManager : MonoBehaviour
     private void ResetTimeScale()
     {
         Time.timeScale = 1;
+    }
+
+    public void OpenBossRangeModifierUI()
+    {
+        Time.timeScale = 0;
+        BossRangeModifierUI.SetActive(true);
+        PlayerControl.gamestate = false;
+    }
+    
+    public void CloseBossRangeModifierUI()
+    {
+        Time.timeScale = 1;
+        BossRangeModifierUI.SetActive(false);
+        PlayerControl.gamestate = true;
     }
 }

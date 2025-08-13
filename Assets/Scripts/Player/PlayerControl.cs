@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] PlayerSpawner playerSpawner;
     [SerializeField] Transform followerParent;
 
+    
     public static PlayerControl playerControlInstance;
     public static bool gamestate;
     public static bool inFinishZone;
@@ -22,6 +23,8 @@ public class PlayerControl : MonoBehaviour
 
     [Header("User Settings")] 
     public static float userSensitivity;
+
+    [Header("Camera")] public Camera mainCamera;
     
     private float currentX = 0f;
     private Vector2 lastTouchPosition;
@@ -32,6 +35,9 @@ public class PlayerControl : MonoBehaviour
     private Transform enemy;
     private float currentForwardSpeed;
 
+    
+    
+    
     private int inBossCloseRange = 0;
     
 
@@ -78,7 +84,6 @@ public class PlayerControl : MonoBehaviour
             attack = false;
             gamestate = false;
             transform.GetChild(1).gameObject.SetActive(false);
-            Debug.Log($"{transform.GetChild(0).gameObject.name} set to false");
             UIManager.UIManagerInstance.OpenLoseScreen();
         }
     }
@@ -305,8 +310,8 @@ public class PlayerControl : MonoBehaviour
         else if (other.CompareTag("BossFinishLine"))
         {
             // Align all the stickmans to center
+            UIManager.UIManagerInstance.OpenBossRangeModifierUI();
             inFinishZone = true;
-            Debug.Log("boss finish road entered");
         }
         else if (other.CompareTag("BossFightZone"))
         {
@@ -318,7 +323,12 @@ public class PlayerControl : MonoBehaviour
             // attackBoss = true;
             inFinishZone = false;
             allowMovement = false;
-            enemy.GetComponent<BossScript>().setAnimationPunch();
+            BossScript bossScript = enemy.GetComponent<BossScript>();
+            bossScript.setAnimationPunch();
+            CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(bossScript.bossCinemachineCamera);
+            
+            
+            ;
             
         }
         
