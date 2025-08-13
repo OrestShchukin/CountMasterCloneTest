@@ -256,12 +256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a825586fae14bc548bd6045216cf9ae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setForwardSpeed: 9
+  forwardSpeed: 9
   attackSpeed: 5
-  swipeSensitivity: 0.02
+  swipeSensitivity: 0.012
   maxX: 3.75
   playerSpawner: {fileID: 4265728094696369981}
   followerParent: {fileID: 3996186318184860820}
+  mainCamera: {fileID: 0}
 --- !u!114 &4265728094696369981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +283,12 @@ MonoBehaviour:
   regroupDelay: 0.4
   textCounter: {fileID: 4084126030759147094}
   followerStairsContainer: {fileID: 3345914176792653686, guid: 384f5bf06f3aaf54db2618f56bdcbc2a, type: 3}
+  characterHeight: 1.5
+  characterWidth: 1
+  enemyBaseRadius: 1.2
+  ringPaddingMul: 1.15
+  arcPaddingMul: 1.1
+  surroundTween: 0.6
 --- !u!54 &1090321809890845148
 Rigidbody:
   m_ObjectHideFlags: 0

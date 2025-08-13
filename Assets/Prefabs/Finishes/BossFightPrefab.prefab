@@ -14024,11 +14024,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7789750324781498940, guid: 980c8e1645de6714d9417dffb9085f28, type: 3}
       propertyPath: m_TagString
-      value: BossFinishLine
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7837778302639820953, guid: 980c8e1645de6714d9417dffb9085f28, type: 3}
       propertyPath: m_TagString
-      value: BossFightZone
+      value: BossFinishLine
       objectReference: {fileID: 0}
     - target: {fileID: 8181580837879668316, guid: 980c8e1645de6714d9417dffb9085f28, type: 3}
       propertyPath: m_VersionIndex
@@ -14458,6 +14458,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1097508093772781679, guid: 1078dad3c5d5163489eca104ecf31e1b, type: 3}
+      propertyPath: bossCinemachineCamera
+      value: 
+      objectReference: {fileID: 6802287740289737305}
     - target: {fileID: 8483824747015610472, guid: 1078dad3c5d5163489eca104ecf31e1b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

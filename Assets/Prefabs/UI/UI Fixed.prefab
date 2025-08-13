@@ -1593,7 +1593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6471761546220646800
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1674,9 +1674,9 @@ MonoBehaviour:
     AddModifier: 10
   - AngleStartEnd: {x: 3.5, y: -13}
     AddModifier: 40
-  - AngleStartEnd: {x: -13, y: 27.5}
+  - AngleStartEnd: {x: -13, y: -27.5}
     AddModifier: 80
-  - AngleStartEnd: {x: 27.5, y: -43}
+  - AngleStartEnd: {x: -27.5, y: -43}
     AddModifier: 40
 --- !u!1 &2621567265793774606
 GameObject:

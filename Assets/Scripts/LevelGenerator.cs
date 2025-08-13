@@ -6,7 +6,7 @@ public class LevelGenerator : MonoBehaviour
     public List<GameObject> doubleSizeObstaclePrefabs;
     public List<GameObject> gatePrefabs;
     public GameObject enemySpawnerPrefab;
-    public GameObject finishLinePrefab;
+    public List<GameObject> finishLinePrefabsList;
     public GameObject planePrefab;
         
     [Header("Generation Settings")] public int numberOfSegments = 10;
@@ -41,9 +41,9 @@ public class LevelGenerator : MonoBehaviour
         
         if (player.position.z - segmentLength * 2 > firstChild.position.z)
         {
-            Destroy(firstChild.gameObject);
             if (segmentIndex < numberOfSegments)
             {
+                Destroy(firstChild.gameObject);
                 SpawnElement();
             }
         }
@@ -137,9 +137,11 @@ public class LevelGenerator : MonoBehaviour
 
     void SpawnFinishLine(Vector3 position)
     {
-        if (finishLinePrefab)
+        int index = Random.Range(0, finishLinePrefabsList.Count);
+        GameObject obstacle = finishLinePrefabsList[index];
+        if (obstacle)
         {
-            Instantiate(finishLinePrefab, position, Quaternion.identity, levelParent);
+            Instantiate(finishLinePrefabsList[index], position, Quaternion.identity, levelParent);
         }
 
         currentZ += segmentLength;
