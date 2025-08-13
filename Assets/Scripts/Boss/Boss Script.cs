@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,17 +20,19 @@ public class BossScript : MonoBehaviour
     public CinemachineCamera bossCinemachineCamera;
 
     private float healthBarMax;
+    private Camera mainCamera;
 
     private void Awake()
     {
         healthBarMax = healthBar;
         bossScriptInstance = this;
+        mainCamera = Camera.main;
         bossCinemachineCamera.gameObject.SetActive(false);
         // canvas = UIManager.UIManagerInstance.BossRangeModifierUI.transform.GetChild(0).gameObject
         //     .GetComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
-        canvas.worldCamera = PlayerControl.playerControlInstance.mainCamera;
-        
+        canvas.worldCamera = mainCamera;
+
     }
 
     public void DecreaseHealthBar()
@@ -46,6 +49,7 @@ public class BossScript : MonoBehaviour
 
     void Update()
     {
+        if (!PlayerControl.gamestate) return;
         if (decreasePerSecond > 0)
         {
             healthBar -= decreasePerSecond * Time.deltaTime;
@@ -54,11 +58,21 @@ public class BossScript : MonoBehaviour
         if (healthBar <= 0)
         {
             healthBarSlider.value = 0f;
-            this.gameObject.SetActive(false);
-            UIManager.UIManagerInstance.OpenWinScreen();
+            PlayerWon();
+            return;
         }
-
+        canvas.transform.rotation = mainCamera.transform.rotation;
     }
+
+    private void PlayerWon()
+    {
+        CameraSwitcher.cameraSwitcherInstance.SwitchCameraTarget(4, transform);
+        this.gameObject.SetActive(false);
+        PlayerControl.gamestate = false;
+        PlayerControl.playerControlInstance.DelayOpenWinScreen();
+        CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(4);
+    }
+    
 
     public void setAnimationPunch()
     {

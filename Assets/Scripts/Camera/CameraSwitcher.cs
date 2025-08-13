@@ -46,4 +46,9 @@ public class CameraSwitcher : MonoBehaviour
             ActivateCinemachineCamera(3);
         }
     }
+    public void SwitchCameraTarget(int cameraIndex, Transform newTarget)
+    {
+        CinemachineCamera camera = cinemachineCameras[cameraIndex - 1];
+        camera.Follow = newTarget;
+    }
 }

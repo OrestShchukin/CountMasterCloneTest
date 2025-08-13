@@ -296,16 +296,9 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("FinishChest"))
         {
-            CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(4);
+            
             gamestate = false;
-            playerSpawner.StickmansSetAnimDance();
-            StartCoroutine(DelayOpenWinScreen());
-
-            IEnumerator DelayOpenWinScreen()
-            {
-                yield return new WaitForSeconds(3f);
-                PlayerWin();
-            }
+            DelayOpenWinScreen();
         }
         else if (other.CompareTag("BossFinishLine"))
         {
@@ -326,11 +319,18 @@ public class PlayerControl : MonoBehaviour
             BossScript bossScript = enemy.GetComponent<BossScript>();
             bossScript.setAnimationPunch();
             CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(bossScript.bossCinemachineCamera);
-            
-            
-            ;
-            
         }
-        
+    }
+
+    public void DelayOpenWinScreen()
+    {
+        StartCoroutine(DelayOpenWinScreenCoroutine());
+    }
+    private IEnumerator DelayOpenWinScreenCoroutine()
+    {
+        CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(4);
+        playerSpawner.StickmansSetAnimDance();
+        yield return new WaitForSeconds(3f);
+        PlayerWin();
     }
 }
