@@ -705,7 +705,7 @@ public class PlayerSpawner : MonoBehaviour
     }
 
 // зручний реюз: те ж саме, що робить EngageEnemy, але без зміни прапорів
-    void RebuildSurround()
+    public void RebuildSurround()
     {
         followers.RemoveAll(f => f == null);
         BuildSlotsForCount(followers.Count, out var perRing, out var radii);
