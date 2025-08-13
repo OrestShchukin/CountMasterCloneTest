@@ -209,79 +209,6 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
-
-    // void AttackBoss()
-    // {
-    //     Vector3 enemyDirection = new Vector3(enemy.position.x, transform.position.y, enemy.position.z) -
-    //                              transform.position;
-    //     Vector3 enemyPosition = enemyDirection;
-    //     
-    //     
-    //     // Move(enemyPosition ,1f);
-    //     for (int i = 0; i < followerParent.childCount; i++)
-    //     {
-    //         Transform follower = followerParent.GetChild(i);
-    //         
-    //         follower.rotation =
-    //             Quaternion.Slerp(follower.rotation, Quaternion.LookRotation(enemyDirection, Vector3.up),
-    //                 Time.deltaTime * 3f);
-    //         // Debug.Log($"child({i}) is in close range and should move");
-    //     }
-    //     
-    //     
-    //     if (followerParent.childCount > 1)
-    //     {
-    //         bool moveCloser = inBossCloseRange < 5;
-    //         if (moveCloser) inBossCloseRange = 0;
-    //         
-    //         for (int i = 0; i < followerParent.childCount; i++)
-    //         {
-    //             Vector3 Distance = enemy.position - followerParent.GetChild(i).position;
-    //
-    //             if (Distance.magnitude < 4f)
-    //             {
-    //                 inBossCloseRange++;
-    //                 Transform follower = followerParent.GetChild(i);
-    //                 follower.position =
-    //                     Vector3.Lerp(follower.position, new Vector3(enemy.position.x,
-    //                         follower.position.y,
-    //                         enemy.position.z), Time.deltaTime * 0.2f);
-    //                 Debug.Log($"Enemy Position {enemy.position},  Distance {Distance.magnitude}, follower position {follower.position}");
-    //             }
-    //             
-    //             if (!moveCloser) return;
-    //             
-    //             if (Distance.magnitude < 8f)
-    //             {
-    //                 Transform follower = followerParent.GetChild(i);
-    //                 follower.position =
-    //                     Vector3.Lerp(follower.position, new Vector3(enemy.position.x,
-    //                         follower.position.y,
-    //                         enemy.position.z), Time.deltaTime * 0.2f);
-    //             }
-    //             else if (Distance.magnitude < 12f)
-    //             {
-    //                 Transform follower = followerParent.GetChild(i);
-    //                 follower.position =
-    //                     Vector3.Lerp(follower.position, new Vector3(follower.position.x,
-    //                         enemy.position.y,
-    //                         enemy.position.z), Time.deltaTime * 0.2f);
-    //             }
-    //             
-    //             else if (Distance.magnitude > 12f)
-    //             {
-    //                 Transform follower = followerParent.GetChild(i);
-    //                 follower.position =
-    //                     Vector3.Lerp(follower.position, new Vector3(follower.position.x,
-    //                         follower.position.y,
-    //                         enemy.position.z), Time.deltaTime * 0.1f);
-    //             }
-    //             
-    //         }
-    //     }
-    //     playerSpawner.PauseRegroup();
-    //
-    // }
     
     void AttackBoss()
     {
@@ -389,8 +316,10 @@ public class PlayerControl : MonoBehaviour
             playerSpawner.EngageEnemy(enemy);
             
             // attackBoss = true;
+            inFinishZone = false;
             allowMovement = false;
             enemy.GetComponent<BossScript>().setAnimationPunch();
+            
         }
         
     }
