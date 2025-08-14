@@ -669,7 +669,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2559865685520845471, guid: f2f3a857f7f6d68468e3620cc13f8bad, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4334723297173826521, guid: f2f3a857f7f6d68468e3620cc13f8bad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -714,6 +714,10 @@ PrefabInstance:
     - target: {fileID: 4805447775971347561, guid: f2f3a857f7f6d68468e3620cc13f8bad, type: 3}
       propertyPath: m_Name
       value: UI Fixed
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894587653872945459, guid: f2f3a857f7f6d68468e3620cc13f8bad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 33.72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
