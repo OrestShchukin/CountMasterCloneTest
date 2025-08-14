@@ -46,10 +46,6 @@ public class PlayerSpawner : MonoBehaviour
 
     void Awake()
     {
-        if (playerSpawnerInstance != null && playerSpawnerInstance != this) {
-            Destroy(gameObject);
-            return;
-        }
         playerSpawnerInstance = this;
         followers.Clear();
         followers.Add(followerParent.GetChild(0).gameObject);
