@@ -101,7 +101,7 @@ public class PlayerControl : MonoBehaviour
         if (attack) return;
 
 
-#if UNITY_EDITOR // Переписати для нової input system;
+#if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
             lastTouchPosition = Input.mousePosition;

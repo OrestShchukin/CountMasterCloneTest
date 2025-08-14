@@ -19,6 +19,7 @@ TagManager:
   - BossFightZone
   - FinishStairs
   - BossFinishLine
+  - FinishCastlePart
   layers:
   - Default
   - TransparentFX

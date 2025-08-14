@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4507861874367919828}
   - component: {fileID: 5185406961830738671}
   - component: {fileID: 5290658095279358316}
+  - component: {fileID: -7478722625056716361}
   m_Layer: 0
   m_Name: YellowCastleCube
-  m_TagString: Untagged
+  m_TagString: FinishCastlePart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -370,17 +371,9 @@ MonoBehaviour:
   m_Mesh: {fileID: 0}
   m_VersionIndex: 2447
   m_IsSelectable: 1
-  m_SelectedFaces: 02000000
-  m_SelectedEdges:
-  - a: 8
-    b: 9
-  - a: 10
-    b: 8
-  - a: 9
-    b: 11
-  - a: 11
-    b: 10
-  m_SelectedVertices: 08000000090000000a0000000b000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!114 &98839161194886757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,9 +467,36 @@ MeshCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!54 &-7478722625056716361
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7691191875113368954}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
