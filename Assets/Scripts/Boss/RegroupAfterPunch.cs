@@ -22,7 +22,14 @@ public class RegroupAfterPunch : StateMachineBehaviour
     
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        PlayerSpawner.playerSpawnerInstance.RebuildSurround();
+        if (PlayerSpawner.playerSpawnerInstance.CalculateActualFollowersCount() == 0)
+        {
+            animator.SetBool("Punching", false);
+        }
+        else
+        {
+            PlayerSpawner.playerSpawnerInstance.RebuildSurround();
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

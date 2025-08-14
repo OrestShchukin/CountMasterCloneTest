@@ -46,7 +46,12 @@ public class PlayerSpawner : MonoBehaviour
 
     void Awake()
     {
+        if (playerSpawnerInstance != null && playerSpawnerInstance != this) {
+            Destroy(gameObject);
+            return;
+        }
         playerSpawnerInstance = this;
+        followers.Clear();
         followers.Add(followerParent.GetChild(0).gameObject);
         textCounter.text = followers.Count.ToString();
         basicRotation = followerParent.GetChild(0).rotation;
@@ -607,57 +612,11 @@ public class PlayerSpawner : MonoBehaviour
                 _followerToSlot[go] = globalIdx;
             }
 
-            slotStart += ringSlotCount; // зсув на наступне кільце
+            slotStart += ringSlotCount; 
         }
     }
-
-
-// ---- helpers ----
-    static float AngleDiff(float a, float b)
-    {
-        float d = Mathf.Repeat(a - b + Mathf.PI, 2f * Mathf.PI) - Mathf.PI;
-        return Mathf.Abs(d);
-    }
-
-// // Гарантовано повертає рівно `take` УНІКАЛЬНИХ індексів із candidates.
-//     List<int> PickIndicesOnArc(List<(int idx, float ang)> ringSlots, float centerAngle, float halfWidth, int take)
-//     {
-//         // 1) відібрати слоти в межах дуги
-//         var candidates = new List<(int idx, float ang)>();
-//         foreach (var s in ringSlots)
-//             if (AngleDiff(s.ang, centerAngle) <= halfWidth)
-//                 candidates.Add(s);
-//
-//         // 2) розширити дугу, якщо мало — до повного кола
-//         float maxHalf = Mathf.PI; // 180°
-//         while (candidates.Count < take && halfWidth < maxHalf - 1e-4f)
-//         {
-//             halfWidth = Mathf.Min(maxHalf, halfWidth + 0.25f * Mathf.PI); // +45°
-//             candidates.Clear();
-//             foreach (var s in ringSlots)
-//                 if (AngleDiff(s.ang, centerAngle) <= halfWidth)
-//                     candidates.Add(s);
-//         }
-//
-//         // 3) якщо все ще менше, беремо всі слоти кільця
-//         if (candidates.Count < take)
-//             candidates = new List<(int idx, float ang)>(ringSlots);
-//
-//         // 4) рівномірно, БЕЗ ДУБЛІВ: m=0..take-1 -> floor((m+0.5)*N/take)
-//         candidates.Sort((a, b) => a.ang.CompareTo(b.ang));
-//         int N = candidates.Count;
-//         var chosen = new List<int>(take);
-//         for (int m = 0; m < take; m++)
-//         {
-//             int pick = Mathf.FloorToInt((m + 0.5f) * N / (float)take);
-//             pick = Mathf.Clamp(pick, 0, N - 1);
-//             chosen.Add(candidates[pick].idx);
-//         }
-//
-//         // відсортуємо за кутом для гладких траєкторій
-//         chosen.Sort((i1, i2) => _slots[i1].angle.CompareTo(_slots[i2].angle));
-//         return chosen;
-//     }
+    
+    
 
 
     void TweenFollowersToSlots(float speed = 0)
@@ -710,11 +669,17 @@ public class PlayerSpawner : MonoBehaviour
 // зручний реюз: те ж саме, що робить EngageEnemy, але без зміни прапорів
     public void RebuildSurround()
     {
-        followers.RemoveAll(f => f == null);
+        if (CalculateActualFollowersCount() == 0) return;
         BossScript.bossScriptInstance.decreasePerSecond = 0;
         BuildSlotsForCount(followers.Count, out var perRing, out var radii);
         AssignFollowersToSlots(perRing, radii);
         TweenFollowersToSlots(1.2f);
+    }
+
+    public int CalculateActualFollowersCount()
+    {
+        followers.RemoveAll(f => f == null);
+        return followers.Count;
     }
     
 

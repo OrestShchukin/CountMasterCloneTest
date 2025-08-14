@@ -75,10 +75,9 @@ public class UIManager : MonoBehaviour
     public void OnNextLevelPress()
     {
         skipMenuOnReload = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         currentLevel++;
         PlayerPrefs.SetInt("CurrentLevel", currentLevel);
-        StartGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnPauseGamePress()

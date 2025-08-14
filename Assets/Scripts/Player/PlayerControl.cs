@@ -63,10 +63,6 @@ public class PlayerControl : MonoBehaviour
             {
                 Attack();
             }
-            else if (attackBoss)
-            {
-                AttackBoss();
-            }
             else if(allowMovement)
                 Move();
 
@@ -214,50 +210,6 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
-    
-    void AttackBoss()
-    {
-        if (enemy == null || followerParent == null) return;
-        for (int i = 0; i < followerParent.childCount; i++)
-        {
-            Transform follower = followerParent.GetChild(i);
-            Vector3 toEnemy = enemy.position - follower.position;
-
-            // Повернути фоловера обличчям до ворога
-            if (toEnemy.sqrMagnitude > 0.0001f)
-            {
-                Quaternion look = Quaternion.LookRotation(new Vector3(toEnemy.x, 0f, toEnemy.z), Vector3.up);
-                follower.rotation = Quaternion.Slerp(follower.rotation, look, Time.deltaTime * 3f);
-            }
-
-            float dist = toEnemy.magnitude;
-            float zDistance = enemy.position.z - follower.position.z;
-            float stopDistance = 1f;     // наскільки близько підходимо
-            if (dist <= stopDistance)
-            {
-                BossScript bosscript = enemy.gameObject.GetComponent<BossScript>();
-                bosscript.DecreaseHealthBar();
-                PlayerSpawner.playerSpawnerInstance.DestroyAndDelete(follower.gameObject);
-                continue;
-            }
-
-            // Швидкість залежно від відстані (можеш підігратись)
-            float speed =
-                dist > 12f ? 3.0f :
-                dist >  8f ? 2.5f :
-                dist >  4f ? 2.0f :
-                1.8f;
-
-            // Рухаємось до позиції ворога, але зберігаємо свою Y
-            float targetPositionX = zDistance < 3f ? enemy.position.x : follower.position.x; 
-            Vector3 target = new Vector3(targetPositionX, follower.position.y, enemy.position.z);
-            follower.position = Vector3.MoveTowards(follower.position, target, speed * Time.deltaTime);
-        }
-
-        playerSpawner.PauseRegroup();
-    }
-
-    
     
     void OnTriggerEnter(Collider other)
     {
