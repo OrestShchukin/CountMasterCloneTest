@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CannonMovement : MonoBehaviour
@@ -21,6 +22,7 @@ public class CannonMovement : MonoBehaviour
     [SerializeField] float smooth = 12f;                  // плавність
 
     float cy, cp;
+    private bool aimAtCoin = false;
 
     void Reset()
     {
@@ -36,6 +38,8 @@ public class CannonMovement : MonoBehaviour
 
     void Update()
     {
+        if (aimAtCoin) return;
+        
         Vector2 pos;
         bool pressed;
         GetPointer(out pos, out pressed);
@@ -76,6 +80,15 @@ public class CannonMovement : MonoBehaviour
         }
         pos = Input.mousePosition;
         pressed = Input.GetMouseButton(0);
+    }
+
+    public void AimAtCoin()
+    {
+        aimAtCoin = true;
+        Sequence sequence = DOTween.Sequence();
+        if (yawPivot)   sequence.Append(yawPivot.DOLocalRotate(new Vector3(0f, 0f, 0f), 1f));
+        if (pitchPivot) sequence.Append(pitchPivot.DOLocalRotate(new Vector3(0f, -60f, 0f), 1f));
+        sequence.Play();
     }
 
     Rect GetScreenRect()

@@ -403,7 +403,7 @@ MonoBehaviour:
   force: 24.2
   currentAmmo: 200
   ammoPerShot: 1
-  interval: 0.3
+  interval: 0.2
 --- !u!114 &6320791992711424971
 MonoBehaviour:
   m_ObjectHideFlags: 0
