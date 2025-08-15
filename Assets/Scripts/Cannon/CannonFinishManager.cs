@@ -18,6 +18,7 @@ public class CannonFinishManager : MonoBehaviour
     private List<Transform> castleParts = new ();
     private CannonShooting cannonShootingScript;
     private CannonMovement cannonMovementScript;
+    private CoinManager coinManagerScript;
 
     
     private bool play = true;
@@ -28,6 +29,7 @@ public class CannonFinishManager : MonoBehaviour
     {
         cannonShootingScript = cannon.GetComponent<CannonShooting>();
         cannonMovementScript = cannon.GetComponent<CannonMovement>();
+        coinManagerScript = coin.GetComponent<CoinManager>();
         
         for (int i = 0; i < castlePartsParent.childCount; i++)
         {
@@ -61,7 +63,6 @@ public class CannonFinishManager : MonoBehaviour
 
     IEnumerator switchToShootingTheCoin()
     {
-
         cannonShootingScript.StopAutoFire();
         cannonMovementScript.AimAtCoin();
         yield return new WaitForSeconds(0.4f);
@@ -70,6 +71,7 @@ public class CannonFinishManager : MonoBehaviour
         ActivateCoin();
         yield return new WaitForSeconds(1f);
         cannonShootingScript.ShootTheCoin();
+        coinManagerScript.duration = cannonShootingScript.interval;
         yield return null;
     }
 

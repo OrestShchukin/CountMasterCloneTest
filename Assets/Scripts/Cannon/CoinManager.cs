@@ -1,16 +1,27 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static CoinManager coinManagerInstance;
+    public float duration = 0.2f;
+
+    void Awake()
     {
-        
+        coinManagerInstance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Pump()
     {
-        
+        transform.DOPunchScale(new Vector3(0.3f, 0.3f, 0.3f), duration, 1);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("FinishCannonBullet"))
+        {
+            Pump();
+            Destroy(other.gameObject);
+        }
     }
 }

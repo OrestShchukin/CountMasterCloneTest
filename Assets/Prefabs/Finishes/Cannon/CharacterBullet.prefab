@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2063336497336467835}
   m_Layer: 0
   m_Name: CharacterBullet
-  m_TagString: blue
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VoodooCustomCharacterV1.3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bf626041b0e848e8917535734a4e638, type: 3}
+      propertyPath: m_TagString
+      value: FinishCannonBullet
+      objectReference: {fileID: 0}
     - target: {fileID: 2447460895090655346, guid: 3bf626041b0e848e8917535734a4e638, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -401,6 +405,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bf626041b0e848e8917535734a4e638, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5456377342404496150}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3bf626041b0e848e8917535734a4e638, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5202893392503611685}
   m_SourcePrefab: {fileID: 100100000, guid: 3bf626041b0e848e8917535734a4e638, type: 3}
 --- !u!1 &5043286821007612894 stripped
 GameObject:
@@ -479,6 +486,18 @@ CapsuleCollider:
   m_Height: 1.53
   m_Direction: 1
   m_Center: {x: 0, y: 0.764263, z: 0}
+--- !u!114 &5202893392503611685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5043286821007612894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900795b56ddb14548a12e623e1598438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5671872548491559268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3bf626041b0e848e8917535734a4e638, type: 3}

@@ -1,15 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class CannonShooting : MonoBehaviour
 {
-    [Header("Cannon preferences")] public GameObject characterBullet;
+    [Header("Cannon preferences")] 
+    public GameObject characterBullet;
     public Transform barrel;
     public float force;
-
+    
+    [Header("UI Counter")]
+    TextMeshProUGUI ammoCounter;
 
     public int currentAmmo = 50;
-    [SerializeField] int ammoPerShot = 1;
-    [SerializeField] float interval = 0.15f;
+    public  int ammoPerShot = 1;
+    public float interval = 0.15f;
 
 
     private CannonMovement cannonMovementScript;
@@ -18,6 +22,7 @@ public class CannonShooting : MonoBehaviour
     {
         StartAutoFire();
         cannonMovementScript = GetComponent<CannonMovement>();
+        UpdateAmmoCounter();
     }
 
     public bool Fire()
@@ -25,6 +30,7 @@ public class CannonShooting : MonoBehaviour
         if (currentAmmo < ammoPerShot) return false;
         SpawnBullet();
         currentAmmo -= ammoPerShot;
+        UpdateAmmoCounter();
         if (currentAmmo < ammoPerShot) CancelInvoke(nameof(TickFire));
         return true;
     }
@@ -55,7 +61,14 @@ public class CannonShooting : MonoBehaviour
     
     public void ShootTheCoin()
     {
+        interval *= 0.8f;
+        ammoPerShot = 3;
         cannonMovementScript.AimAtCoin();
         Invoke(nameof(StartAutoFire), 2f);
+    }
+
+    private void UpdateAmmoCounter()
+    {
+        ammoCounter.text = currentAmmo.ToString();
     }
 }
