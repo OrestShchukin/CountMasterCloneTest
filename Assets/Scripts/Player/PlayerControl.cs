@@ -330,10 +330,11 @@ public class PlayerControl : MonoBehaviour
         inFinishZone = true;
         stickmansCounters.SetActive(false);
         cannonFinishManager.ActivateCannonUI();
+        cannonFinishManager.SwitchToCannonCamera();
         // move Camera here
         yield return new WaitForSeconds(1f);
         cannonFinishManager.AllowCannonAiming();
-        cannonFinishManager.StartShooting();
+        // cannonFinishManager.StartShooting();
         yield return new WaitForSeconds(1f);
     }
     

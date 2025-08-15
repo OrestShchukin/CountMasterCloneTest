@@ -22,6 +22,7 @@ public class CannonMovement : MonoBehaviour
     [SerializeField] float smooth = 12f;                  // плавність
 
     public bool active;
+    private bool firstPress = true;
     
     float cy, cp;
     private bool stopAiming = false;
@@ -47,6 +48,12 @@ public class CannonMovement : MonoBehaviour
         bool pressed;
         GetPointer(out pos, out pressed);
         if (requireHold && !pressed) return;
+        if (firstPress)
+        {
+            GetComponent<CannonShooting>().StartShooting();
+            firstPress = false;
+        }
+        
         
         Rect r = GetScreenRect();
         if (!r.Contains(pos)) return;

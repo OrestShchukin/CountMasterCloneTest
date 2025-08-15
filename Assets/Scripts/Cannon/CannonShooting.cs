@@ -24,14 +24,15 @@ public class CannonShooting : MonoBehaviour
     private bool shootingTheCoinLastShot = false;
 
     private CannonMovement cannonMovementScript;
-    
-    
 
+
+    void Start()
+    {
+        cannonMovementScript = GetComponent<CannonMovement>();
+    }
     public void StartShooting() // Use after the cannon was fully loaded with stickmans
     {
-        // Move camera to Position here ...
         StartAutoFire();
-        cannonMovementScript = GetComponent<CannonMovement>();
         UpdateAmmoCounter();
     }
 
@@ -114,6 +115,7 @@ public class CannonShooting : MonoBehaviour
         if (other.CompareTag("blue"))
         {
             currentAmmo++;
+            UpdateAmmoCounter();
             other.gameObject.SetActive(false);
         }
     }

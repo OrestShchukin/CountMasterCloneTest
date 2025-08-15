@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CannonFinishManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class CannonFinishManager : MonoBehaviour
     
     [Header("Additional")]
     [SerializeField] private Explosion explosion;
+
+    [SerializeField] private CinemachineCamera cannonCamera;
     
     private List<Transform> castleParts = new ();
     private CannonShooting cannonShootingScript;
@@ -27,6 +30,7 @@ public class CannonFinishManager : MonoBehaviour
     void Awake()
     {
         cannonUI.SetActive(false);
+        cannonCamera.gameObject.SetActive(false);
     }
     void Start()
     {
@@ -48,8 +52,6 @@ public class CannonFinishManager : MonoBehaviour
         {
             play = false;
             StartCoroutine(switchToShootingTheCoin());
-            if (UIManager.UIManagerInstance)
-                UIManager.UIManagerInstance.OpenWinScreen();
             return;
         }
         for (int i = castleParts.Count - 1; i >= 0; i--)
@@ -88,9 +90,14 @@ public class CannonFinishManager : MonoBehaviour
 
     public void OpenWinScreen()
     {
+        cannonUI.SetActive(false);
         UIManager.UIManagerInstance.OpenWinScreen();
     }
 
+    public void SwitchToCannonCamera()
+    {
+        cannonCamera.gameObject.SetActive(true);
+    }
     public void AllowCannonAiming()
     {
         cannonMovementScript.active = true;
