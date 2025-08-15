@@ -9,14 +9,20 @@ public class CannonShooting : MonoBehaviour
     public float force;
     
     [Header("UI Counter")]
-    TextMeshProUGUI ammoCounter;
+    [SerializeField] TextMeshProUGUI ammoCounter;
 
+    [Header("Scripts")]
+    [SerializeField] CannonFinishManager cannonFinishManager;
+    
     public int currentAmmo = 50;
     public  int ammoPerShot = 1;
     public float interval = 0.15f;
 
+    private bool castleDestroyed = false;
+    private bool shootingTheCoinLastShot = false;
 
     private CannonMovement cannonMovementScript;
+    
 
     void Start()
     {
@@ -27,11 +33,36 @@ public class CannonShooting : MonoBehaviour
 
     public bool Fire()
     {
-        if (currentAmmo < ammoPerShot) return false;
+        if (currentAmmo < ammoPerShot)
+        {
+            if (shootingTheCoinLastShot)
+            {
+                currentAmmo = ammoPerShot;
+                shootingTheCoinLastShot = false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+            
         SpawnBullet();
         currentAmmo -= ammoPerShot;
         UpdateAmmoCounter();
-        if (currentAmmo < ammoPerShot) CancelInvoke(nameof(TickFire));
+        if (currentAmmo < ammoPerShot)
+        {
+            CancelInvoke(nameof(TickFire));
+            if (castleDestroyed)
+            {
+                // Open Win Screen for castle Destroyed (Modify later)
+                cannonFinishManager.OpenWinScreen();
+            }
+            else
+            {
+                // Open Win Screen for castle not Destroyed (Modify Later)
+                cannonFinishManager.OpenWinScreen();
+            }
+        }
         return true;
     }
 
@@ -61,6 +92,8 @@ public class CannonShooting : MonoBehaviour
     
     public void ShootTheCoin()
     {
+        castleDestroyed = true;
+        shootingTheCoinLastShot = true;
         interval *= 0.8f;
         ammoPerShot = 3;
         cannonMovementScript.AimAtCoin();

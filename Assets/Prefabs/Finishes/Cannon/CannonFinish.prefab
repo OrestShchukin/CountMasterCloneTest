@@ -3150,9 +3150,11 @@ MonoBehaviour:
   characterBullet: {fileID: 7157745228082753176, guid: 7841b2df598bab741a5b5b3e996a855f, type: 3}
   barrel: {fileID: 3817900092038660393}
   force: 24.2
+  ammoCounter: {fileID: 6135827797715119768}
+  cannonFinishManager: {fileID: 6525493853492839021}
   currentAmmo: 200
   ammoPerShot: 1
-  interval: 0.2
+  interval: 0.15
 --- !u!114 &9131130926439165434
 MonoBehaviour:
   m_ObjectHideFlags: 0

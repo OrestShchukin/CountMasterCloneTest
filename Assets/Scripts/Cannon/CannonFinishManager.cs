@@ -13,8 +13,6 @@ public class CannonFinishManager : MonoBehaviour
     [Header("Additional")]
     [SerializeField] private Explosion explosion;
     
-    
-    
     private List<Transform> castleParts = new ();
     private CannonShooting cannonShootingScript;
     private CannonMovement cannonMovementScript;
@@ -80,5 +78,11 @@ public class CannonFinishManager : MonoBehaviour
         coin.SetActive(true);
         Transform coinTransform = coin.transform;
         coinTransform.DOScale(new Vector3(2.31f, 2.31f, 2.31f), 2f).SetEase(Ease.InOutBounce);
+    }
+
+
+    public void OpenWinScreen()
+    {
+        UIManager.UIManagerInstance.OpenWinScreen();
     }
 }
