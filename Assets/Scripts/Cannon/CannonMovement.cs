@@ -21,8 +21,11 @@ public class CannonMovement : MonoBehaviour
     [SerializeField, Range(0f, 0.5f)] float dead = 0.05f; // мертва зона біля центру
     [SerializeField] float smooth = 12f;                  // плавність
 
+    public bool active;
+    
     float cy, cp;
     private bool stopAiming = false;
+    
 
     void Reset()
     {
@@ -38,7 +41,7 @@ public class CannonMovement : MonoBehaviour
 
     void Update()
     {
-        if (stopAiming) return;
+        if (stopAiming || !active) return;
         
         Vector2 pos;
         bool pressed;

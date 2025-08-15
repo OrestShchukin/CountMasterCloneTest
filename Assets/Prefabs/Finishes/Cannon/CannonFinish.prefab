@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8289993644615510280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -188,9 +188,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8357316240405329231}
   - component: {fileID: 6525493853492839021}
+  - component: {fileID: 7231887079317306872}
   m_Layer: 0
   m_Name: CannonFinishManager
-  m_TagString: Untagged
+  m_TagString: FinishCanonTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +205,7 @@ Transform:
   m_GameObject: {fileID: 2400004644623681859}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: -4.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,8 +226,30 @@ MonoBehaviour:
   cannon: {fileID: 4420307949340258908}
   castlePartsParent: {fileID: 1491844754115916928}
   coin: {fileID: 4223915850569450090}
+  cannonUI: {fileID: 1471139186623354411}
   explosion: {fileID: 439449513960103614}
   destroyedCounter: 0
+--- !u!65 &7231887079317306872
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400004644623681859}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 4, z: 1}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &2746331672871185924
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,9 +3135,10 @@ GameObject:
   - component: {fileID: 4420307949340258909}
   - component: {fileID: 516292339692981507}
   - component: {fileID: 9131130926439165434}
+  - component: {fileID: 4042083010816399130}
   m_Layer: 0
   m_Name: Cannon_15
-  m_TagString: Untagged
+  m_TagString: Cannon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3178,6 +3202,28 @@ MonoBehaviour:
   invertY: 0
   dead: 0.05
   smooth: 12
+  active: 0
+--- !u!65 &4042083010816399130
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420307949340258908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 70, y: 100, z: 100}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4572918976817413589
 GameObject:
   m_ObjectHideFlags: 0

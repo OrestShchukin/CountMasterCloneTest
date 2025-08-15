@@ -263,6 +263,7 @@ MonoBehaviour:
   playerSpawner: {fileID: 4265728094696369981}
   followerParent: {fileID: 3996186318184860820}
   mainCamera: {fileID: 0}
+  stickmansCounters: {fileID: 5306641586570759349}
 --- !u!114 &4265728094696369981
 MonoBehaviour:
   m_ObjectHideFlags: 0

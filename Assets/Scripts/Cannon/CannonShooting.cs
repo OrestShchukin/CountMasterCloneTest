@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 public class CannonShooting : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class CannonShooting : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] CannonFinishManager cannonFinishManager;
     
-    public int currentAmmo = 50;
+    public int currentAmmo = 0;
     public  int ammoPerShot = 1;
     public float interval = 0.15f;
 
@@ -23,9 +25,11 @@ public class CannonShooting : MonoBehaviour
 
     private CannonMovement cannonMovementScript;
     
+    
 
-    void Start()
+    public void StartShooting() // Use after the cannon was fully loaded with stickmans
     {
+        // Move camera to Position here ...
         StartAutoFire();
         cannonMovementScript = GetComponent<CannonMovement>();
         UpdateAmmoCounter();
@@ -103,5 +107,14 @@ public class CannonShooting : MonoBehaviour
     private void UpdateAmmoCounter()
     {
         ammoCounter.text = currentAmmo.ToString();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("blue"))
+        {
+            currentAmmo++;
+            other.gameObject.SetActive(false);
+        }
     }
 }

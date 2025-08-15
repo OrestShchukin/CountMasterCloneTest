@@ -6,9 +6,10 @@ using UnityEngine;
 public class CannonFinishManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private GameObject cannon;
+    public GameObject cannon;
     [SerializeField] private Transform castlePartsParent;
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject cannonUI;
     
     [Header("Additional")]
     [SerializeField] private Explosion explosion;
@@ -23,6 +24,10 @@ public class CannonFinishManager : MonoBehaviour
     
     public int destroyedCounter = 0;
 
+    void Awake()
+    {
+        cannonUI.SetActive(false);
+    }
     void Start()
     {
         cannonShootingScript = cannon.GetComponent<CannonShooting>();
@@ -84,5 +89,20 @@ public class CannonFinishManager : MonoBehaviour
     public void OpenWinScreen()
     {
         UIManager.UIManagerInstance.OpenWinScreen();
+    }
+
+    public void AllowCannonAiming()
+    {
+        cannonMovementScript.active = true;
+    }
+
+    public void StartShooting()
+    {
+        cannonShootingScript.StartShooting();
+    }
+
+    public void ActivateCannonUI()
+    {
+        cannonUI.SetActive(true);
     }
 }

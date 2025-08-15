@@ -22,6 +22,8 @@ TagManager:
   - FinishCastlePart
   - FinishCannonBullet
   - FinishCannonCoin
+  - FinishCanonTrigger
+  - Cannon
   layers:
   - Default
   - TransparentFX

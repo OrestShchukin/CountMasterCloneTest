@@ -25,6 +25,10 @@ public class PlayerControl : MonoBehaviour
     public static float userSensitivity;
 
     [Header("Camera")] public Camera mainCamera;
+
+    [Header("Additional")] [SerializeField]
+    private GameObject stickmansCounters;
+    
     
     private float currentX = 0f;
     private Vector2 lastTouchPosition;
@@ -35,18 +39,19 @@ public class PlayerControl : MonoBehaviour
     private Transform enemy;
     private float currentForwardSpeed;
 
-    
-    
+    // Cannon Finish
+    private bool moveTowardsObject;
+    private Transform destinationObject;
     
     private int inBossCloseRange = 0;
     
-
 
     void Awake()
     {
         playerControlInstance = this;
         inFinishZone = false;
         allowMovement = true;
+        moveTowardsObject = false;
     }
     void Start()
     { 
@@ -62,6 +67,10 @@ public class PlayerControl : MonoBehaviour
             if (attack)
             {
                 Attack();
+            }
+            else if (moveTowardsObject)
+            {
+                MoveStickMansTowards();
             }
             else if(allowMovement)
                 Move();
@@ -90,7 +99,7 @@ public class PlayerControl : MonoBehaviour
         direction = direction == default ? Vector3.forward : direction.normalized;
         if (inFinishZone) direction.x = 0;
         
-        currentForwardSpeed = attack ? attackSpeed : forwardSpeed;
+        currentForwardSpeed = (attack || moveTowardsObject) ? attackSpeed : forwardSpeed;
         currentForwardSpeed = overrideSpeed == 0 ? currentForwardSpeed: overrideSpeed;
         transform.Translate(direction * (currentForwardSpeed * Time.deltaTime));
         if (inFinishZone)
@@ -98,7 +107,7 @@ public class PlayerControl : MonoBehaviour
             transform.DOMoveX(0, 2f).SetEase(Ease.Linear);
             return;
         }
-        if (attack) return;
+        if (attack || moveTowardsObject) return;
 
 
 #if UNITY_EDITOR
@@ -167,21 +176,13 @@ public class PlayerControl : MonoBehaviour
 
     void Attack()
     {
-        if (enemy) 
+        if (enemy)
         {
+           
             Vector3 EnemyDirection = new Vector3(enemy.position.x, transform.position.y, enemy.position.z) -
                                      transform.position;
             
-
-            for (int i = 0; i < followerParent.childCount; i++)
-            {
-                Transform follower = followerParent.GetChild(i);
-
-                // Vector3 EnemyDirection = new Vector3(enemy.position.x, transform.position.y, enemy.position.z) - follower.position;
-                follower.rotation =
-                    Quaternion.Slerp(follower.rotation, Quaternion.LookRotation(EnemyDirection, Vector3.up),
-                        Time.deltaTime * 3f);
-            }
+            MoveStickMansTowards(EnemyDirection);
 
             Transform enemyParent = enemy.GetChild(1);
             if (enemyParent.childCount > 1)
@@ -210,6 +211,45 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+
+    void MoveStickMansTowards()
+    {
+        if (!destinationObject) return;
+        Vector3 TargetDirection = new Vector3(destinationObject.position.x, transform.position.y, destinationObject.position.z) -
+                                 transform.position;
+            
+
+        for (int i = 0; i < followerParent.childCount; i++)
+        {
+            Transform follower = followerParent.GetChild(i);
+            
+            follower.rotation =
+                Quaternion.Slerp(follower.rotation, Quaternion.LookRotation(TargetDirection, Vector3.up),
+                    Time.deltaTime * 3f);
+            
+            Vector3 Distance = destinationObject.position - follower.position;
+            
+                follower.position =
+                    Vector3.Lerp(follower.position, new Vector3(destinationObject.position.x,
+                        follower.position.y,
+                        destinationObject.position.z), Time.deltaTime * 1f);
+        }
+        
+        Move(TargetDirection);
+    }
+    
+    void MoveStickMansTowards(Vector3 TargetDirection)
+    {
+
+        for (int i = 0; i < followerParent.childCount; i++)
+        {
+            Transform follower = followerParent.GetChild(i);
+            
+            follower.rotation =
+                Quaternion.Slerp(follower.rotation, Quaternion.LookRotation(TargetDirection, Vector3.up),
+                    Time.deltaTime * 3f);
+        }
+    }
     
     void OnTriggerEnter(Collider other)
     {
@@ -235,7 +275,7 @@ public class PlayerControl : MonoBehaviour
         {
             playerSpawner.StickmansBuildPyramid();
             inFinishZone = true;
-            PlayerSpawner.playerSpawnerInstance.textCounter.gameObject.transform.parent.gameObject.SetActive(false);
+            stickmansCounters.SetActive(false);
             // UIManager.UIManagerInstance.OpenWinScreen();
             // gamestate = false;
             // playerSpawner.StickmansSetAnimDance();
@@ -272,8 +312,32 @@ public class PlayerControl : MonoBehaviour
             bossScript.setAnimationPunch();
             CameraSwitcher.cameraSwitcherInstance.ActivateCinemachineCamera(bossScript.bossCinemachineCamera);
         }
+        
+        
+        else if (other.CompareTag("FinishCanonTrigger"))
+        {
+            //PlayerSpawner go into cannon;
+            moveTowardsObject = true;
+            CannonFinishManager cannonFinishManager = other.GetComponent<CannonFinishManager>();
+            destinationObject = cannonFinishManager.cannon.transform;
+            StartCoroutine(GetCannonReady(cannonFinishManager));
+        }
     }
 
+    private IEnumerator GetCannonReady(CannonFinishManager cannonFinishManager)
+    {
+        yield return new WaitForSeconds(1f);
+        inFinishZone = true;
+        stickmansCounters.SetActive(false);
+        cannonFinishManager.ActivateCannonUI();
+        // move Camera here
+        yield return new WaitForSeconds(1f);
+        cannonFinishManager.AllowCannonAiming();
+        cannonFinishManager.StartShooting();
+        yield return new WaitForSeconds(1f);
+    }
+    
+    
     public void DelayOpenWinScreen()
     {
         StartCoroutine(DelayOpenWinScreenCoroutine());
