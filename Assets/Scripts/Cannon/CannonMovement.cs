@@ -22,7 +22,7 @@ public class CannonMovement : MonoBehaviour
     [SerializeField] float smooth = 12f;                  // плавність
 
     float cy, cp;
-    private bool aimAtCoin = false;
+    private bool stopAiming = false;
 
     void Reset()
     {
@@ -38,7 +38,7 @@ public class CannonMovement : MonoBehaviour
 
     void Update()
     {
-        if (aimAtCoin) return;
+        if (stopAiming) return;
         
         Vector2 pos;
         bool pressed;
@@ -84,11 +84,16 @@ public class CannonMovement : MonoBehaviour
 
     public void AimAtCoin()
     {
-        aimAtCoin = true;
+        StopAiming();
         Sequence sequence = DOTween.Sequence();
         if (yawPivot)   sequence.Append(yawPivot.DOLocalRotate(new Vector3(0f, 0f, 0f), 1f));
-        if (pitchPivot) sequence.Append(pitchPivot.DOLocalRotate(new Vector3(0f, -60f, 0f), 1f));
+        if (pitchPivot) sequence.Append(pitchPivot.DOLocalRotate(new Vector3(0f, -55f, 0f), 1f));
         sequence.Play();
+    }
+
+    public void StopAiming()
+    {
+        stopAiming = true;
     }
 
     Rect GetScreenRect()
