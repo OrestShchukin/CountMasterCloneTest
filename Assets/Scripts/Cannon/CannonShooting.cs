@@ -61,11 +61,14 @@ public class CannonShooting : MonoBehaviour
             {
                 // Open Win Screen for castle Destroyed (Modify later)
                 cannonFinishManager.OpenWinScreen();
+
             }
             else
             {
                 // Open Win Screen for castle not Destroyed (Modify Later)
                 cannonFinishManager.OpenWinScreen();
+                CannonFinishManager.play = false;
+                cannonMovementScript.active = false;
             }
         }
         return true;

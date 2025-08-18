@@ -23,7 +23,7 @@ public class CannonFinishManager : MonoBehaviour
     private CoinManager coinManagerScript;
 
     
-    private bool play = true;
+    public static bool play = true;
     
     public int destroyedCounter = 0;
 
@@ -31,6 +31,8 @@ public class CannonFinishManager : MonoBehaviour
     {
         cannonUI.SetActive(false);
         cannonCamera.gameObject.SetActive(false);
+        destroyedCounter = 0;
+        play = true;
     }
     void Start()
     {
