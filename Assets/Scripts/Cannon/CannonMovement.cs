@@ -24,7 +24,9 @@ public class CannonMovement : MonoBehaviour
     [Header("Aim visual")] 
     [SerializeField] LayerMask targetMask;    // Castle/Enemies/Environment
     [SerializeField] LayerMask catchMask;      // по яких шарах “цілимось”
-    [SerializeField] RectTransform crosshair;   // UI-іконка прицілу всередині aimArea
+    [SerializeField] RectTransform crosshair;
+    [SerializeField] RectTransform canvasRectTransform;
+    // UI-іконка прицілу всередині aimArea
 
     private Camera cam; // основна камера (для WorldToScreenPoint)
     private Transform muzzle; // кінець ствола (звідси кидаємо промінь)
@@ -181,13 +183,13 @@ public class CannonMovement : MonoBehaviour
 
         Rect r = GetScreenRect();
         sp.x = Mathf.Clamp(sp.x, r.xMin, r.xMax);
-        sp.y = Mathf.Clamp(sp.y, r.yMin, r.yMax);
+        // sp.y = Mathf.Clamp(sp.y, r.yMin, r.yMax);
 
         
         
         // Screen → local
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(aimArea, sp, null, out var local);
-
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, sp, null, out var local);
+        // local.y -= 700f;
         // Додаткове згладжування, щоб прибрати дрібний “діринг”
         crosshair.anchoredPosition = Vector2.SmoothDamp(
             crosshair.anchoredPosition, local, ref crosshairVel, 0.05f
