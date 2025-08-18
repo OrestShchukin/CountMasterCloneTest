@@ -106,7 +106,10 @@ public class CannonShooting : MonoBehaviour
         castleDestroyed = true;
         shootingTheCoinLastShot = true;
         interval *= 0.8f;
-        ammoPerShot = 3;
+        if (currentAmmo > 40)
+        {
+            ammoPerShot = 3;
+        }
         cannonMovementScript.AimAtCoin();
         Invoke(nameof(StartAutoFire), 2f);
     }

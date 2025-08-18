@@ -17,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Other essentials")] public Transform followersParent;
     
     float segmentLength = 10f;
-    float currentZ = 10f; 
+    float currentZ = 20f; 
     int currentObstaclesInRow = 3;  
     int gatesPassedSinceFight = 0;
     
