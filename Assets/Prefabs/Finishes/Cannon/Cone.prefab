@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6789102746380725917}
   - component: {fileID: 5037215332380390339}
   - component: {fileID: 8500306095357071551}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cone
   m_TagString: FinishCastlePart
   m_Icon: {fileID: 0}

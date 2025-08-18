@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2937473405603732862}
   - component: {fileID: 2764776785731331837}
   - component: {fileID: -9069682511186025755}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Triangle
   m_TagString: FinishCastlePart
   m_Icon: {fileID: 0}

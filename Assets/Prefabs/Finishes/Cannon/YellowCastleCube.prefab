@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5185406961830738671}
   - component: {fileID: 5290658095279358316}
   - component: {fileID: -7478722625056716361}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: YellowCastleCube
   m_TagString: FinishCastlePart
   m_Icon: {fileID: 0}

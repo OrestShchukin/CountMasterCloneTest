@@ -21,13 +21,32 @@ public class CannonMovement : MonoBehaviour
     [SerializeField, Range(0f, 0.5f)] float dead = 0.05f; // мертва зона біля центру
     [SerializeField] float smooth = 12f;                  // плавність
 
+    [Header("Aim visual")] 
+    [SerializeField] LayerMask targetMask;    // Castle/Enemies/Environment
+    [SerializeField] LayerMask catchMask;      // по яких шарах “цілимось”
+    [SerializeField] RectTransform crosshair;   // UI-іконка прицілу всередині aimArea
+
+    private Camera cam; // основна камера (для WorldToScreenPoint)
+    private Transform muzzle; // кінець ствола (звідси кидаємо промінь)
+
+    private Vector2 crosshairVel;
+    
+    
+    private CannonShooting cannonShootingScript;
+    
     public bool active;
     private bool firstPress = true;
     
     float cy, cp;
     private bool stopAiming = false;
-    
 
+    void Awake()
+    {
+        cannonShootingScript = GetComponent<CannonShooting>();
+        muzzle = cannonShootingScript.barrel;
+        cam = Camera.main;
+    }
+    
     void Reset()
     {
         if (!yawPivot)   yawPivot   = transform;
@@ -38,6 +57,7 @@ public class CannonMovement : MonoBehaviour
     {
         cy = Normalize(yawPivot.localEulerAngles.y);
         cp = Normalize(pitchPivot.localEulerAngles.x);
+        StartAiming();
     }
 
     void Update()
@@ -77,6 +97,8 @@ public class CannonMovement : MonoBehaviour
         // 6) застосовуємо
         if (yawPivot)   yawPivot.localRotation   = Quaternion.Euler(0f, 0f, cy);
         if (pitchPivot) pitchPivot.localRotation = Quaternion.Euler(0f, cp, 0f);
+        
+        UpdateAimReticle();
     }
 
     void GetPointer(out Vector2 pos, out bool pressed)
@@ -101,9 +123,16 @@ public class CannonMovement : MonoBehaviour
         sequence.Play();
     }
 
+    public void StartAiming()
+    {
+        stopAiming = false;
+        if (crosshair) crosshair.gameObject.SetActive(true);
+        
+    }
     public void StopAiming()
     {
         stopAiming = true;
+        if (crosshair) crosshair.gameObject.SetActive(false);
     }
 
     Rect GetScreenRect()
@@ -119,4 +148,50 @@ public class CannonMovement : MonoBehaviour
     }
 
     static float Normalize(float a) { a %= 360f; if (a > 180f) a -= 360f; return a; }
+    
+    
+    void UpdateAimReticle()
+    {
+        if (!cam || !muzzle || !crosshair || !aimArea) return;
+
+        Vector3 aimPoint;
+        Ray ray = new Ray(muzzle.position, muzzle.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+
+        // 1) Спочатку — реальні цілі
+        if (Physics.Raycast(ray, out var hit, 5000f, targetMask))
+        {
+            aimPoint = hit.point;
+        }
+        // 2) Якщо промах — ловимося на невидимій площині
+        else if (Physics.Raycast(ray, out hit, 5000f, catchMask))
+        {
+            aimPoint = hit.point;
+        }
+        // 3) На крайній випадок — далека точка по променю
+        else
+        {
+            aimPoint = ray.GetPoint(200f);
+        }
+
+
+        Vector3 sp = cam.WorldToScreenPoint(aimPoint);
+        if (sp.z < 0f) { crosshair.gameObject.SetActive(false); return; }
+        crosshair.gameObject.SetActive(true);
+
+        Rect r = GetScreenRect();
+        sp.x = Mathf.Clamp(sp.x, r.xMin, r.xMax);
+        sp.y = Mathf.Clamp(sp.y, r.yMin, r.yMax);
+
+        
+        
+        // Screen → local
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(aimArea, sp, null, out var local);
+
+        // Додаткове згладжування, щоб прибрати дрібний “діринг”
+        crosshair.anchoredPosition = Vector2.SmoothDamp(
+            crosshair.anchoredPosition, local, ref crosshairVel, 0.05f
+        );
+    }
+
 }

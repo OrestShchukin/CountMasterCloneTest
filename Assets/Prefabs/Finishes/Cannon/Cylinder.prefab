@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7648961177074997597}
   - component: {fileID: 8782894191640125688}
   - component: {fileID: 7670224412271304087}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: FinishCastlePart
   m_Icon: {fileID: 0}
