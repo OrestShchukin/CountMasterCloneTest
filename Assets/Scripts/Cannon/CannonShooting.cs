@@ -16,6 +16,8 @@ public class CannonShooting : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] CannonFinishManager cannonFinishManager;
     
+    
+    
     public int currentAmmo = 0;
     public  int ammoPerShot = 1;
     public float interval = 0.15f;
@@ -81,6 +83,7 @@ public class CannonShooting : MonoBehaviour
 
     public void StartAutoFire()
     {
+        cannonFinishManager.HideCannonMovementUI();
         CancelInvoke(nameof(TickFire)); // на всяк випадок
         InvokeRepeating(nameof(TickFire), 0f, interval);
     }

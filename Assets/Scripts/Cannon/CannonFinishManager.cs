@@ -16,6 +16,7 @@ public class CannonFinishManager : MonoBehaviour
     [SerializeField] private Explosion explosion;
 
     [SerializeField] private CinemachineCamera cannonCamera;
+    [SerializeField] private GameObject cannonMovementUI;
     
     private List<Transform> castleParts = new ();
     private CannonShooting cannonShootingScript;
@@ -113,5 +114,10 @@ public class CannonFinishManager : MonoBehaviour
     public void ActivateCannonUI()
     {
         cannonUI.SetActive(true);
+    }
+
+    public void HideCannonMovementUI()
+    {
+        cannonMovementUI.SetActive(false);
     }
 }
