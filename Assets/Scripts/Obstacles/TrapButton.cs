@@ -1,6 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
-public enum TrapType { HorizontalTrap, SpikesTrap }
+public enum TrapType { HorizontalTrap, SpikesTrap, Bridge }
 
 
 public class TrapButton : MonoBehaviour
@@ -21,7 +21,11 @@ public class TrapButton : MonoBehaviour
             spikesTrap.DeactivateTrap();
         }
         AnimateButton();
-
+        if (trapType == TrapType.Bridge)
+        {
+            BridgeManager bridgeManager = transform.parent.parent.GetComponent<BridgeManager>();
+            bridgeManager.ActivateBridge();
+        }
     }
 
     void AnimateButton()
