@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5116656897135582422}
   - component: {fileID: 877482924300737807}
   - component: {fileID: 185820222812533831}
+  - component: {fileID: 4406743919805618202}
   m_Layer: 0
   m_Name: Wooden Crate
   m_TagString: WoodenBox
@@ -74,12 +75,26 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.4799955, y: 1.5004808, z: 1.6193749}
   m_Center: {x: 0.0026469931, y: 0.74975795, z: 0}
+--- !u!114 &4406743919805618202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003893886525460965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9c1459fa1812db42ad19d6f09fd5c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthCounter: {fileID: 4718049620342102837}
+  health: 50
 --- !u!1 &1333596822599855906
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +224,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 9.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

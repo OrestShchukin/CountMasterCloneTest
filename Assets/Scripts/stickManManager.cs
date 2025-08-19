@@ -13,6 +13,13 @@ public class stickManManager : MonoBehaviour
     float jumpHeight = 4f, jumpDuration = 2f;
 
     public static int areJumpingCount = 0, areFallingCount = 0;
+
+
+    [Header("Shooting")] 
+    [SerializeField] GameObject arrow;
+    [SerializeField] float force = 500;
+    [SerializeField] float interval = 0.5f;
+    
     
     PlayerSpawner playerSpawner;
     bool wasAttacked = false;
@@ -56,6 +63,11 @@ public class stickManManager : MonoBehaviour
                 Instantiate(bloodParticles, transform.position, Quaternion.identity);
                 // playerSpawner.ScheduleRegroup();
                 break;
+            case "WoodenBox":
+                playerSpawner.DestroyAndDelete(this.gameObject);
+                Instantiate(bloodParticles, transform.position, Quaternion.identity);
+                playerSpawner.PauseRegroup();
+                break;
             case "Gap":
                 playerSpawner.PauseRegroup();
                 areFallingCount += 1;
@@ -66,6 +78,12 @@ public class stickManManager : MonoBehaviour
                 playerSpawner.DestroyAndDelete(this.gameObject);
                 Instantiate(bloodParticles, transform.position, Quaternion.identity);
                 // playerSpawner.ScheduleRegroup();
+                break;
+            case "ShootingAreaTrigger":
+                StartAutoFire();
+                break;
+            case "ShootingAreaEndTrigger":
+                StopAutoFire();
                 break;
         }
     }
@@ -106,4 +124,28 @@ public class stickManManager : MonoBehaviour
             areFallingCount -= 1;
         }
     }
+
+    public void StartAutoFire()
+    {
+        CancelInvoke(nameof(Shoot)); // на всяк випадок
+        InvokeRepeating(nameof(Shoot), 0f, interval);
+    }
+    
+    public void Shoot()
+    {
+        SpawnBullet();
+    }
+
+    public void StopAutoFire()
+    {
+        CancelInvoke(nameof(Shoot));
+    }
+    
+    private void SpawnBullet()
+    {
+        GameObject bullet = Instantiate(arrow, transform.position, transform.rotation);
+        bullet.GetComponent<Rigidbody>().linearVelocity = Vector3.forward * (force);
+        Destroy(bullet, 3f);
+    }
+
 }

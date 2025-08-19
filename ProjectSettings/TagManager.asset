@@ -25,6 +25,9 @@ TagManager:
   - FinishCanonTrigger
   - Cannon
   - WoodenBox
+  - ShootingAreaTrigger
+  - ShootingAreaEndTrigger
+  - ShootingAreaArrow
   layers:
   - Default
   - TransparentFX

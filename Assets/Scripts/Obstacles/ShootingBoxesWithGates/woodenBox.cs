@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,10 @@ public class woodenBox : MonoBehaviour
     {
         health--;
         healthCounter.text = health.ToString();
+        if (health <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void UpdateHealthCounter()
@@ -19,8 +24,13 @@ public class woodenBox : MonoBehaviour
         healthCounter.text = health.ToString();
     }
     // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("ShootingAreaArrow"))
+        {
+            DecreaseHealth();
+            Destroy(other.gameObject);
+        }
     }
 }
