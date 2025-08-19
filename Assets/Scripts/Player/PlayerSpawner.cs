@@ -420,11 +420,10 @@ public class PlayerSpawner : MonoBehaviour
         public GameObject occupant; // follower або null
     }
 
-// Технічні структури
+
     readonly List<Slot> _slots = new List<Slot>();
     readonly Dictionary<GameObject, int> _followerToSlot = new Dictionary<GameObject, int>();
 
-// Виклик при тригері
     public void EngageEnemy(Transform enemy)
     {
         if (enemy == null) return;
@@ -434,15 +433,11 @@ public class PlayerSpawner : MonoBehaviour
         followers.RemoveAll(f => f == null);
 
         BuildSlotsForCount(followers.Count, out var perRing, out var radii);
-
-        // Розкладаємо по кільцях: ближчі — у внутрішнє кільце, далі — зовнішні
+        
         AssignFollowersToSlots(perRing, radii);
-
-        // Затвінути всіх у свої слоти
+        
         TweenFollowersToSlots();
     }
-
-// Вихід із режиму оточення
     public void DisengageEnemy()
     {
         isEngaging = false;
@@ -451,8 +446,7 @@ public class PlayerSpawner : MonoBehaviour
         _followerToSlot.Clear();
         // Далі можеш викликати свій FormatStickMan(), щоб повернутися до звичної формації
     }
-
-// Обов'язково встав у DestroyAndDelete ПЕРЕД Destroy(item);
+    
     void HandleFollowerDeathInEngage(GameObject dead)
     {
         if (!isEngaging || dead == null) return;
@@ -501,7 +495,7 @@ public class PlayerSpawner : MonoBehaviour
         }
     }
 
-// ---------------- helpers ----------------
+    // ---------------- helpers ----------------
 
     float AngleDelta(float a, float b)
     {
@@ -677,6 +671,13 @@ public class PlayerSpawner : MonoBehaviour
         followers.RemoveAll(f => f == null);
         return followers.Count;
     }
+    
+    
+    
+    
+    
+    
+    
     
 
 

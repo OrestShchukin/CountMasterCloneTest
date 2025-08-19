@@ -68,7 +68,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4522226458369795637, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}
       propertyPath: m_VersionIndex
-      value: 3481
+      value: 3484
       objectReference: {fileID: 0}
     - target: {fileID: 4813452200220277167, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}
       propertyPath: trapType
@@ -124,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337048343364748708, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}
       propertyPath: m_VersionIndex
-      value: 3107
+      value: 3110
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2858422506258593599, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}

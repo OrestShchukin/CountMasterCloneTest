@@ -365,7 +365,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  CustomBlends: {fileID: 0}
+  CustomBlends: {fileID: 11400000, guid: fd1ac465390c6084d890b11f380d9159, type: 2}
 --- !u!114 &2078303950190549671
 MonoBehaviour:
   m_ObjectHideFlags: 0

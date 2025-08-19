@@ -5,6 +5,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Prefabs")] public List<GameObject> basicObstaclePrefabs;
     public List<GameObject> doubleSizeObstaclePrefabs;
     public List<GameObject> gatePrefabs;
+    public GameObject shootingRangePrefab;
     public GameObject enemySpawnerPrefab;
     public List<GameObject> finishLinePrefabsList;
     public GameObject planePrefab;
@@ -17,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
     [Header("Other essentials")] public Transform followersParent;
     
     float segmentLength = 10f;
-    float currentZ = 10f; 
+    float currentZ = 20f; 
     int currentObstaclesInRow = 3;  
     int gatesPassedSinceFight = 0;
     
@@ -64,7 +65,14 @@ public class LevelGenerator : MonoBehaviour
 
         if (currentObstaclesInRow >= 4)
         {
-            SpawnGate(spawnPos);
+            if (Random.value > 0.8f && segmentIndex > 10)
+            {
+                SpawnShootingRange(spawnPos);
+            }
+            else
+            {
+                SpawnGate(spawnPos);
+            }
         }
         else
         {
@@ -133,6 +141,12 @@ public class LevelGenerator : MonoBehaviour
         currentObstaclesInRow += 4;
         gatesPassedSinceFight = 0;
         currentZ += segmentLength;
+    }
+
+    void SpawnShootingRange(Vector3 position)
+    {
+        Instantiate(shootingRangePrefab, position, Quaternion.identity, levelParent);
+        currentZ += segmentLength * 5;
     }
 
     void SpawnFinishLine(Vector3 position)

@@ -80,7 +80,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -101,6 +101,9 @@ MonoBehaviour:
   bloodParticles: {fileID: 1172024633664188667, guid: 003977040777a7344be32c3d7ec5f4a7, type: 3}
   jumpHeight: 4
   jumpDuration: 1.25
+  arrow: {fileID: 6357385920467564888, guid: 489be5d865efa3d48a17dd33205769fc, type: 3}
+  force: 30
+  interval: 0.7
 --- !u!1001 &2614242616269703617
 PrefabInstance:
   m_ObjectHideFlags: 0
