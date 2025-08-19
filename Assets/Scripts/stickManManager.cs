@@ -66,7 +66,6 @@ public class stickManManager : MonoBehaviour
             case "WoodenBox":
                 playerSpawner.DestroyAndDelete(this.gameObject);
                 Instantiate(bloodParticles, transform.position, Quaternion.identity);
-                playerSpawner.PauseRegroup();
                 break;
             case "Gap":
                 playerSpawner.PauseRegroup();

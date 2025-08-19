@@ -16,10 +16,7 @@ public class GateControl : MonoBehaviour
     [SerializeField] bool randomAction = true;
     
     public GateType gateType = GateType.Add;
-    
-    
     public int value = 10;
-
 
     
 

@@ -2,11 +2,11 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class woodenBox : MonoBehaviour
+public class WoodenBox : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private TextMeshPro healthCounter;
-    public float health = 5;
+    public int health = 5;
 
 
     public void DecreaseHealth()
