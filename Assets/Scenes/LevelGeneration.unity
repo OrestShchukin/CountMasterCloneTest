@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 286523056839756720, guid: 0a45a01585804b347a17eb308097b5b5, type: 3}
   gatePrefabs:
   - {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
+  shootingRangePrefab: {fileID: 8709604160679145044, guid: 3fe8bf35ab7354f4398dc5b0471c7755, type: 3}
   enemySpawnerPrefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
   finishLinePrefabsList:
   - {fileID: 508577547077769157, guid: 4c32e6e0e193f7e499f07c0f4292fb2d, type: 3}
@@ -671,31 +672,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41295052
+      value: -9.14705
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.17
+      value: 18.443472
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -104.95574
+      value: -112.99317
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9171224
+      value: 0.9545009
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.114791974
+      value: 0.29820797
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.37876347
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.047408078
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518730648283681831, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: TiltAxis.Value
