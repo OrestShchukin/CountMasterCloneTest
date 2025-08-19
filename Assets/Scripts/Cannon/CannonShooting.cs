@@ -34,7 +34,7 @@ public class CannonShooting : MonoBehaviour
     }
     public void StartShooting() // Use after the cannon was fully loaded with stickmans
     {
-        StartAutoFire();
+        Invoke(nameof(StartAutoFire),0.3f);
         UpdateAmmoCounter();
     }
 
@@ -87,6 +87,7 @@ public class CannonShooting : MonoBehaviour
         CancelInvoke(nameof(TickFire)); // на всяк випадок
         InvokeRepeating(nameof(TickFire), 0f, interval);
     }
+    
 
     public void StopAutoFire()
     {

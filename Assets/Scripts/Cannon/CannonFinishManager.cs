@@ -30,6 +30,7 @@ public class CannonFinishManager : MonoBehaviour
 
     void Awake()
     {
+        coin.SetActive(false);
         cannonUI.SetActive(false);
         cannonCamera.gameObject.SetActive(false);
         destroyedCounter = 0;
@@ -71,12 +72,11 @@ public class CannonFinishManager : MonoBehaviour
 
     IEnumerator switchToShootingTheCoin()
     {
+        ActivateCoin();
         cannonShootingScript.StopAutoFire();
         cannonMovementScript.AimAtCoin();
         yield return new WaitForSeconds(0.4f);
         explosion.Explode();
-        yield return new WaitForSeconds(0.3f);
-        ActivateCoin();
         yield return new WaitForSeconds(1f);
         cannonShootingScript.ShootTheCoin();
         coinManagerScript.duration = cannonShootingScript.interval;
