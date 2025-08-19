@@ -24,6 +24,7 @@ TagManager:
   - FinishCannonCoin
   - FinishCanonTrigger
   - Cannon
+  - WoodenBox
   layers:
   - Default
   - TransparentFX
