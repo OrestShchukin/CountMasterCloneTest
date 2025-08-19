@@ -210,7 +210,7 @@ MonoBehaviour:
   platform: {fileID: 2223548193361447807}
   range: 2.75
   speed: 1.5
-  startX: -2.6
+  startX: -2.55
 --- !u!1 &3547876243791542469
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
   platform: {fileID: 7327888695518477036}
   range: 2.75
   speed: 1.5
-  startX: -2.5
+  startX: -2.35
 --- !u!1 &8018928786687222836
 GameObject:
   m_ObjectHideFlags: 0

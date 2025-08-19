@@ -168,6 +168,9 @@ MonoBehaviour:
   doubleSizeObstaclePrefabs:
   - {fileID: 1316479622156315544, guid: 378cde79749abfa46a05eeb72b5de12b, type: 3}
   - {fileID: 286523056839756720, guid: 0a45a01585804b347a17eb308097b5b5, type: 3}
+  - {fileID: 5725449778145807363, guid: 69c446ec048bcd84ea3be6c9aba1bfac, type: 3}
+  - {fileID: 102110494989698750, guid: 9c759c17a090edb4292f8bb1d58b0757, type: 3}
+  - {fileID: 7120594682803447811, guid: 2eda5a1e0067fd34fa9061da70eb97f1, type: 3}
   gatePrefabs:
   - {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
   shootingRangePrefab: {fileID: 8709604160679145044, guid: 3fe8bf35ab7354f4398dc5b0471c7755, type: 3}
