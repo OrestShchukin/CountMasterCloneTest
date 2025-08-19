@@ -1,7 +1,6 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
+
 
 public class CannonShooting : MonoBehaviour
 {
