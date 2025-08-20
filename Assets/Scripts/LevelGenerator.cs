@@ -75,8 +75,7 @@ public class LevelGenerator : MonoBehaviour
             SpawnElement();
         }
     }
-    //
-    //
+
     void SpawnElement()
     {
         Vector3 spawnPos = new Vector3(0, 0, currentZ);
@@ -118,52 +117,51 @@ public class LevelGenerator : MonoBehaviour
         currentObstaclesInRow = 0;
         int index = Random.Range(0, gatesList.Count - 1);
         PlatformDef gateDef = gatesList[index];
-        GameObject gate = Instantiate(gateDef.prefab, position, Quaternion.identity, levelParent);
-        currentZ += gateDef.length;
-        segmentIndex += (int)(gateDef.length / segmentLength);
+        SpawnElementFromDef(gateDef, position);
         gatesPassedSinceFight += 1;
         
     }
 
     void SpawnObstacle(Vector3 position)
     {
-    
-        int index = Random.Range(0, obstaclesList.Count);
-        PlatformDef obstacleDef = obstaclesList[index];
-        GameObject obstacle = Instantiate(obstacleDef.prefab, position, Quaternion.identity, levelParent);
-        currentZ += obstacleDef.length;
-        segmentIndex += (int)(obstacleDef.length / segmentLength);
+        SpawnElementFromList(obstaclesList, position);
         currentObstaclesInRow += 1;
     }
     
     void SpawnEnemy(Vector3 position)
     {
-        Instantiate(enemySpawnerDef.prefab, position, Quaternion.identity, levelParent);
-        
-    
+        SpawnElementFromDef(enemySpawnerDef, position);
         currentObstaclesInRow += 4;
         gatesPassedSinceFight = 0;
-        currentZ += enemySpawnerDef.length;
-        segmentIndex += (int)(enemySpawnerDef.length / segmentLength);
     }
     
     void SpawnShootingRange(Vector3 position)
     {
         PlatformDef shootingRangeDef = gatesList.Last(); 
-        Instantiate(shootingRangeDef.prefab, position, Quaternion.identity, levelParent);
-        currentZ += shootingRangeDef.length;
-        segmentIndex =+ (int)(shootingRangeDef.length /  segmentLength);
+        SpawnElementFromDef(shootingRangeDef, position);
         currentObstaclesInRow = 0;
     }
     
     void SpawnFinishLine(Vector3 position)
     {
-        int index = Random.Range(0, finishLinePrefabsList.Count);
-        PlatformDef finishPrefaDef = finishLinePrefabsList[index];
-        
-        Instantiate(finishPrefaDef.prefab, position, Quaternion.identity, levelParent);
-
-        currentZ += finishPrefaDef.length;
-        segmentIndex += (int)(finishPrefaDef.length / segmentLength);
+        SpawnElementFromList(finishLinePrefabsList, position);
     }
+
+
+    void SpawnElementFromList(List<PlatformDef> elementsList, Vector3 position)
+    {
+        int index = Random.Range(0, elementsList.Count);
+        PlatformDef elementDef = elementsList[index];
+        Instantiate(elementDef.prefab, position, Quaternion.identity, levelParent);
+        currentZ += elementDef.length;
+        segmentIndex += (int)(elementDef.length / segmentLength);
+    }
+
+    void SpawnElementFromDef(PlatformDef elementDef, Vector3 position)
+    {
+        Instantiate(elementDef.prefab, position, Quaternion.identity, levelParent);
+        currentZ += elementDef.length;
+        segmentIndex += (int)(elementDef.length / segmentLength);
+    }
+    
 }
