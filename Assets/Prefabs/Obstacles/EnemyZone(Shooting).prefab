@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8157297862953261239, guid: 36921c1cdf59ffb4dac6b28132c12ca2, type: 3}
+      propertyPath: m_TagString
+      value: EnemyZoneShootingAttack
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2689138407389716927, guid: 36921c1cdf59ffb4dac6b28132c12ca2, type: 3}
     m_RemovedGameObjects: []
@@ -151,4 +155,6 @@ MonoBehaviour:
   ZoneOutline: {fileID: 1229283523728588750}
   enemy: {fileID: 0}
   attack: 0
-  interval: 1
+  interval: 2
+  followersToShoot: []
+  redList: []

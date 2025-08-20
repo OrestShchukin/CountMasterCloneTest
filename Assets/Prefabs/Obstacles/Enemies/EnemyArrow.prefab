@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 4
+  speed: 10
   turnSpeedDeg: 720
   stickDistance: 0.2
   alignForward: 1

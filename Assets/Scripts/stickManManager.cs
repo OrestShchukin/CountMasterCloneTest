@@ -51,6 +51,9 @@ public class stickManManager : MonoBehaviour
                     Instantiate(fightParticles, transform.position, Quaternion.identity);
                 }
                 break;
+            case "redArcher":
+                Destroy(other.gameObject);
+                break;
             case "Ramp":
                 playerSpawner.PauseRegroup();
                 areJumpingCount += 1;
