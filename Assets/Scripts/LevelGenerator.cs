@@ -12,16 +12,15 @@ public class LevelGenerator : MonoBehaviour
         public GameObject prefab;
         public float length;
     }
-    
-    
-        
+
+
     [Header("Generation Settings")] public int numberOfSegments = 10;
-    
+
     [SerializeField] Transform levelParent;
     [SerializeField] Transform player;
 
     [Header("Other essentials")] public Transform followersParent;
-    
+
     public static int segmentIndex;
     public static float pathDistance;
 
@@ -29,27 +28,28 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private List<PlatformDef> obstaclesList = new();
     [SerializeField] private List<PlatformDef> gatesList = new();
     [SerializeField] private List<PlatformDef> finishLinePrefabsList = new();
-    [SerializeField] private PlatformDef enemySpawnerDef;
-    
+    [SerializeField] private List<PlatformDef> enemyObstaclesList = new();
+
     float segmentLength = 10f;
-    float currentZ = 20f; 
-    int currentObstaclesInRow = 3;  
+    float currentZ = 20f;
+    int currentObstaclesInRow = 3;
     int gatesPassedSinceFight = 0;
-    
-    
+
+
     void Awake()
     {
         segmentIndex = 0;
         StartLevelGeneration();
         pathDistance = numberOfSegments * segmentLength;
     }
+
     //
     void FixedUpdate()
     {
         if (PlayerControl.inFinishZone || levelParent.childCount == 0) return;
-        
+
         Transform firstChild = levelParent.GetChild(0);
-        
+
         if (player.position.z - segmentLength * 5 > firstChild.position.z)
         {
             if (segmentIndex < numberOfSegments)
@@ -59,7 +59,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-    
+
     void StartLevelGeneration()
     {
         for (segmentIndex = 0; segmentIndex < 15;)
@@ -71,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
     void SpawnElement()
     {
         Vector3 spawnPos = new Vector3(0, 0, currentZ);
-    
+
         if (currentObstaclesInRow >= 4)
         {
             if (Random.value > 0.8f && segmentIndex > 10)
@@ -94,16 +94,16 @@ public class LevelGenerator : MonoBehaviour
                 SpawnObstacle(spawnPos);
             }
         }
-        
-    
+
+
         if (segmentIndex >= numberOfSegments)
         {
             spawnPos = new Vector3(0, 0, currentZ);
             SpawnFinishLine(spawnPos);
         }
     }
-    
-    
+
+
     void SpawnGate(Vector3 position)
     {
         currentObstaclesInRow = 0;
@@ -111,7 +111,6 @@ public class LevelGenerator : MonoBehaviour
         PlatformDef gateDef = gatesList[index];
         SpawnElementFromDef(gateDef, position);
         gatesPassedSinceFight += 1;
-        
     }
 
     void SpawnObstacle(Vector3 position)
@@ -119,21 +118,21 @@ public class LevelGenerator : MonoBehaviour
         SpawnElementFromList(obstaclesList, position);
         currentObstaclesInRow += 1;
     }
-    
+
     void SpawnEnemy(Vector3 position)
     {
-        SpawnElementFromDef(enemySpawnerDef, position);
+        SpawnElementFromList(enemyObstaclesList, position);
         currentObstaclesInRow += 4;
         gatesPassedSinceFight = 0;
     }
-    
+
     void SpawnShootingRange(Vector3 position)
     {
-        PlatformDef shootingRangeDef = gatesList.Last(); 
+        PlatformDef shootingRangeDef = gatesList.Last();
         SpawnElementFromDef(shootingRangeDef, position);
         currentObstaclesInRow = 0;
     }
-    
+
     void SpawnFinishLine(Vector3 position)
     {
         SpawnElementFromList(finishLinePrefabsList, position);
@@ -155,5 +154,4 @@ public class LevelGenerator : MonoBehaviour
         currentZ += elementDef.length;
         segmentIndex += (int)(elementDef.length / segmentLength);
     }
-    
 }

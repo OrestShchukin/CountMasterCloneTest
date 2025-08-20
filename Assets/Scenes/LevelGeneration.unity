@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.20392157, g: 0.73333335, b: 0.8862745, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2115c6481639744d9ddfb5bf36f5121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfSegments: 17
+  numberOfSegments: 25
   levelParent: {fileID: 178534688}
   player: {fileID: 1922672616}
   followersParent: {fileID: 65848090}
@@ -187,6 +187,10 @@ MonoBehaviour:
     length: 10
   - prefab: {fileID: 6239916856158906090, guid: af243d78c5d68e04babbc9e9cfd899e0, type: 3}
     length: 10
+  - prefab: {fileID: 1856670628953139081, guid: 882a2929e96ffb14fad1d20a8e1bbaed, type: 3}
+    length: 10
+  - prefab: {fileID: 3634840708388327247, guid: 98c2ab2cbfa73444589e182da32c6cf3, type: 3}
+    length: 10
   gatesList:
   - prefab: {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
     length: 10
@@ -199,9 +203,11 @@ MonoBehaviour:
     length: 60
   - prefab: {fileID: 2746331672871185924, guid: 84c484c9392de9d458ec7793f0b61cff, type: 3}
     length: 60
-  enemySpawnerDef:
-    prefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
+  enemyObstaclesList:
+  - prefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
     length: 20
+  - prefab: {fileID: 6592493845102586048, guid: 714820e025e743a4c8c7525b32cdd52d, type: 3}
+    length: 40
 --- !u!4 &178534688
 Transform:
   m_ObjectHideFlags: 0
@@ -693,31 +699,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.3470497
+      value: -9.14705
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.17
+      value: 18.443472
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -112.05574
+      value: -112.99317
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97475666
+      value: 0.9545009
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.053589195
+      value: 0.29820797
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.2164167
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6460349878264963753, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011897942
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518730648283681831, guid: 7940120ec0dd2e14baeb201284c4ec2c, type: 3}
       propertyPath: TiltAxis.Value

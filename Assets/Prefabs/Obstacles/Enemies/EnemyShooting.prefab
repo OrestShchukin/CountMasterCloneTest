@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3606857544020229069}
   m_Layer: 0
   m_Name: EnemyShooting
-  m_TagString: Untagged
+  m_TagString: EnemyZoneShootingAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
