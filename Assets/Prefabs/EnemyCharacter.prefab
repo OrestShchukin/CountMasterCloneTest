@@ -69,6 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10663de83fbf72f44a62e82e8ec51281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyArrow: {fileID: 6357385920467564888, guid: 3232a556e5e6e8a42a53bdde7540433a, type: 3}
+  force: 30
   collidedWithEnemy: 0
 --- !u!1001 &2614242616269703617
 PrefabInstance:

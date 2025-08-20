@@ -28,6 +28,7 @@ TagManager:
   - ShootingAreaTrigger
   - ShootingAreaEndTrigger
   - ShootingAreaArrow
+  - EnemyZoneShooting
   layers:
   - Default
   - TransparentFX

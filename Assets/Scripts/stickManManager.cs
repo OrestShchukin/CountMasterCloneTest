@@ -17,7 +17,7 @@ public class stickManManager : MonoBehaviour
 
     [Header("Shooting")] 
     [SerializeField] GameObject arrow;
-    [SerializeField] float force = 500;
+    [SerializeField] float force = 30;
     [SerializeField] float interval = 0.5f;
     
     
