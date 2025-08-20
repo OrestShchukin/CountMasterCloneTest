@@ -14,12 +14,6 @@ public class LevelGenerator : MonoBehaviour
     }
     
     
-    // [Header("Prefabs")] public List<GameObject> basicObstaclePrefabs;
-    // public List<GameObject> doubleSizeObstaclePrefabs;
-    // public List<GameObject> gatePrefabs;
-    // public GameObject shootingRangePrefab;
-    // public GameObject enemySpawnerPrefab;
-    // public List<GameObject> finishLinePrefabsList;
         
     [Header("Generation Settings")] public int numberOfSegments = 10;
     
@@ -28,21 +22,19 @@ public class LevelGenerator : MonoBehaviour
 
     [Header("Other essentials")] public Transform followersParent;
     
-    float segmentLength = 10f;
-    float currentZ = 20f; 
-    int currentObstaclesInRow = 3;  
-    int gatesPassedSinceFight = 0;
-    
     public static int segmentIndex;
     public static float pathDistance;
 
-    [Header("New Prefabs Section")] 
+    [Header("Prefabs Section")] 
     [SerializeField] private List<PlatformDef> obstaclesList = new();
     [SerializeField] private List<PlatformDef> gatesList = new();
     [SerializeField] private List<PlatformDef> finishLinePrefabsList = new();
     [SerializeField] private PlatformDef enemySpawnerDef;
     
-    
+    float segmentLength = 10f;
+    float currentZ = 20f; 
+    int currentObstaclesInRow = 3;  
+    int gatesPassedSinceFight = 0;
     
     
     void Awake()
