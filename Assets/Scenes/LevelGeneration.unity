@@ -199,11 +199,23 @@ MonoBehaviour:
     length: 10
   - prefab: {fileID: 8431097950281665875, guid: cd449f92ae821d04e9f17764e41f9e90, type: 3}
     length: 10
+  - prefab: {fileID: 146082127028184974, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+    length: 10
+  - prefab: {fileID: 2157648410436747127, guid: 6215edb53dad76648a9cbb09769337ba, type: 3}
+    length: 10
+  - prefab: {fileID: 6129404725406277060, guid: 3f8f2efdf2ea4df4699a64c1f0fddba5, type: 3}
+    length: 10
+  - prefab: {fileID: 4513827535032946865, guid: a2e1db50daaf2fd45ac8631a9a160a15, type: 3}
+    length: 10
+  - prefab: {fileID: 8578645387406673454, guid: df0d512a1e2ca404782665fe9aac48e8, type: 3}
+    length: 10
+  - prefab: {fileID: 4388806733211582085, guid: a85ff9b78e27f334cb75f94cdbe618f3, type: 3}
+    length: 10
   gatesList:
   - prefab: {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
     length: 10
   - prefab: {fileID: 8709604160679145044, guid: 3fe8bf35ab7354f4398dc5b0471c7755, type: 3}
-    length: 50
+    length: 60
   finishLinePrefabsList:
   - prefab: {fileID: 7867875440446002534, guid: c78c863a6c4fe0647952433ba735608f, type: 3}
     length: 100

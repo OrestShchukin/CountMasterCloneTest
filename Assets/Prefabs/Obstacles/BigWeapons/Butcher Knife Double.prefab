@@ -17,8 +17,20 @@ PrefabInstance:
       value: 6579
       objectReference: {fileID: 0}
     - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: 'm_SelectedFaces.Array.data[0]'
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_SelectedEdges.Array.data[0].a
@@ -145,10 +157,16 @@ PrefabInstance:
       value: WeaponBase ButcherKnife Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9010392025355683725, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+--- !u!95 &5984965551743396503 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5810359744325722255, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+  m_PrefabInstance: {fileID: 264680016210479640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7822412435640649914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
@@ -166,6 +184,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Butcher Knife Double
       objectReference: {fileID: 0}
+    - target: {fileID: 2448331262625561179, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: animators.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448331262625561179, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: 'animators.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5984965551743396503}
     - target: {fileID: 3452791772565307472, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_VersionIndex
       value: 3806

@@ -4345,6 +4345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3607416857619475542}
+  - component: {fileID: 2462839596759618334}
   m_Layer: 0
   m_Name: Hammer Right
   m_TagString: Untagged
@@ -4369,6 +4370,20 @@ Transform:
   - {fileID: 4708573224045646018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2462839596759618334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388806733211582085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4cdd25ee07bd3449692226f4f20baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animators:
+  - {fileID: 9140093624032228079}
 --- !u!1 &5041117683969574879
 GameObject:
   m_ObjectHideFlags: 0
@@ -8433,6 +8448,11 @@ Transform:
 --- !u!4 &4708573224045646018 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5895768979092830038, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+  m_PrefabInstance: {fileID: 1191708702742177684}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9140093624032228079 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7949397024048190843, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
   m_PrefabInstance: {fileID: 1191708702742177684}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4320955566065343769

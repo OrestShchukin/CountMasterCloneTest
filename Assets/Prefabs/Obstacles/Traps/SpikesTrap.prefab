@@ -74,6 +74,10 @@ PrefabInstance:
       propertyPath: trapType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4813452200220277167, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}
+      propertyPath: scriptParent
+      value: 
+      objectReference: {fileID: 1316479622156315544}
     - target: {fileID: 5402782579408604019, guid: e6ae1b227377f3046a70d300336aa2c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
