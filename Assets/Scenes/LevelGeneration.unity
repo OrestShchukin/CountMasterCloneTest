@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.20392157, g: 0.73333335, b: 0.8862745, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -158,32 +158,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2115c6481639744d9ddfb5bf36f5121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicObstaclePrefabs:
-  - {fileID: 6239916856158906090, guid: af243d78c5d68e04babbc9e9cfd899e0, type: 3}
-  - {fileID: 3970666806908673462, guid: 6e1cda800978eaa4dadad6cd09e01814, type: 3}
-  - {fileID: 3970666806908673462, guid: aa58c1816d35b2848b8858308ab90b07, type: 3}
-  - {fileID: 6487218762762177270, guid: 7f2b42824ae957f459f942d9c0d22d4e, type: 3}
-  - {fileID: 8955982812293524486, guid: c1efeaa22f2add944ba24714251987cd, type: 3}
-  - {fileID: 8955982812293524486, guid: a4e26df472c88504ba7fe36b37ca155e, type: 3}
-  doubleSizeObstaclePrefabs:
-  - {fileID: 1316479622156315544, guid: 378cde79749abfa46a05eeb72b5de12b, type: 3}
-  - {fileID: 286523056839756720, guid: 0a45a01585804b347a17eb308097b5b5, type: 3}
-  - {fileID: 5725449778145807363, guid: 69c446ec048bcd84ea3be6c9aba1bfac, type: 3}
-  - {fileID: 102110494989698750, guid: 9c759c17a090edb4292f8bb1d58b0757, type: 3}
-  - {fileID: 7120594682803447811, guid: 2eda5a1e0067fd34fa9061da70eb97f1, type: 3}
-  gatePrefabs:
-  - {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
-  shootingRangePrefab: {fileID: 8709604160679145044, guid: 3fe8bf35ab7354f4398dc5b0471c7755, type: 3}
-  enemySpawnerPrefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
-  finishLinePrefabsList:
-  - {fileID: 508577547077769157, guid: 4c32e6e0e193f7e499f07c0f4292fb2d, type: 3}
-  - {fileID: 7867875440446002534, guid: c78c863a6c4fe0647952433ba735608f, type: 3}
-  - {fileID: 2746331672871185924, guid: 84c484c9392de9d458ec7793f0b61cff, type: 3}
-  planePrefab: {fileID: 987189204543219134, guid: 6a1b3dad4fe641741b1f8fa7f1c01a79, type: 3}
-  numberOfSegments: 17
+  numberOfSegments: 25
   levelParent: {fileID: 178534688}
   player: {fileID: 1922672616}
   followersParent: {fileID: 65848090}
+  obstaclesList:
+  - prefab: {fileID: 286523056839756720, guid: 0a45a01585804b347a17eb308097b5b5, type: 3}
+    length: 20
+  - prefab: {fileID: 8955982812293524486, guid: a4e26df472c88504ba7fe36b37ca155e, type: 3}
+    length: 10
+  - prefab: {fileID: 8955982812293524486, guid: c1efeaa22f2add944ba24714251987cd, type: 3}
+    length: 10
+  - prefab: {fileID: 7061464973871130074, guid: 7c31f56f14c81c04695ea2a27c476f86, type: 3}
+    length: 30
+  - prefab: {fileID: 5725449778145807363, guid: 69c446ec048bcd84ea3be6c9aba1bfac, type: 3}
+    length: 20
+  - prefab: {fileID: 102110494989698750, guid: 9c759c17a090edb4292f8bb1d58b0757, type: 3}
+    length: 20
+  - prefab: {fileID: 7120594682803447811, guid: 2eda5a1e0067fd34fa9061da70eb97f1, type: 3}
+    length: 20
+  - prefab: {fileID: 1316479622156315544, guid: 378cde79749abfa46a05eeb72b5de12b, type: 3}
+    length: 20
+  - prefab: {fileID: 6487218762762177270, guid: 7f2b42824ae957f459f942d9c0d22d4e, type: 3}
+    length: 10
+  - prefab: {fileID: 3970666806908673462, guid: aa58c1816d35b2848b8858308ab90b07, type: 3}
+    length: 10
+  - prefab: {fileID: 3970666806908673462, guid: 6e1cda800978eaa4dadad6cd09e01814, type: 3}
+    length: 10
+  - prefab: {fileID: 6239916856158906090, guid: af243d78c5d68e04babbc9e9cfd899e0, type: 3}
+    length: 10
+  - prefab: {fileID: 1856670628953139081, guid: 882a2929e96ffb14fad1d20a8e1bbaed, type: 3}
+    length: 10
+  - prefab: {fileID: 3634840708388327247, guid: 98c2ab2cbfa73444589e182da32c6cf3, type: 3}
+    length: 10
+  gatesList:
+  - prefab: {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
+    length: 10
+  - prefab: {fileID: 8709604160679145044, guid: 3fe8bf35ab7354f4398dc5b0471c7755, type: 3}
+    length: 50
+  finishLinePrefabsList:
+  - prefab: {fileID: 7867875440446002534, guid: c78c863a6c4fe0647952433ba735608f, type: 3}
+    length: 100
+  - prefab: {fileID: 508577547077769157, guid: 4c32e6e0e193f7e499f07c0f4292fb2d, type: 3}
+    length: 60
+  - prefab: {fileID: 2746331672871185924, guid: 84c484c9392de9d458ec7793f0b61cff, type: 3}
+    length: 60
+  enemyObstaclesList:
+  - prefab: {fileID: 6592493845102586048, guid: 7f1885b82f35c5945b17ee6651b6ed94, type: 3}
+    length: 20
+  - prefab: {fileID: 6592493845102586048, guid: 714820e025e743a4c8c7525b32cdd52d, type: 3}
+    length: 40
 --- !u!4 &178534688
 Transform:
   m_ObjectHideFlags: 0

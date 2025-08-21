@@ -1,31 +1,41 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 public class LevelGenerator : MonoBehaviour
 {
-    [Header("Prefabs")] public List<GameObject> basicObstaclePrefabs;
-    public List<GameObject> doubleSizeObstaclePrefabs;
-    public List<GameObject> gatePrefabs;
-    public GameObject shootingRangePrefab;
-    public GameObject enemySpawnerPrefab;
-    public List<GameObject> finishLinePrefabsList;
-    public GameObject planePrefab;
-        
+    [Serializable]
+    public struct PlatformDef
+    {
+        public GameObject prefab;
+        public float length;
+    }
+
+
     [Header("Generation Settings")] public int numberOfSegments = 10;
-    
+
     [SerializeField] Transform levelParent;
     [SerializeField] Transform player;
 
     [Header("Other essentials")] public Transform followersParent;
-    
-    float segmentLength = 10f;
-    float currentZ = 20f; 
-    int currentObstaclesInRow = 3;  
-    int gatesPassedSinceFight = 0;
-    
+
     public static int segmentIndex;
     public static float pathDistance;
 
-    
+    [Header("Prefabs Section")] 
+    [SerializeField] private List<PlatformDef> obstaclesList = new();
+    [SerializeField] private List<PlatformDef> gatesList = new();
+    [SerializeField] private List<PlatformDef> finishLinePrefabsList = new();
+    [SerializeField] private List<PlatformDef> enemyObstaclesList = new();
+
+    float segmentLength = 10f;
+    float currentZ = 20f;
+    int currentObstaclesInRow = 3;
+    int gatesPassedSinceFight = 0;
+
+
     void Awake()
     {
         segmentIndex = 0;
@@ -33,14 +43,14 @@ public class LevelGenerator : MonoBehaviour
         pathDistance = numberOfSegments * segmentLength;
     }
 
+    //
     void FixedUpdate()
     {
-        if (PlayerControl.inFinishZone) return;
-        if (levelParent.childCount == 0) return;
-        
+        if (PlayerControl.inFinishZone || levelParent.childCount == 0) return;
+
         Transform firstChild = levelParent.GetChild(0);
-        
-        if (player.position.z - segmentLength * 2 > firstChild.position.z)
+
+        if (player.position.z - segmentLength * 5 > firstChild.position.z)
         {
             if (segmentIndex < numberOfSegments)
             {
@@ -52,12 +62,11 @@ public class LevelGenerator : MonoBehaviour
 
     void StartLevelGeneration()
     {
-        for (segmentIndex = 0; segmentIndex < 10;)
+        for (segmentIndex = 0; segmentIndex < 15;)
         {
             SpawnElement();
         }
     }
-
 
     void SpawnElement()
     {
@@ -86,8 +95,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        segmentIndex++;
-        currentZ += segmentLength;
 
         if (segmentIndex >= numberOfSegments)
         {
@@ -100,64 +107,51 @@ public class LevelGenerator : MonoBehaviour
     void SpawnGate(Vector3 position)
     {
         currentObstaclesInRow = 0;
-        int index = Random.Range(0, gatePrefabs.Count);
-        GameObject gate = Instantiate(gatePrefabs[index], position, Quaternion.identity, levelParent);
+        int index = Random.Range(0, gatesList.Count - 1);
+        PlatformDef gateDef = gatesList[index];
+        SpawnElementFromDef(gateDef, position);
         gatesPassedSinceFight += 1;
     }
 
     void SpawnObstacle(Vector3 position)
     {
+        SpawnElementFromList(obstaclesList, position);
         currentObstaclesInRow += 1;
-        List<GameObject> prefabsList;
-        bool doubleSize = false;
-
-        int randomNum = Random.Range(0, 2);
-        if (randomNum == 0)
-        {
-            prefabsList = basicObstaclePrefabs;
-        }
-        else
-        {
-            prefabsList = doubleSizeObstaclePrefabs;
-            doubleSize = true;
-        }
-
-        int index = Random.Range(0, prefabsList.Count);
-        GameObject obstacle = Instantiate(prefabsList[index], position, Quaternion.identity, levelParent);
-        if (doubleSize)
-        {
-            currentZ += segmentLength;
-            segmentIndex++;
-        }
     }
 
     void SpawnEnemy(Vector3 position)
     {
-        if (enemySpawnerPrefab)
-        {
-            Instantiate(enemySpawnerPrefab, position, Quaternion.identity, levelParent);
-        }
-
+        SpawnElementFromList(enemyObstaclesList, position);
         currentObstaclesInRow += 4;
         gatesPassedSinceFight = 0;
-        currentZ += segmentLength;
     }
 
     void SpawnShootingRange(Vector3 position)
     {
-        Instantiate(shootingRangePrefab, position, Quaternion.identity, levelParent);
-        currentZ += segmentLength * 5;
+        PlatformDef shootingRangeDef = gatesList.Last();
+        SpawnElementFromDef(shootingRangeDef, position);
+        currentObstaclesInRow = 0;
     }
 
     void SpawnFinishLine(Vector3 position)
     {
-        int index = Random.Range(0, finishLinePrefabsList.Count);
-        GameObject obstacle = finishLinePrefabsList[index];
-        if (obstacle)
-        {
-            Instantiate(finishLinePrefabsList[index], position, Quaternion.identity, levelParent);
-        }
+        SpawnElementFromList(finishLinePrefabsList, position);
+    }
 
-        currentZ += segmentLength;
+
+    void SpawnElementFromList(List<PlatformDef> elementsList, Vector3 position)
+    {
+        int index = Random.Range(0, elementsList.Count);
+        PlatformDef elementDef = elementsList[index];
+        Instantiate(elementDef.prefab, position, Quaternion.identity, levelParent);
+        currentZ += elementDef.length;
+        segmentIndex += (int)(elementDef.length / segmentLength);
+    }
+
+    void SpawnElementFromDef(PlatformDef elementDef, Vector3 position)
+    {
+        Instantiate(elementDef.prefab, position, Quaternion.identity, levelParent);
+        currentZ += elementDef.length;
+        segmentIndex += (int)(elementDef.length / segmentLength);
     }
 }

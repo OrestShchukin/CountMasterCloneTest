@@ -266,6 +266,20 @@ public class PlayerControl : MonoBehaviour
 
             other.transform.GetChild(1).GetComponent<EnemyManager>().AttackThem(transform);
         }
+        else if (other.CompareTag("EnemyZoneShooting"))
+        {
+            EnemyShootingPrefabManager enemyShootingPrefabManager = other.GetComponent<EnemyShootingPrefabManager>();
+            enemy = enemyShootingPrefabManager.enemyShootingManager.transform.parent;
+            // attack = true;
+            
+            enemyShootingPrefabManager.enemyShootingManager.GetComponent<EnemyShootingManager>().AttackThem(transform);
+        }
+        else if (other.CompareTag("EnemyZoneShootingAttack"))
+        {
+            attack = true;
+            
+            other.transform.GetChild(1).GetComponent<EnemyShootingManager>().StopAutoShooting();
+        }
         else if (other.CompareTag("HorizontalObstacleButton"))
         {
             TrapButton trapButton = other.GetComponent<TrapButton>();

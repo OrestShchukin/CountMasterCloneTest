@@ -738,8 +738,8 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Standing to Running
-    m_StateMachine: {fileID: -8350608052987574226}
+    m_Name: Base Layer
+    m_StateMachine: {fileID: -6320116348107318100}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -750,8 +750,8 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Base Layer
-    m_StateMachine: {fileID: -6320116348107318100}
+    m_Name: Standing to Running
+    m_StateMachine: {fileID: -8350608052987574226}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
