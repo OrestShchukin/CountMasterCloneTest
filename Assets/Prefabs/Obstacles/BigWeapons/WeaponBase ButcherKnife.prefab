@@ -17,10 +17,6 @@ PrefabInstance:
       value: 0.20629191
       objectReference: {fileID: 0}
     - target: {fileID: 4588136476440954383, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.02999878
-      objectReference: {fileID: 0}
-    - target: {fileID: 4588136476440954383, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -53,8 +49,8 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8403094440831470063, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
-      propertyPath: m_Mesh
-      value: 
+      propertyPath: m_VersionIndex
+      value: 6483
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3847191283164040490, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
@@ -75,6 +71,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1330262863077236098, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3728
+      objectReference: {fileID: 0}
     - target: {fileID: 5463776430632516133, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_Name
       value: WeaponBase ButcherKnife
@@ -118,6 +118,14 @@ PrefabInstance:
     - target: {fileID: 5895768979092830038, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430275877851357825, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3526
+      objectReference: {fileID: 0}
+    - target: {fileID: 7566620372005488861, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3880
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
