@@ -2682,8 +2682,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotPoint: {fileID: 1356944047018833208}
   speed: 70
-  range: 90
-  offset: 0
+  startAngle: 0
+  endAngle: 90
+  rotationAxis: {x: 0, y: 1, z: 0}
+  inverse: 0
 --- !u!1001 &5682932709966819215
 PrefabInstance:
   m_ObjectHideFlags: 0

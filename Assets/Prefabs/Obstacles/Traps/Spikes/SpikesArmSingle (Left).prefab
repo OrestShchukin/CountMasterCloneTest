@@ -49,8 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivotPoint: {fileID: 4673730001056180663}
   speed: 70
-  range: 90
-  offset: 90
+  startAngle: 90
+  endAngle: 180
+  rotationAxis: {x: 0, y: 1, z: 0}
+  inverse: 1
 --- !u!1 &7019498850613630364
 GameObject:
   m_ObjectHideFlags: 0
