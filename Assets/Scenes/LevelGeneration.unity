@@ -191,6 +191,14 @@ MonoBehaviour:
     length: 10
   - prefab: {fileID: 3634840708388327247, guid: 98c2ab2cbfa73444589e182da32c6cf3, type: 3}
     length: 10
+  - prefab: {fileID: 6020318708022989782, guid: e97b898e8ae233c459c7bfface9404e4, type: 3}
+    length: 30
+  - prefab: {fileID: 6658118449895832776, guid: 636363b1b2ea4c649bf7d567f5f81461, type: 3}
+    length: 30
+  - prefab: {fileID: 2115016990494023154, guid: 280b910dae2785342a19238ece84b2d9, type: 3}
+    length: 10
+  - prefab: {fileID: 8431097950281665875, guid: cd449f92ae821d04e9f17764e41f9e90, type: 3}
+    length: 10
   gatesList:
   - prefab: {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
     length: 10

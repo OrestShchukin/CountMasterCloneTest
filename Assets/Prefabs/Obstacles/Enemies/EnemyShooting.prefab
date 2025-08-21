@@ -240,6 +240,18 @@ PrefabInstance:
       propertyPath: stickMan
       value: 
       objectReference: {fileID: 8898172481389250246, guid: ce219f1338ea7034d812d07ef3c54ea9, type: 3}
+    - target: {fileID: 1705077617180256320, guid: f4f49804c5b71df4c8e13a90fcde2341, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705077617180256320, guid: f4f49804c5b71df4c8e13a90fcde2341, type: 3}
+      propertyPath: m_Color.g
+      value: 0.41568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705077617180256320, guid: f4f49804c5b71df4c8e13a90fcde2341, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3764976838660201936, guid: f4f49804c5b71df4c8e13a90fcde2341, type: 3}
       propertyPath: m_Name
       value: EnemyZone
