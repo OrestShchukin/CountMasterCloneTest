@@ -229,6 +229,10 @@ MonoBehaviour:
     length: 20
   - prefab: {fileID: 7343434720539317587, guid: 796935bf90fbe3e46aabe2381860e3af, type: 3}
     length: 10
+  - prefab: {fileID: 1082800878271997143, guid: 03cecdeeeb9806a46b7a725796c98abc, type: 3}
+    length: 10
+  - prefab: {fileID: 459244861093516068, guid: a8c9eac7f0823b54d899d8dc20b68f11, type: 3}
+    length: 10
   gatesList:
   - prefab: {fileID: 2581717626547945386, guid: 7bf2403c9bdd9604d861530a47067dff, type: 3}
     length: 10
