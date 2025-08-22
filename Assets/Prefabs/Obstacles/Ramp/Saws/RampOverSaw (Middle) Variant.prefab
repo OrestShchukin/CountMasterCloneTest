@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7801940767842941004
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 697795374331374879, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_Name
+      value: RampOverSaw (Middle) Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 935620259705770499, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 4545
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074289988419182123, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3559
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149147366282589676, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3559
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577486730890574358, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774517461477947749, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 8039
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764824740884630518, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 4545
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534023419224747033, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3559
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682405134144200753, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_VersionIndex
+      value: 4545
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007647997966573574, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0da2501940f60a240977e8c8e371f8a0, type: 3}
