@@ -87,6 +87,14 @@ public class stickManManager : MonoBehaviour
             case "ShootingAreaEndTrigger":
                 StopAutoFire();
                 break;
+            case "EnemyTower":
+                if (wasAttacked) break;
+                if (other.GetComponent<EnemyDefenceTowerManager>().AttackTower())
+                {
+                    playerSpawner.DestroyAndDelete(this.gameObject);
+                    wasAttacked = true;
+                }
+                break;
         }
     }
 

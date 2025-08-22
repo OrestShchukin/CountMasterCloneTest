@@ -274,9 +274,18 @@ public class PlayerControl : MonoBehaviour
             
             enemyShootingPrefabManager.enemyShootingManager.GetComponent<EnemyShootingManager>().AttackThem(transform);
         }
+        else if (other.CompareTag("EnemyDefenceTowerZone"))
+        {
+            EnemyDefenceTowerManager defenceTowerManager= other.GetComponent<EnemyDefenceTowerManager>();
+
+            attack = true;
+            enemy = defenceTowerManager.tower;
+            defenceTowerManager.AttackThem(transform);
+        }
         else if (other.CompareTag("EnemyZoneShootingAttack"))
         {
             attack = true;
+            
             
             other.transform.GetChild(1).GetComponent<EnemyShootingManager>().StopAutoShooting();
         }
@@ -364,4 +373,12 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(3f);
         PlayerWin();
     }
+
+    public void StopAttack()
+    {
+        attack = false;
+    }
+    
+    
+    
 }
