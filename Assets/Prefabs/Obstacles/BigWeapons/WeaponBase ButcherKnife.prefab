@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8403094440831470063, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
       propertyPath: m_VersionIndex
-      value: 6483
+      value: 6486
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3847191283164040490, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7430275877851357825, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_VersionIndex
-      value: 3526
+      value: 3529
       objectReference: {fileID: 0}
     - target: {fileID: 7566620372005488861, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_VersionIndex
@@ -133,10 +133,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 473587066051462072, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1813683869417263687}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7983893125804376071, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2782771316136045324}
   m_SourcePrefab: {fileID: 100100000, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
 --- !u!4 &4062776775057651276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 473587066051462072, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
   m_PrefabInstance: {fileID: 4536080433060984308}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5782368354148021747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7983893125804376071, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+  m_PrefabInstance: {fileID: 4536080433060984308}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2782771316136045324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5782368354148021747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f33f30b77acc19468b09f0e6124e100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 1599718021928974, guid: 23ff207e6a1ba8b449ec0316c2bb735a, type: 3}
+  target: {fileID: 1813683869417263687}
+  offsetX: 0
