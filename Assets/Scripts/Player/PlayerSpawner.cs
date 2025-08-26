@@ -360,6 +360,10 @@ public class PlayerSpawner : MonoBehaviour
         HandleFollowerDeathInEngage(item);
 
         Destroy(item);
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Play("StickmanDeath");
+        }
         textCounter.text = followers.Count.ToString();
         if (isEngaging) return;
         ScheduleRegroup();
