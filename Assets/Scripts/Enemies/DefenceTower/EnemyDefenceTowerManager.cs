@@ -11,11 +11,13 @@ public class EnemyDefenceTowerManager : MonoBehaviour
     [SerializeField] private Transform archersParent;
     public Transform tower;
     public int towerHealth = 1;
-    private int initialTowerHealth;
+
 
     public Transform enemy;
     public bool attack;
 
+    private int initialTowerHealth;
+    private float towerHeight;
     void Awake()
     {
         int unitsMultiplier = LevelGenerator.segmentIndex > 20 ? LevelGenerator.segmentIndex / 2 : 10;
@@ -23,8 +25,9 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         int maxUnits = unitsMultiplier * 3;
         towerHealth = UnityEngine.Random.Range(minUnits, maxUnits);
         initialTowerHealth = towerHealth;
-
         counterTxt.text = towerHealth.ToString();
+        
+        towerHeight = tower.GetComponent<MeshRenderer>().bounds.size.y;
     }
 
     void Update()
@@ -53,8 +56,9 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         if (towerHealth <= 0) return false;
         towerHealth--;
         counterTxt.text = towerHealth.ToString();
-        float moveRange = 8f / initialTowerHealth;
-        tower.DOLocalMoveZ(-moveRange, 0.3f).SetEase(Ease.InBounce);
+        float moveRange = towerHeight / initialTowerHealth;
+        tower.DOLocalMoveY(-moveRange, 0f).SetEase(Ease.InBounce);
+        Debug.Log($"TowerPosition = {tower.position} | towerHealth = {towerHealth}");
         return true;
     }
 

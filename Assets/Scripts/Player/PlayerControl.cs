@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using DG.Tweening;
@@ -6,6 +7,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+public enum AttackType
+{
+    Enemy, Boss, Tower
+}
 
 public class PlayerControl : MonoBehaviour
 {
@@ -28,7 +34,9 @@ public class PlayerControl : MonoBehaviour
 
     [Header("Additional")] [SerializeField]
     private GameObject stickmansCounters;
-    
+
+    [Header("Attack")]
+    public AttackType attackType = AttackType.Enemy;
     
     private float currentX = 0f;
     private Vector2 lastTouchPosition;
@@ -184,30 +192,52 @@ public class PlayerControl : MonoBehaviour
             
             MoveStickMansTowards(EnemyDirection);
 
-            Transform enemyParent = enemy.GetChild(1);
-            if (enemyParent.childCount > 1)
+            bool moveTowardsEnemy = false;
+            Transform target = null;
+            
+            if (attackType == AttackType.Enemy)
+            {
+                Transform enemyParent = enemy.GetChild(1);
+                moveTowardsEnemy = enemyParent.childCount > 1;
+                target = enemyParent.GetChild(0);
+                
+            }
+            else if (attackType == AttackType.Tower)
+            {
+                moveTowardsEnemy = true;
+                target = enemy;
+            }
+            if (moveTowardsEnemy)
             {
                 for (int i = 0; i < followerParent.childCount; i++)
                 {
-                    Vector3 Distance = enemyParent.GetChild(0).position - followerParent.GetChild(i).position;
+                    Vector3 Distance = target.position - followerParent.GetChild(i).position;
 
                     if (Distance.magnitude < 8f)
                     {
                         Transform follower = followerParent.GetChild(i);
                         follower.position =
-                            Vector3.Lerp(follower.position, new Vector3(enemyParent.GetChild(0).position.x,
+                            Vector3.Lerp(follower.position, new Vector3(target.position.x,
                                 follower.position.y,
-                                enemyParent.GetChild(0).position.z), Time.deltaTime * 1f);
+                                target.position.z), Time.deltaTime * 1f);
                     }
                 }
             }
             Move(EnemyDirection);
-            
-            if (enemy.GetChild(1).childCount == 0)
+
+            if (attackType == AttackType.Enemy)
             {
-                attack = false;
-                enemy.gameObject.SetActive(false);
-                playerSpawner.FormatStickMan();
+                if (enemy.GetChild(1).childCount == 0)
+                {
+                    attack = false;
+                    enemy.gameObject.SetActive(false);
+                    playerSpawner.FormatStickMan();
+                }
+            }
+
+            if (attackType == AttackType.Tower)
+            {
+                // Do nothing   
             }
         }
     }
@@ -261,6 +291,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("EnemyZone"))
         {
+            attackType = AttackType.Enemy;
             enemy = other.transform;
             attack = true;
 
@@ -268,26 +299,27 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("EnemyZoneShooting"))
         {
+            attackType = AttackType.Enemy;
             EnemyShootingPrefabManager enemyShootingPrefabManager = other.GetComponent<EnemyShootingPrefabManager>();
             enemy = enemyShootingPrefabManager.enemyShootingManager.transform.parent;
             // attack = true;
             
             enemyShootingPrefabManager.enemyShootingManager.GetComponent<EnemyShootingManager>().AttackThem(transform);
         }
-        else if (other.CompareTag("EnemyDefenceTowerZone"))
-        {
-            EnemyDefenceTowerManager defenceTowerManager= other.GetComponent<EnemyDefenceTowerManager>();
-
-            attack = true;
-            enemy = defenceTowerManager.tower;
-            defenceTowerManager.AttackThem(transform);
-        }
         else if (other.CompareTag("EnemyZoneShootingAttack"))
         {
             attack = true;
             
-            
             other.transform.GetChild(1).GetComponent<EnemyShootingManager>().StopAutoShooting();
+        }
+        else if (other.CompareTag("EnemyDefenceTowerZone"))
+        {
+            attackType = AttackType.Tower;
+            EnemyDefenceTowerZoneManager defenceTowerZoneManager= other.GetComponent<EnemyDefenceTowerZoneManager>();
+
+            attack = true;
+            enemy = defenceTowerZoneManager.enemyDefenceTower;
+            defenceTowerZoneManager.enemyDefenceTowerManager.AttackThem(transform);
         }
         else if (other.CompareTag("HorizontalObstacleButton"))
         {
@@ -323,6 +355,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if (other.CompareTag("BossFightZone"))
         {
+            attackType = AttackType.Enemy;
             transform.GetChild(1).gameObject.SetActive(false); // Disable stickmans counter;    
             enemy = other.transform.GetChild(0);
             playerSpawner.PauseRegroup();
