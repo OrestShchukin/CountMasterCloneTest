@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 6375
       objectReference: {fileID: 0}
+    - target: {fileID: 793892623633794977, guid: 3f8f2efdf2ea4df4699a64c1f0fddba5, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 979411609770247449, guid: 3f8f2efdf2ea4df4699a64c1f0fddba5, type: 3}
       propertyPath: m_VersionIndex
       value: 3505
@@ -17333,7 +17337,8 @@ PrefabInstance:
       value: ButcherKnife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8613285602489487701, guid: 3f8f2efdf2ea4df4699a64c1f0fddba5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f8f2efdf2ea4df4699a64c1f0fddba5, type: 3}

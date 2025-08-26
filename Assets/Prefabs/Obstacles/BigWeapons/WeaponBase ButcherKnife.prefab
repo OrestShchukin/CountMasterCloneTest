@@ -52,6 +52,18 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 6486
       objectReference: {fileID: 0}
+    - target: {fileID: 8403094440831470063, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403094440831470063, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403094440831470063, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3847191283164040490, guid: 57dca0c1de8739046b9e4397b48967ee, type: 3}
     m_RemovedGameObjects: []
@@ -74,6 +86,18 @@ PrefabInstance:
     - target: {fileID: 1330262863077236098, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_VersionIndex
       value: 3728
+      objectReference: {fileID: 0}
+    - target: {fileID: 3968832026560498260, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3968832026560498260, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3968832026560498260, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5463776430632516133, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       propertyPath: m_Name
@@ -127,8 +151,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 3880
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 7029639640486961209, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 2090440702996215501, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 473587066051462072, guid: 1a724b70c06522c43a5725d93aa57a0b, type: 3}
       insertIndex: -1

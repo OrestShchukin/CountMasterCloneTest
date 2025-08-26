@@ -8,17 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8228387493140236345}
     m_Modifications:
+    - target: {fileID: 1143340164768457432, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1779
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690323285700879341, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2668
+      objectReference: {fileID: 0}
     - target: {fileID: 2782771316136045324, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: offsetX
       value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 3208091360115550326, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_VersionIndex
-      value: 3902
+      value: 3920
       objectReference: {fileID: 0}
     - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_VersionIndex
-      value: 6579
+      value: 6597
       objectReference: {fileID: 0}
     - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -110,11 +118,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6336965162530782505, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_VersionIndex
-      value: 4054
+      value: 4072
       objectReference: {fileID: 0}
     - target: {fileID: 6480329763004667765, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_VersionIndex
-      value: 3700
+      value: 3718
       objectReference: {fileID: 0}
     - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,6 +168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponBase ButcherKnife Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8513851300092484744, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1455
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 9010392025355683725, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
@@ -198,19 +210,19 @@ PrefabInstance:
       objectReference: {fileID: 5984965551743396503}
     - target: {fileID: 3452791772565307472, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 3806
+      value: 3815
       objectReference: {fileID: 0}
     - target: {fileID: 5869679171695146369, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 6474
+      value: 6483
       objectReference: {fileID: 0}
     - target: {fileID: 6097528610475103503, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 3958
+      value: 3967
       objectReference: {fileID: 0}
     - target: {fileID: 6521608493827538771, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_VersionIndex
-      value: 3604
+      value: 3613
       objectReference: {fileID: 0}
     - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
       propertyPath: m_LocalPosition.x
