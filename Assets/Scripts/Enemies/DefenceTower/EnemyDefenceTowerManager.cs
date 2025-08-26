@@ -67,11 +67,7 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         Destroy(Instantiate(attackSmoke, transform.position, Quaternion.identity),2f);
         return true;
     }
-
-    private void OnDestroy()
-    {
-        Destroy(Instantiate(destroySmoke, transform.position, Quaternion.identity), 2f);
-    }
+    
 
     private void DestroyTower()
     {
@@ -87,6 +83,7 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         }
         
         Destroy(tower.gameObject);
+        Destroy(Instantiate(destroySmoke, transform.position, Quaternion.identity), 2f);
         yield return null;
     }
 
