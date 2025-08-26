@@ -250,6 +250,8 @@ MonoBehaviour:
     length: 20
   - prefab: {fileID: 6592493845102586048, guid: 714820e025e743a4c8c7525b32cdd52d, type: 3}
     length: 40
+  - prefab: {fileID: 7984302536768805308, guid: 10b0b6f47a9f9e6459a7af2a9f82ec0a, type: 3}
+    length: 20
 --- !u!4 &178534688
 Transform:
   m_ObjectHideFlags: 0
