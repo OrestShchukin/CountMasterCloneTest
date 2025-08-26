@@ -18,6 +18,7 @@ public class EnemyDefenceTowerManager : MonoBehaviour
 
     private int initialTowerHealth;
     private float towerHeight;
+    private float moveRange;
     void Awake()
     {
         int unitsMultiplier = LevelGenerator.segmentIndex > 20 ? LevelGenerator.segmentIndex / 2 : 10;
@@ -27,7 +28,8 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         initialTowerHealth = towerHealth;
         counterTxt.text = towerHealth.ToString();
         
-        towerHeight = tower.GetComponent<MeshRenderer>().bounds.size.y;
+        towerHeight = tower.position.y * 2;
+        moveRange = towerHeight / towerHealth;
     }
 
     void Update()
@@ -56,9 +58,7 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         if (towerHealth <= 0) return false;
         towerHealth--;
         counterTxt.text = towerHealth.ToString();
-        float moveRange = towerHeight / initialTowerHealth;
-        tower.DOLocalMoveY(-moveRange, 0f).SetEase(Ease.InBounce);
-        Debug.Log($"TowerPosition = {tower.position} | towerHealth = {towerHealth}");
+        tower.DOLocalMoveY(-moveRange, 0.1f).SetEase(Ease.Linear);
         return true;
     }
 
@@ -74,9 +74,9 @@ public class EnemyDefenceTowerManager : MonoBehaviour
             child.gameObject.SetActive(false);
             Destroy(child.gameObject);
         }
-
-        yield return new WaitForSeconds(0.2f);
-        Destroy(transform.parent.gameObject);
+        
+        Destroy(tower.gameObject);
+        yield return null;
     }
 
     public void AttackThem(Transform enemyForce)
