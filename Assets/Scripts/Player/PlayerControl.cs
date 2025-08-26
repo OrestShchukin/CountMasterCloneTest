@@ -199,7 +199,7 @@ public class PlayerControl : MonoBehaviour
             {
                 Transform enemyParent = enemy.GetChild(1);
                 moveTowardsEnemy = enemyParent.childCount > 1;
-                target = enemyParent.GetChild(0);
+                if (moveTowardsEnemy) target = enemyParent.GetChild(0);
                 
             }
             else if (attackType == AttackType.Tower)
@@ -220,6 +220,13 @@ public class PlayerControl : MonoBehaviour
                             Vector3.Lerp(follower.position, new Vector3(target.position.x,
                                 follower.position.y,
                                 target.position.z), Time.deltaTime * 1f);
+                    }
+                    
+                    if (enemy.GetChild(1).childCount == 0)
+                    {
+                        attack = false;
+                        enemy.gameObject.SetActive(false);
+                        playerSpawner.FormatStickMan();
                     }
                 }
             }
