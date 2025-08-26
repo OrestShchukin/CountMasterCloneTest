@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using TMPro;
@@ -12,7 +13,11 @@ public class EnemyDefenceTowerManager : MonoBehaviour
     public Transform tower;
     public int towerHealth = 1;
 
+    [Header("Effects")] 
+    public GameObject attackSmoke;
+    public GameObject destroySmoke;
 
+    [Header("Other")]
     public Transform enemy;
     public bool attack;
 
@@ -59,7 +64,13 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         towerHealth--;
         counterTxt.text = towerHealth.ToString();
         tower.DOLocalMoveY(-moveRange, 0.1f).SetEase(Ease.Linear);
+        Destroy(Instantiate(attackSmoke, transform.position, Quaternion.identity),2f);
         return true;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(Instantiate(destroySmoke, transform.position, Quaternion.identity), 2f);
     }
 
     private void DestroyTower()
