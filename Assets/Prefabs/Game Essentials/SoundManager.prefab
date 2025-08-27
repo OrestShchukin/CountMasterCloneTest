@@ -47,6 +47,7 @@ MonoBehaviour:
   sounds:
   - name: StickmanDeath
     clip: {fileID: 8300000, guid: 45606335bfbc25f4eb770a33aca8693a, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 1
     pitch: 1
     spatialBlend: 0
@@ -54,20 +55,15 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: HammerAction
     clip: {fileID: 8300000, guid: 6880545206507ab4797ae11ef00f8144, type: 3}
+    mixerGroup: {fileID: 1242130117749794316, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.592
     pitch: 1
     spatialBlend: 1
     loop: 0
     source: {fileID: 0}
-  - name: BaseTheme
-    clip: {fileID: 8300000, guid: 2b4ffda47b42c264ebe38ae91f123323, type: 3}
-    volume: 0.248
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    source: {fileID: 0}
   - name: GatePassed
     clip: {fileID: 8300000, guid: 33bc271fcfba1b34fb34b2e702731885, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.2
     pitch: 1
     spatialBlend: 0
@@ -75,6 +71,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: WinDanceSound
     clip: {fileID: 8300000, guid: 95f4f11aeb9cc6946ac1a48fb4046771, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0
@@ -82,6 +79,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: LoseSound
     clip: {fileID: 8300000, guid: 19cb46887077e4d4192744e344b4043f, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0
@@ -89,6 +87,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: WinSound
     clip: {fileID: 8300000, guid: b61846a2469f934478fdc749db57521b, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0
@@ -96,6 +95,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BoxDestroyedSound
     clip: {fileID: 8300000, guid: 6880545206507ab4797ae11ef00f8144, type: 3}
+    mixerGroup: {fileID: 1242130117749794316, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0.5
@@ -103,6 +103,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ArrowHitTarget
     clip: {fileID: 8300000, guid: b19dcd2bc19187a449d3ebfc54e81c76, type: 3}
+    mixerGroup: {fileID: 1242130117749794316, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0.5
@@ -110,6 +111,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ArrowWhoosh
     clip: {fileID: 8300000, guid: 98e263964bcd85d42944e9bfb0cb5b15, type: 3}
+    mixerGroup: {fileID: 1242130117749794316, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0.5
@@ -117,6 +119,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: CannonShooting
     clip: {fileID: 8300000, guid: 89f23a871e53cf24a9423c5c1bb7bc2d, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0.5
@@ -124,6 +127,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Jump
     clip: {fileID: 8300000, guid: 31aac1f5c554fe04a8f56c5b83021565, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
     pitch: 1
     spatialBlend: 0.5
@@ -131,6 +135,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Fall
     clip: {fileID: 8300000, guid: 31aac1f5c554fe04a8f56c5b83021565, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.581
     pitch: 0.814
     spatialBlend: 0.5
@@ -139,6 +144,7 @@ MonoBehaviour:
   mainMenuMusicList:
   - name: MainMenuTheme1
     clip: {fileID: 8300000, guid: fb28c27c741439b43aa84282dcf561cc, type: 3}
+    mixerGroup: {fileID: 6071859954004077433, guid: a7194aa681d43684681421ffcfc1c6e5, type: 2}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
@@ -146,6 +152,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MainMenuTheme2
     clip: {fileID: 8300000, guid: e261d18ca86256d4d811304ff5510889, type: 3}
+    mixerGroup: {fileID: 6071859954004077433, guid: a7194aa681d43684681421ffcfc1c6e5, type: 2}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
@@ -153,6 +160,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MainMenuTheme3
     clip: {fileID: 8300000, guid: aaf06fcf406312848968699e14c23715, type: 3}
+    mixerGroup: {fileID: 6071859954004077433, guid: a7194aa681d43684681421ffcfc1c6e5, type: 2}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
@@ -161,6 +169,7 @@ MonoBehaviour:
   inGameMusicList:
   - name: InGameMusic1
     clip: {fileID: 8300000, guid: ada7ecfaa1b1cb74d9461cd866f82cea, type: 3}
+    mixerGroup: {fileID: 6071859954004077433, guid: a7194aa681d43684681421ffcfc1c6e5, type: 2}
     volume: 0.25
     pitch: 1
     spatialBlend: 0
@@ -168,6 +177,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: InGameMusic2
     clip: {fileID: 8300000, guid: 69208ad17c9a22740b957a1ebb4226eb, type: 3}
+    mixerGroup: {fileID: 6071859954004077433, guid: a7194aa681d43684681421ffcfc1c6e5, type: 2}
     volume: 0.25
     pitch: 1
     spatialBlend: 0
