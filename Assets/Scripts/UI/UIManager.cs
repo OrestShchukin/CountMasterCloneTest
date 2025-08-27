@@ -42,6 +42,11 @@ public class UIManager : MonoBehaviour
             HomeSceenUI.SetActive(true);
             PlayerSpawner.playerSpawnerInstance.StickmansSetAnimStand();
             homeScreenLevelCounter.SetText($"LEVEL - {currentLevel}");
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.StopAllSounds();
+                AudioManager.instance.PlayMainMenuMusic();
+            }
         }  
         else StartGame();
     }

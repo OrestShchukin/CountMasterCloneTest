@@ -122,6 +122,20 @@ MonoBehaviour:
     spatialBlend: 0.5
     loop: 1
     source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 31aac1f5c554fe04a8f56c5b83021565, type: 3}
+    volume: 0.737
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Fall
+    clip: {fileID: 8300000, guid: 31aac1f5c554fe04a8f56c5b83021565, type: 3}
+    volume: 0.581
+    pitch: 0.814
+    spatialBlend: 0.5
+    loop: 0
+    source: {fileID: 0}
   mainMenuMusicList:
   - name: MainMenuTheme1
     clip: {fileID: 8300000, guid: fb28c27c741439b43aa84282dcf561cc, type: 3}

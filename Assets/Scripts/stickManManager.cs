@@ -78,6 +78,10 @@ public class stickManManager : MonoBehaviour
                 playerSpawner.PauseRegroup();
                 areFallingCount += 1;
                 Fall();
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.PlayWhole("Fall");
+                }
                 if (areFallingCount == 0) playerSpawner.FormatStickMan();
                 break;
             case "Fist":
@@ -150,7 +154,7 @@ public class stickManManager : MonoBehaviour
         SpawnBullet();
         if (AudioManager.instance)
         {
-            AudioManager.instance.Play("ArrowWhoosh");
+            AudioManager.instance.PlayWhole("ArrowWhoosh");
         }
     }
 

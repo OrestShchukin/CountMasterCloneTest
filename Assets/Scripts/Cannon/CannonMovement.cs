@@ -163,7 +163,7 @@ public class CannonMovement : MonoBehaviour
 
         Vector3 aimPoint;
         Ray ray = new Ray(muzzle.position, muzzle.forward);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+        // Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
 
         // 1) Спочатку — реальні цілі
         if (Physics.Raycast(ray, out var hit, 5000f, targetMask))
