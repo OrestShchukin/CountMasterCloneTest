@@ -362,7 +362,7 @@ public class PlayerSpawner : MonoBehaviour
         Destroy(item);
         if (AudioManager.instance)
         {
-            AudioManager.instance.Play("StickmanDeath");
+            AudioManager.instance.PlayForAmountOfTime("StickmanDeath", 0.05f);
         }
         textCounter.text = followers.Count.ToString();
         if (isEngaging) return;

@@ -13,6 +13,8 @@ public class Sound
     public float pitch;
     [Range(0f, 1f)]
     public float spatialBlend;
+
+    public bool loop;
     [HideInInspector]
     public AudioSource source;
 }

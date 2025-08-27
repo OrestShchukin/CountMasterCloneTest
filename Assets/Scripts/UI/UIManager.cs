@@ -69,7 +69,6 @@ public class UIManager : MonoBehaviour
         ResetTimeScale();
         skipMenuOnReload = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        StartGame();
     }
     
     public void OnNextLevelPress()
@@ -96,6 +95,7 @@ public class UIManager : MonoBehaviour
     
     public void StartGame()
     {
+        Debug.Log("Start Game called");
         PlayerControl.gamestate = true;
         PlayerSpawner.playerSpawnerInstance.StickmansSetAnimRun();
         HomeSceenUI.SetActive(false);
@@ -103,6 +103,10 @@ public class UIManager : MonoBehaviour
         LoseScreenUI.SetActive(false);
         InGameUI.SetActive(true);
         inGameUILevelCounter.SetText(currentLevel.ToString());
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.PlayInGameMusic();
+        }
     }
 
     public void OnCloseSettingsPress()
@@ -136,12 +140,23 @@ public class UIManager : MonoBehaviour
         PlayerControl.gamestate = false;
         InGameUI.SetActive(false);
         WinScreenUI.SetActive(true);
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.StopAllSounds();
+            AudioManager.instance.Play("WinSound");
+        }
+            
     }
 
-    public void OpenLoseScreen()
+    public void OpenLoseScreen()    
     {
         InGameUI.SetActive(false);
         LoseScreenUI.SetActive(true);
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.StopAllSounds();
+            AudioManager.instance.Play("LoseSound");
+        }
     }
 
     private void ResetTimeScale()

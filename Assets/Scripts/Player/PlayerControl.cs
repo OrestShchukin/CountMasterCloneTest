@@ -294,6 +294,7 @@ public class PlayerControl : MonoBehaviour
         {
             GateControl gateControl = other.GetComponent<GateControl>();
             gateControl.Activate(playerSpawner);
+            AudioManager.instance.Play("GatePassed");
             playerSpawner.StickmansSetAnimRun();
         }
         else if (other.CompareTag("EnemyZone"))
