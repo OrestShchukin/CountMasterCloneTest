@@ -68,7 +68,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GatePassed
     clip: {fileID: 8300000, guid: 33bc271fcfba1b34fb34b2e702731885, type: 3}
-    volume: 0.25
+    volume: 0.2
     pitch: 1
     spatialBlend: 0
     loop: 0
@@ -114,6 +114,13 @@ MonoBehaviour:
     pitch: 1
     spatialBlend: 0.5
     loop: 0
+    source: {fileID: 0}
+  - name: CannonShooting
+    clip: {fileID: 8300000, guid: 89f23a871e53cf24a9423c5c1bb7bc2d, type: 3}
+    volume: 0.737
+    pitch: 1
+    spatialBlend: 0.5
+    loop: 1
     source: {fileID: 0}
   mainMenuMusicList:
   - name: MainMenuTheme1

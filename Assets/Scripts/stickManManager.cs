@@ -59,6 +59,10 @@ public class stickManManager : MonoBehaviour
                 areJumpingCount += 1;
                 // playerSpawner.ScheduleRegroup();
                 Jump();
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.PlayWhole("Jump");
+                }
                 if (areJumpingCount == 0) playerSpawner.FormatStickMan();
                 break;
             case "Obstacle":
