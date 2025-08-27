@@ -84,6 +84,10 @@ public class EnemyDefenceTowerManager : MonoBehaviour
         
         Destroy(tower.gameObject);
         Destroy(Instantiate(destroySmoke, transform.position, Quaternion.identity), 2f);
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Play("BoxDestroyedSound");
+        }
         yield return null;
     }
 

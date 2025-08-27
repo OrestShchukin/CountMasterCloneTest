@@ -144,6 +144,10 @@ public class stickManManager : MonoBehaviour
     public void Shoot()
     {
         SpawnBullet();
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Play("ArrowWhoosh");
+        }
     }
 
     public void StopAutoFire()

@@ -16,6 +16,10 @@ public class WoodenBox : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.Play("BoxDestroyedSound");
+            }
         }
     }
 
@@ -31,6 +35,10 @@ public class WoodenBox : MonoBehaviour
         {
             DecreaseHealth();
             Destroy(other.gameObject);
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.Play("ArrowHitTarget");
+            }
         }
     }
 }

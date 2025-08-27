@@ -95,7 +95,6 @@ public class UIManager : MonoBehaviour
     
     public void StartGame()
     {
-        Debug.Log("Start Game called");
         PlayerControl.gamestate = true;
         PlayerSpawner.playerSpawnerInstance.StickmansSetAnimRun();
         HomeSceenUI.SetActive(false);
