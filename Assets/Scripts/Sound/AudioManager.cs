@@ -59,9 +59,22 @@ public class AudioManager : MonoBehaviour
     
     
 
-    public void Play(string name)
+    public void Play(string name, string listName = "sounds")
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound[] soundsList = sounds;
+        switch (listName)
+        {
+            case "sounds":
+                soundsList = sounds;
+                break;
+            case "mainMenuMusic":
+                soundsList =  mainMenuMusicList;
+                break;
+            case "inGameMusic":
+                soundsList = inGameMusicList;
+                break;
+        }
+        Sound s = Array.Find(soundsList, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Sound " + name + " not found");
@@ -141,8 +154,6 @@ public class AudioManager : MonoBehaviour
         }
         src.volume = startVol; // повернемо гучність для наступних відтворень
     }
-
-    
     
 
     public void PlaySoundAfterDelay(string name, float delay)
@@ -166,15 +177,22 @@ public class AudioManager : MonoBehaviour
         DeactivateSoundList(sounds);
         DeactivateSoundList(mainMenuMusicList);
         DeactivateSoundList(inGameMusicList);
-
-        void DeactivateSoundList(Sound[] sounds)
+    }
+    
+    public void StopInGameMusic()
+    {
+        DeactivateSoundList(inGameMusicList);
+    }
+    
+    private void DeactivateSoundList(Sound[] sounds)
+    {
+        foreach (Sound s in sounds)
         {
-            foreach (Sound s in sounds)
-            {
-                s.source.Stop();
-            }
+            s.source.Stop();
         }
     }
+
+
 
     
     // Functions that will be linked to the UI

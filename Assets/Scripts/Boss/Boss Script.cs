@@ -43,7 +43,7 @@ public class BossScript : MonoBehaviour
         {
             healthBarSlider.value = 0f;
             this.gameObject.SetActive(false);
-            UIManager.UIManagerInstance.OpenWinScreen();
+            // UIManager.UIManagerInstance.OpenWinScreen();
         }
     }
 
@@ -66,6 +66,11 @@ public class BossScript : MonoBehaviour
 
     private void PlayerWon()
     {
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.StopAllSounds();
+            AudioManager.instance.Play("WinDanceMusic");
+        }
         CameraSwitcher.cameraSwitcherInstance.SwitchCameraTarget(4, transform);
         this.gameObject.SetActive(false);
         PlayerControl.gamestate = false;

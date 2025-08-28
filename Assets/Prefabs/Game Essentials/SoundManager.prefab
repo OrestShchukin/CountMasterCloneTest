@@ -64,12 +64,12 @@ MonoBehaviour:
   - name: GatePassed
     clip: {fileID: 8300000, guid: 33bc271fcfba1b34fb34b2e702731885, type: 3}
     mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
-    volume: 0.2
+    volume: 0.15
     pitch: 1
     spatialBlend: 0
     loop: 0
     source: {fileID: 0}
-  - name: WinDanceSound
+  - name: WinDanceMusic
     clip: {fileID: 8300000, guid: 95f4f11aeb9cc6946ac1a48fb4046771, type: 3}
     mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
     volume: 0.737
@@ -141,6 +141,30 @@ MonoBehaviour:
     spatialBlend: 0.5
     loop: 0
     source: {fileID: 0}
+  - name: BossGrunt
+    clip: {fileID: 8300000, guid: 86292cafd57b3bf4591d04b7f44b9ddd, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
+    volume: 0.581
+    pitch: 0.814
+    spatialBlend: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: BossPunch
+    clip: {fileID: 8300000, guid: cba7883a7cf633844b6b04c92f4c8011, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
+    volume: 0.693
+    pitch: 0.814
+    spatialBlend: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: BossFightMusic
+    clip: {fileID: 8300000, guid: c402ade3816c6a14ba57037e2e7aa182, type: 3}
+    mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    source: {fileID: 0}
   mainMenuMusicList:
   - name: MainMenuTheme1
     clip: {fileID: 8300000, guid: fb28c27c741439b43aa84282dcf561cc, type: 3}
@@ -183,3 +207,5 @@ MonoBehaviour:
     spatialBlend: 0
     loop: 1
     source: {fileID: 0}
+  useUnscaledTime: 0
+  fadeOutSeconds: 0
