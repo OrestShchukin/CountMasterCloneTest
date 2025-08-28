@@ -6,6 +6,7 @@ public class HorizontalTrap : MonoBehaviour
     Transform leftArm, rightArm;
     [SerializeField]
     float rotationDuration = 0.5f;
+    
 
     bool isActivated = false;
 

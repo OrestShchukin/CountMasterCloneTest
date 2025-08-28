@@ -1,0 +1,284 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &264680016210479640
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8228387493140236345}
+    m_Modifications:
+    - target: {fileID: 1143340164768457432, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1779
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690323285700879341, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2668
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782771316136045324, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: offsetX
+      value: -4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208091360115550326, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 6597
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedFaces.Array.data[0]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[0].a
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[0].b
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[1].a
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[1].b
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[2].a
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[2].b
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[3].a
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[3].b
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[4].a
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[4].b
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[5].a
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[5].b
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[0]'
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[1]'
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[2]'
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[3]'
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[4]'
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916291547828034983, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: 'm_SelectedVertices.Array.data[5]'
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 6336965162530782505, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 4072
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480329763004667765, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3718
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.33999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439849784943284177, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_Name
+      value: WeaponBase ButcherKnife Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513851300092484744, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1455
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 9010392025355683725, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+--- !u!95 &5984965551743396503 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5810359744325722255, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+  m_PrefabInstance: {fileID: 264680016210479640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7822412435640649914 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8008138703692841634, guid: 056e9b11481778b4a80bfa25591a752b, type: 3}
+  m_PrefabInstance: {fileID: 264680016210479640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2303447343158581497
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 146082127028184974, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_Name
+      value: Butcher Knife Double
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448331262625561179, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: animators.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448331262625561179, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: 'animators.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5984965551743396503}
+    - target: {fileID: 3452791772565307472, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3815
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869679171695146369, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_VersionIndex
+      value: 6483
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097528610475103503, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3967
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521608493827538771, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_VersionIndex
+      value: 3613
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525304625496713207, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      propertyPath: m_Name
+      value: WeaponBase ButcherKnife
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 9107683641191624619, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7822412435640649914}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+--- !u!4 &8228387493140236345 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7910124092205617344, guid: a346d031130484942a321be58d2ec4e8, type: 3}
+  m_PrefabInstance: {fileID: 2303447343158581497}
+  m_PrefabAsset: {fileID: 0}

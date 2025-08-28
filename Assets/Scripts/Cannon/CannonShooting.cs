@@ -53,6 +53,7 @@ public class CannonShooting : MonoBehaviour
         }
             
         SpawnBullet();
+        cannonMovementScript.PlayShotAnimation();
         currentAmmo -= ammoPerShot;
         UpdateAmmoCounter();
         if (currentAmmo < ammoPerShot)
@@ -85,12 +86,20 @@ public class CannonShooting : MonoBehaviour
         cannonFinishManager.HideCannonMovementUI();
         CancelInvoke(nameof(TickFire)); // на всяк випадок
         InvokeRepeating(nameof(TickFire), 0f, interval);
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Play("CannonShooting");
+        }
     }
     
 
     public void StopAutoFire()
     {
         CancelInvoke(nameof(TickFire));
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.Stop("CannonShooting");
+        }
     }
 
     private void SpawnBullet()
@@ -126,6 +135,10 @@ public class CannonShooting : MonoBehaviour
             currentAmmo++;
             UpdateAmmoCounter();
             other.gameObject.SetActive(false);
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.PlayForAmountOfTime("StickmanDeath", 0.05f);
+            }
         }
     }
 }

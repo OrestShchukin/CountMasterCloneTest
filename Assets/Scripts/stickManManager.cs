@@ -59,6 +59,10 @@ public class stickManManager : MonoBehaviour
                 areJumpingCount += 1;
                 // playerSpawner.ScheduleRegroup();
                 Jump();
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.PlayWhole("Jump");
+                }
                 if (areJumpingCount == 0) playerSpawner.FormatStickMan();
                 break;
             case "Obstacle":
@@ -74,6 +78,10 @@ public class stickManManager : MonoBehaviour
                 playerSpawner.PauseRegroup();
                 areFallingCount += 1;
                 Fall();
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.PlayWhole("Fall");
+                }
                 if (areFallingCount == 0) playerSpawner.FormatStickMan();
                 break;
             case "Fist":
@@ -86,6 +94,14 @@ public class stickManManager : MonoBehaviour
                 break;
             case "ShootingAreaEndTrigger":
                 StopAutoFire();
+                break;
+            case "EnemyTower":
+                if (wasAttacked) break;
+                if (other.GetComponent<EnemyDefenceTowerManager>().AttackTower())
+                {
+                    playerSpawner.DestroyAndDelete(this.gameObject);
+                    wasAttacked = true;
+                }
                 break;
         }
     }
@@ -136,6 +152,10 @@ public class stickManManager : MonoBehaviour
     public void Shoot()
     {
         SpawnBullet();
+        if (AudioManager.instance)
+        {
+            AudioManager.instance.PlayWhole("ArrowWhoosh");
+        }
     }
 
     public void StopAutoFire()

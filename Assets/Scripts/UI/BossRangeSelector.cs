@@ -80,6 +80,12 @@ public class BossRangeSelector : MonoBehaviour
 
         IEnumerator resumeAfterDelay()
         {
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.Play("GatePassed");
+                AudioManager.instance.StopInGameMusic();
+                AudioManager.instance.Play("BossFightMusic");
+            }
             yield return new WaitForSecondsRealtime(0.5f);
             UIManager.UIManagerInstance.CloseBossRangeModifierUI();
             PlayerSpawner.playerSpawnerInstance.AddFollowers(followersToAdd);

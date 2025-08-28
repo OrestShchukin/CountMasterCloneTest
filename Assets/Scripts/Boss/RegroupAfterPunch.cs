@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Dynamic;
 using UnityEngine;
 
 public class RegroupAfterPunch : StateMachineBehaviour
@@ -29,6 +31,15 @@ public class RegroupAfterPunch : StateMachineBehaviour
         else
         {
             PlayerSpawner.playerSpawnerInstance.RebuildSurround();
+        }
+    }
+    
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.Play("BossGrunt");
+            AudioManager.instance.PlaySoundAfterDelay("BossPunch", 0.3f);
         }
     }
 

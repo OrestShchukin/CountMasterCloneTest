@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -42,11 +43,15 @@ public class CannonMovement : MonoBehaviour
     float cy, cp;
     private bool stopAiming = false;
 
+    
+    float animationDuration;
+    
     void Awake()
     {
         cannonShootingScript = GetComponent<CannonShooting>();
         muzzle = cannonShootingScript.barrel;
         cam = Camera.main;
+        animationDuration = cannonShootingScript.interval / 2f;
     }
     
     void Reset()
@@ -158,7 +163,7 @@ public class CannonMovement : MonoBehaviour
 
         Vector3 aimPoint;
         Ray ray = new Ray(muzzle.position, muzzle.forward);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+        // Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
 
         // 1) Спочатку — реальні цілі
         if (Physics.Raycast(ray, out var hit, 5000f, targetMask))
@@ -195,5 +200,14 @@ public class CannonMovement : MonoBehaviour
             crosshair.anchoredPosition, local, ref crosshairVel, 0.05f
         );
     }
+
+    public void PlayShotAnimation()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(pitchPivot.DOScale(new Vector3(1.1f, 1.1f, 0.85f), animationDuration));
+        sequence.Append(pitchPivot.DOScale(1f, animationDuration));
+    }
+
+
 
 }

@@ -6,24 +6,26 @@ public enum TrapType { HorizontalTrap, SpikesTrap, Bridge }
 public class TrapButton : MonoBehaviour
 {
     [SerializeField]
-    TrapType trapType;
+    private TrapType trapType;
+    [SerializeField] 
+    private GameObject scriptParent;
 
     public void ActivateButton()
     {
         if (trapType == TrapType.HorizontalTrap)
         {
-            HorizontalTrap horizontalTrap = transform.parent.parent.GetComponent<HorizontalTrap>();
+            HorizontalTrap horizontalTrap = scriptParent.GetComponent<HorizontalTrap>();
             horizontalTrap.DeactivateTrap();
         }
         else if (trapType == TrapType.SpikesTrap)
         {
-            SpikesTrap spikesTrap = transform.parent.parent.GetComponent<SpikesTrap>();
+            SpikesTrap spikesTrap = scriptParent.GetComponent<SpikesTrap>();
             spikesTrap.DeactivateTrap();
         }
         AnimateButton();
         if (trapType == TrapType.Bridge)
         {
-            BridgeManager bridgeManager = transform.parent.parent.GetComponent<BridgeManager>();
+            BridgeManager bridgeManager = scriptParent.GetComponent<BridgeManager>();
             bridgeManager.ActivateBridge();
         }
     }
