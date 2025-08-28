@@ -64,7 +64,7 @@ MonoBehaviour:
   - name: GatePassed
     clip: {fileID: 8300000, guid: 33bc271fcfba1b34fb34b2e702731885, type: 3}
     mixerGroup: {fileID: 1909630438180201112, guid: c39851a2640348f43a9cd65080185ea2, type: 2}
-    volume: 0.15
+    volume: 0.05
     pitch: 1
     spatialBlend: 0
     loop: 0
