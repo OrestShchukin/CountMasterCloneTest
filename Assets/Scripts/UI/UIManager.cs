@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public static int currentLevel;
     public static bool skipMenuOnReload = false;
 
+    [Header("Connected Scripts")]
+    public LightManager lightManager;
     void Awake()
     {
         UIManagerInstance = this;

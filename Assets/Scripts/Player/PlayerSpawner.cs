@@ -43,7 +43,9 @@ public class PlayerSpawner : MonoBehaviour
 
     private float regroupTimer;
     private float pathDistance;
-
+    
+    // Boss Attack
+    private float smallestEngageRadius;
     void Awake()
     {
         playerSpawnerInstance = this;
@@ -552,6 +554,7 @@ public class PlayerSpawner : MonoBehaviour
 
             ring++;
         }
+        smallestEngageRadius = radii[0];
     }
 
 
@@ -622,7 +625,8 @@ public class PlayerSpawner : MonoBehaviour
             MoveOneFollowerTo(go, slot.worldPos, speed);
             LookAtEnemy(engagedEnemy.transform);
 
-            if ((go.transform.position - engagedEnemy.position).magnitude < enemyBaseRadius + ringPaddingMul)
+            float radius = smallestEngageRadius == 0 ? smallestEngageRadius : enemyBaseRadius;
+            if ((go.transform.position - engagedEnemy.position).magnitude < radius * 1.2f + ringPaddingMul)
             {
                 BossScript.bossScriptInstance.decreasePerSecond++;
             }
