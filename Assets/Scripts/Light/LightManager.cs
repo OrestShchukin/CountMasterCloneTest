@@ -26,6 +26,7 @@ public class LightManager : MonoBehaviour
     {
         isNight = PlayerPrefs.GetInt("IsNight", 0) == 1;
         lightManagerInstance = this;
+        Debug.Log($"IsNight: {isNight}");
         directionalLight.rotation = isNight ? Quaternion.Euler(NightDLPos) : Quaternion.Euler(MorningDLPos);
         buttonImage.sprite = isNight ?  sunImage : moonImage;
     }
@@ -33,7 +34,7 @@ public class LightManager : MonoBehaviour
     public void ChangeDayTime()
     {
         isNight = !isNight;
-        PlayerPrefs.SetInt("isNight", isNight ? 1 : 0);
+        PlayerPrefs.SetInt("IsNight", isNight ? 1 : 0);
         directionalLight.DORotate(isNight ? NightDLPos : MorningDLPos, 0.5f);
         buttonImage.sprite = isNight ? sunImage : moonImage;
         
